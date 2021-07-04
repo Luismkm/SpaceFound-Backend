@@ -3,7 +3,7 @@ import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateA
 import { ICreateAccountRepository } from '@/data/protocols/db/account/ICreateAccountRepository';
 
 import { mockCreateAccountRepository } from '@/tests/data/mocks';
-import { mockAccountDTO, throwError } from '@/tests/domain/mocks';
+import { mockAccount, mockAccountDTO, throwError } from '@/tests/domain/mocks';
 
 type ISutTypes = {
   sut: DbCreateAccount
@@ -34,5 +34,11 @@ describe('DbCreateAccount Usecase', () => {
       .mockImplementationOnce(throwError);
     const promise = sut.create(mockAccountDTO());
     await expect(promise).rejects.toThrow();
+  });
+
+  it('Should return an account on success', async () => {
+    const { sut } = makeSut();
+    const account = await sut.create(mockAccountDTO());
+    expect(account).toEqual(mockAccount());
   });
 });
