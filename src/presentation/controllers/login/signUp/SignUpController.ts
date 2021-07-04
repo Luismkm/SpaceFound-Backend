@@ -1,6 +1,10 @@
+import { EmailInUseError } from '@/presentation/errors';
 import {
-  badRequest,
-  IController, ICreateAccount, IHttpRequest, IHttpResponse, IValidation, serverError, success,
+  badRequest, forbidden, serverError, success,
+} from '@/presentation/helpers/http/httpHelper';
+
+import {
+  IController, ICreateAccount, IHttpRequest, IHttpResponse, IValidation,
 } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
 
 export class SignUpController implements IController {
@@ -17,9 +21,10 @@ export class SignUpController implements IController {
       }
 
       const { name, email, password } = httpRequest.body;
+
       const account = await this.createAccount.create({ name, email, password });
-      if (account) {
-        return success(account);
+      if (!account) {
+        return forbidden(new EmailInUseError());
       }
 
       return success(account);
