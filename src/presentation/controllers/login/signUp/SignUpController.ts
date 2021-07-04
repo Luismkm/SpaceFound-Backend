@@ -15,6 +15,7 @@ export class SignUpController implements IController {
       if (error) {
         return badRequest(error);
       }
+
       const { name, email, password } = httpRequest.body;
       const account = await this.createAccount.create({ name, email, password });
       if (account) {
