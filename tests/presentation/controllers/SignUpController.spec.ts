@@ -1,5 +1,5 @@
 import { ServerError, MissingParamError } from '@/presentation/errors';
-import { badRequest, serverError } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
 import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
 
 import { ICreateAccountRepository } from '@/data/protocols';
@@ -7,6 +7,7 @@ import { IHttpRequest, IValidation } from '@/presentation/controllers/login/sign
 
 import { mockCreateAccount } from '@/tests/presentation/mocks';
 import { mockValidation } from '@/tests/validation/mocks/mockValidations';
+import { mockAccount } from '@/tests/domain/mocks';
 
 const mockRequest = ():IHttpRequest => ({
   body: {
@@ -67,5 +68,11 @@ describe('SignUp Controller', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
+  });
+
+  it('should return 200 if valid data is provided', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(success(mockAccount()));
   });
 });
