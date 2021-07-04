@@ -1,6 +1,8 @@
-import { ServerError, MissingParamError } from '@/presentation/errors';
-import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { ServerError, MissingParamError, EmailInUseError } from '@/presentation/errors';
 import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
+import {
+  badRequest, forbidden, serverError, success,
+} from '@/presentation/helpers/http/httpHelper';
 
 import { ICreateAccountRepository } from '@/data/protocols';
 import { IHttpRequest, IValidation } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
@@ -68,6 +70,13 @@ describe('SignUp Controller', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
+  });
+
+  it('should return 403 if CreateAccount returns null', async () => {
+    const { sut, createAccountStub } = makeSut();
+    jest.spyOn(createAccountStub, 'create').mockReturnValueOnce(null);
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
   });
 
   it('should return 200 if valid data is provided', async () => {
