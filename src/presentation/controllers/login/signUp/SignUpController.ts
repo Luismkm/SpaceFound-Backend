@@ -21,6 +21,8 @@ export class SignUpController implements IController {
       if (account) {
         return success(account);
       }
+
+      return success(account);
     } catch (error) {
       return serverError(error);
     }
