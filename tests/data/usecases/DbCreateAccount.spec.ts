@@ -13,7 +13,6 @@ type ISutTypes = {
 const makeSut = (): ISutTypes => {
   const createAccountRepositoryStub = mockCreateAccountRepository();
   const sut = new DbCreateAccount(createAccountRepositoryStub);
-
   return {
     sut,
     createAccountRepositoryStub,
@@ -21,10 +20,10 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('DbCreateAccount Usecase', () => {
-  it('Should call CreateAccountRepository with correct values', () => {
+  it('Should call CreateAccountRepository with correct values', async () => {
     const { sut, createAccountRepositoryStub } = makeSut();
     const createSpy = jest.spyOn(createAccountRepositoryStub, 'create');
-    sut.create(mockAccountDTO());
+    await sut.create(mockAccountDTO());
     expect(createSpy).toHaveBeenCalledWith(mockAccountDTO());
   });
 });
