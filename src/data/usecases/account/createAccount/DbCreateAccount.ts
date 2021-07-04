@@ -6,7 +6,7 @@ export class DbCreateAccount implements ICreateAccountRepository {
   constructor(private readonly createAccountRepository: ICreateAccountRepository) {}
 
   async create(account: ICreateAccountDTO): Promise<IAccount> {
-    this.createAccountRepository.create(account);
-    return null;
+    const accountCreated = await this.createAccountRepository.create(account);
+    return accountCreated;
   }
 }
