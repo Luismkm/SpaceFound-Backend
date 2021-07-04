@@ -1,11 +1,12 @@
-import { mockCreateAccount } from '@/tests/presentation/mocks';
-
 import { ServerError } from '@/presentation/errors';
 import { serverError } from '@/presentation/helpers/http/httpHelper';
 import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
 
 import { ICreateAccountRepository } from '@/data/protocols';
-import { IHttpRequest } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
+import { IHttpRequest, IValidation } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
+
+import { mockCreateAccount } from '@/tests/presentation/mocks';
+import { mockValidation } from '@/tests/validation/mocks/mockValidations';
 
 const mockRequest = ():IHttpRequest => ({
   body: {
@@ -19,14 +20,17 @@ const mockRequest = ():IHttpRequest => ({
 type ISutTypes = {
   sut: SignUpController,
   createAccountStub: ICreateAccountRepository
+  validationStub: IValidation
 }
 
 const makeSut = (): ISutTypes => {
   const createAccountStub = mockCreateAccount();
-  const sut = new SignUpController(createAccountStub);
+  const validationStub = mockValidation();
+  const sut = new SignUpController(createAccountStub, validationStub);
   return {
     sut,
     createAccountStub,
+    validationStub,
   };
 };
 
@@ -48,5 +52,13 @@ describe('SignUp Controller', () => {
       .mockImplementationOnce(() => { throw new Error(); });
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
+  });
+
+  it('should call Validation with correct values', async () => {
+    const { sut, validationStub } = makeSut();
+    const validateSpy = jest.spyOn(validationStub, 'validate');
+    const httpResponse = mockRequest();
+    await sut.handle(httpResponse);
+    expect(validateSpy).toHaveBeenLastCalledWith(httpResponse.body);
   });
 });
