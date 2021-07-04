@@ -37,4 +37,12 @@ describe('SignUp Controller', () => {
       password: 'any_password',
     });
   });
+
+  it('should return 500 if CreateAccount throws ', async () => {
+    const { sut, createAccountStub } = makeSut();
+    jest.spyOn(createAccountStub, 'create')
+      .mockReturnValueOnce(null);
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse.statusCode).toBe(500);
+  });
 });
