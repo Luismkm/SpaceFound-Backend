@@ -1,7 +1,11 @@
-import { ICreateAccountRepository } from '@/data/protocols';
-import { IHttpRequest } from '@/presentation/protocols';
 import { mockCreateAccount } from '@/tests/presentation/mocks';
+
+import { ServerError } from '@/presentation/errors';
+import { serverError } from '@/presentation/helpers/http/httpHelper';
 import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
+
+import { ICreateAccountRepository } from '@/data/protocols';
+import { IHttpRequest } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
 
 const mockRequest = ():IHttpRequest => ({
   body: {
@@ -41,8 +45,8 @@ describe('SignUp Controller', () => {
   it('should return 500 if CreateAccount throws ', async () => {
     const { sut, createAccountStub } = makeSut();
     jest.spyOn(createAccountStub, 'create')
-      .mockReturnValueOnce(null);
+      .mockImplementationOnce(() => { throw new Error(); });
     const httpResponse = await sut.handle(mockRequest());
-    expect(httpResponse.statusCode).toBe(500);
+    expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 });
