@@ -1,5 +1,5 @@
-import { ServerError } from '@/presentation/errors';
-import { serverError } from '@/presentation/helpers/http/httpHelper';
+import { ServerError, MissingParamError } from '@/presentation/errors';
+import { badRequest, serverError } from '@/presentation/helpers/http/httpHelper';
 import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
 
 import { ICreateAccountRepository } from '@/data/protocols';
@@ -60,5 +60,12 @@ describe('SignUp Controller', () => {
     const httpResponse = mockRequest();
     await sut.handle(httpResponse);
     expect(validateSpy).toHaveBeenLastCalledWith(httpResponse.body);
+  });
+
+  it('should return 400 if Validation return an error', async () => {
+    const { sut, validationStub } = makeSut();
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
   });
 });
