@@ -9,7 +9,7 @@ import { IAuthentication, IHttpRequest, IValidation } from '@/presentation/contr
 
 import { mockAuthentication, mockCreateAccount } from '@/tests/presentation/mocks';
 import { mockValidation } from '@/tests/validation/mocks/mockValidations';
-import { mockAccount } from '@/tests/domain/mocks';
+import { mockAccount, throwError } from '@/tests/domain/mocks';
 
 const mockRequest = ():IHttpRequest => ({
   body: {
@@ -55,7 +55,7 @@ describe('SignUp Controller', () => {
   it('should return 500 if CreateAccount throws ', async () => {
     const { sut, createAccountStub } = makeSut();
     jest.spyOn(createAccountStub, 'create')
-      .mockImplementationOnce(() => { throw new Error(); });
+      .mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
