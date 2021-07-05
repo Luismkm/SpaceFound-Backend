@@ -5,9 +5,9 @@ import {
 } from '@/presentation/helpers/http/httpHelper';
 
 import { ICreateAccountRepository } from '@/data/protocols';
-import { IHttpRequest, IValidation } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
+import { IAuthentication, IHttpRequest, IValidation } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
 
-import { mockCreateAccount } from '@/tests/presentation/mocks';
+import { mockAuthentication, mockCreateAccount } from '@/tests/presentation/mocks';
 import { mockValidation } from '@/tests/validation/mocks/mockValidations';
 import { mockAccount } from '@/tests/domain/mocks';
 
@@ -24,16 +24,19 @@ type ISutTypes = {
   sut: SignUpController,
   createAccountStub: ICreateAccountRepository
   validationStub: IValidation
+  authenticationStub: IAuthentication
 }
 
 const makeSut = (): ISutTypes => {
   const createAccountStub = mockCreateAccount();
   const validationStub = mockValidation();
-  const sut = new SignUpController(createAccountStub, validationStub);
+  const authenticationStub = mockAuthentication();
+  const sut = new SignUpController(createAccountStub, validationStub, authenticationStub);
   return {
     sut,
     createAccountStub,
     validationStub,
+    authenticationStub,
   };
 };
 
@@ -77,6 +80,16 @@ describe('SignUp Controller', () => {
     jest.spyOn(createAccountStub, 'create').mockReturnValueOnce(null);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
+  });
+
+  it('should call Authentication with correct values', async () => {
+    const { sut, authenticationStub } = makeSut();
+    const authSpy = jest.spyOn(authenticationStub, 'auth');
+    await sut.handle(mockRequest());
+    expect(authSpy).toHaveBeenCalledWith({
+      email: 'any_email',
+      password: 'any_password',
+    });
   });
 
   it('should return 200 if valid data is provided', async () => {
