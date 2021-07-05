@@ -29,9 +29,10 @@ export class SignUpController implements IController {
         return forbidden(new EmailInUseError());
       }
 
-      this.authentication.auth({ email, password });
-
-      return success(account);
+      const accessToken = await this.authentication.auth({ email, password });
+      if (accessToken) {
+        return success({ accessToken });
+      }
     } catch (error) {
       return serverError(error);
     }
