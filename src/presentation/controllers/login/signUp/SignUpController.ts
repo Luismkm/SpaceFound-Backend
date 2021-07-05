@@ -4,6 +4,7 @@ import {
 } from '@/presentation/helpers/http/httpHelper';
 
 import {
+  IAuthentication,
   IController, ICreateAccount, IHttpRequest, IHttpResponse, IValidation,
 } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
 
@@ -11,6 +12,7 @@ export class SignUpController implements IController {
   constructor(
     private readonly createAccount: ICreateAccount,
     private readonly validation: IValidation,
+    private readonly authentication: IAuthentication,
   ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
@@ -26,6 +28,8 @@ export class SignUpController implements IController {
       if (!account) {
         return forbidden(new EmailInUseError());
       }
+
+      this.authentication.auth({ email, password });
 
       return success(account);
     } catch (error) {
