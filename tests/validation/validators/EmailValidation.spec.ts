@@ -2,6 +2,7 @@ import { InvalidParamError } from '@/presentation/errors';
 import { IEmailValidator } from '@/validation/protocols/IEmailValidator';
 import { EmailValidation } from '@/validation/validators';
 import { mockEmailValidator } from '@/tests/validation/mocks/mockEmailValidator';
+import { throwError } from '@/tests/domain/mocks';
 
 type ISutTypes = {
   sut: EmailValidation
@@ -32,5 +33,11 @@ describe('Email Validation', () => {
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
     sut.validate({ email: 'any_email' });
     expect(isValidSpy).toHaveBeenCalledWith('any_email');
+  });
+
+  it('should throw if EmailValidator throws', () => {
+    const { sut, emailValidatorStub } = makeSut();
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(throwError);
+    expect(sut.validate).toThrow();
   });
 });
