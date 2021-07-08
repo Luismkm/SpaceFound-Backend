@@ -1,7 +1,7 @@
 import { IValidation } from '@/presentation/protocols';
 import { ValidationComposite } from '@/validation/validators/ValidationComposite';
 
-import { mockValidation } from '@/tests/validation/mocks/mockValidations';
+import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { MissingParamError } from '@/presentation/errors';
 
 type ISutTypes = {

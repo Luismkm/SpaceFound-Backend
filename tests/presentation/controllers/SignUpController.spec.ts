@@ -8,7 +8,7 @@ import { ICreateAccountRepository } from '@/data/protocols';
 import { IAuthentication, IHttpRequest, IValidation } from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
 
 import { mockAuthentication, mockCreateAccount } from '@/tests/presentation/mocks';
-import { mockValidation } from '@/tests/validation/mocks/mockValidations';
+import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { mockAccount, throwError } from '@/tests/domain/mocks';
 
 const mockRequest = ():IHttpRequest => ({
