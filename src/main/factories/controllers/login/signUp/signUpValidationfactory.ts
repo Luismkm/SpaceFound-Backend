@@ -3,7 +3,7 @@ import {
 } from '@/validation/validators';
 
 import { IValidation } from '@/presentation/protocols';
-import { EmailValidationAdapter } from '@/infra/validators/EmailValidatorAdapter';
+import { EmailValidatorAdapter } from '@/infra/validators/EmailValidatorAdapter';
 
 export const makeSignUpValidation = (): ValidationComposite => {
   const validations: IValidation[] = [];
@@ -11,7 +11,7 @@ export const makeSignUpValidation = (): ValidationComposite => {
     validations.push(new RequiredFieldValidation(field));
   }
   validations.push(new CompareFieldsValidation('password', 'passwordConfirmation'));
-  validations.push(new EmailValidation('email', new EmailValidationAdapter()));
+  validations.push(new EmailValidation('email', new EmailValidatorAdapter()));
 
   return new ValidationComposite(validations);
 };
