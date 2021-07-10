@@ -4,5 +4,5 @@ export type IAuthenticationDTO = {
 }
 
 export interface IAuthentication {
-  auth(data: IAuthenticationDTO): Promise<string>
+  auth(authentication: IAuthenticationDTO): Promise<string>
 }
