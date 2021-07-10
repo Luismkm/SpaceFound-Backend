@@ -12,6 +12,7 @@
     "test:ci": "yarn test -- --coverage"
   },
   "devDependencies": {
+    "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "eslint": "^7.30.0",
@@ -25,6 +26,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@types/jest": "^26.0.23"
+    "@types/jest": "^26.0.23",
+    "validator": "^13.6.0"
   }
 }
