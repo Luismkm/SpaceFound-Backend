@@ -2,29 +2,44 @@ import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateA
 
 import { ICreateAccountRepository } from '@/data/protocols/db/account/ICreateAccountRepository';
 
-import { mockCreateAccountRepository } from '@/tests/data/mocks';
+import { mockCreateAccountRepository, mockHasher } from '@/tests/data/mocks';
 import { mockAccount, mockAccountDTO, throwError } from '@/tests/domain/mocks';
+import { IHasher } from '@/data/protocols/cryptography/IHasher';
 
 type ISutTypes = {
   sut: DbCreateAccount
+  hasherStub: IHasher
   createAccountRepositoryStub: ICreateAccountRepository
 }
 
 const makeSut = (): ISutTypes => {
   const createAccountRepositoryStub = mockCreateAccountRepository();
-  const sut = new DbCreateAccount(createAccountRepositoryStub);
+  const hasherStub = mockHasher();
+  const sut = new DbCreateAccount(hasherStub, createAccountRepositoryStub);
   return {
     sut,
+    hasherStub,
     createAccountRepositoryStub,
   };
 };
 
 describe('DbCreateAccount Usecase', () => {
+  it('should call Hasher with correct password', async () => {
+    const { sut, hasherStub } = makeSut();
+    const hashSpy = jest.spyOn(hasherStub, 'hash');
+    await sut.create(mockAccountDTO());
+    expect(hashSpy).toHaveBeenCalledWith('any_password');
+  });
+
   it('Should call CreateAccountRepository with correct values', async () => {
     const { sut, createAccountRepositoryStub } = makeSut();
     const createSpy = jest.spyOn(createAccountRepositoryStub, 'create');
     await sut.create(mockAccountDTO());
-    expect(createSpy).toHaveBeenCalledWith(mockAccountDTO());
+    expect(createSpy).toHaveBeenCalledWith({
+      name: 'any_name',
+      email: 'any_email',
+      password: 'hashed_password',
+    });
   });
 
   it('Should throw if CreateAccountRepository throws ', async () => {
