@@ -31,6 +31,13 @@ describe('DbCreateAccount Usecase', () => {
     expect(hashSpy).toHaveBeenCalledWith('any_password');
   });
 
+  it('Should throw if Hasher throws', async () => {
+    const { sut, hasherStub } = makeSut();
+    jest.spyOn(hasherStub, 'hash').mockImplementationOnce(throwError);
+    const promise = sut.create(mockAccountDTO());
+    await expect(promise).rejects.toThrow();
+  });
+
   it('Should call CreateAccountRepository with correct values', async () => {
     const { sut, createAccountRepositoryStub } = makeSut();
     const createSpy = jest.spyOn(createAccountRepositoryStub, 'create');
