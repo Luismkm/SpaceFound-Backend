@@ -1,7 +1,7 @@
-import { IHasher } from '@/data/protocols/cryptography/IHasher';
 import { ICreateAccountRepository } from '@/data/protocols/db/account/ICreateAccountRepository';
-import { IAccount } from '@/domain/models/IAccount';
-import { ICreateAccount, ICreateAccountDTO } from '@/domain/usecases/account/ICreateAccount';
+import {
+  IAccount, ICreateAccount, ICreateAccountDTO, IHasher,
+} from './DbCreateAccountProtocols';
 
 export class DbCreateAccount implements ICreateAccount {
   constructor(
