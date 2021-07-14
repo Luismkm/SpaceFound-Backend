@@ -1,4 +1,4 @@
-import { mockAuthentication } from '@/tests/domain/mocks';
+import { mockAuthentication, throwError } from '@/tests/domain/mocks';
 import { DbAuthentication } from '@/data/usecases/account/authentication/DbAuthentication';
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
 
@@ -22,10 +22,18 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('DbAuthentication UseCase', () => {
-  it('should call LoadAccountByEmailRepository with correct email', () => {
+  it('should call LoadAccountByEmailRepository with correct email', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut();
     const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail');
-    sut.auth(mockAuthentication());
+    await sut.auth(mockAuthentication());
     expect(loadSpy).toHaveBeenCalledWith('any_email');
+  });
+
+  it('Should throw if LoadAccountByEmailRepository throws', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut();
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
+      .mockImplementationOnce(throwError);
+    const promise = sut.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow();
   });
 });
