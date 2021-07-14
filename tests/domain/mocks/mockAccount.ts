@@ -1,5 +1,6 @@
 import { ICreateAccountDTO } from '@/domain/usecases/account/ICreateAccount';
 import { IAccount } from '@/domain/models/IAccount';
+import { IAuthenticationDTO } from '@/data/usecases/account/authentication/DbAuthenticationProtocols';
 
 export const mockAccountDTO = (): ICreateAccountDTO => ({
   name: 'any_name',
@@ -8,3 +9,8 @@ export const mockAccountDTO = (): ICreateAccountDTO => ({
 });
 
 export const mockAccount = (): IAccount => ({ ...mockAccountDTO(), id: 'any_id' });
+
+export const mockAuthentication = (): IAuthenticationDTO => ({
+  email: 'any_email',
+  password: 'any_password',
+});
