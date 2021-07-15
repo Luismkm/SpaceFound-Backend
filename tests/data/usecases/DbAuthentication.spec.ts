@@ -9,21 +9,21 @@ import { mockHashComparer, mockLoadAccountByEmailRepository } from '../mocks';
 type ISutTypes = {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
-  hashCompareStub: IHashComparer
+  hashComparerStub: IHashComparer
 }
 
 const makeSut = (): ISutTypes => {
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository();
-  const hashCompareStub = mockHashComparer();
+  const hashComparerStub = mockHashComparer();
   const sut = new DbAuthentication(
     loadAccountByEmailRepositoryStub,
-    hashCompareStub,
+    hashComparerStub,
   );
 
   return {
     sut,
     loadAccountByEmailRepositoryStub,
-    hashCompareStub,
+    hashComparerStub,
   };
 };
 
@@ -51,9 +51,16 @@ describe('DbAuthentication UseCase', () => {
   });
 
   it('Should call HashComparer with correct values', async () => {
-    const { sut, hashCompareStub } = makeSut();
-    const compareSpy = jest.spyOn(hashCompareStub, 'compare');
+    const { sut, hashComparerStub } = makeSut();
+    const compareSpy = jest.spyOn(hashComparerStub, 'compare');
     await sut.auth(mockAuthentication());
     expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password');
+  });
+
+  it('should throw if HashComparer throws', async () => {
+    const { sut, hashComparerStub } = makeSut();
+    jest.spyOn(hashComparerStub, 'compare').mockImplementationOnce(throwError);
+    const promise = sut.auth(mockAuthentication());
+    await expect(promise).rejects.toThrow();
   });
 });
