@@ -1,5 +1,6 @@
 import { IHasher } from '@/data/protocols/cryptography/IHasher';
 import { IHashComparer } from '@/data/protocols/cryptography/IHashComparer';
+import { IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
 
 export const mockHasher = (): IHasher => {
   class HasherStub implements IHasher {
@@ -17,4 +18,13 @@ export const mockHashComparer = (): IHashComparer => {
     }
   }
   return new HashCompareStub();
+};
+
+export const mockEncrypter = (): IEncrypter => {
+  class EncrypterStub implements IEncrypter {
+    encrypt(value: string): string {
+      return 'any_token';
+    }
+  }
+  return new EncrypterStub();
 };
