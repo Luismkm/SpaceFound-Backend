@@ -1,4 +1,5 @@
 import { IHasher } from '@/data/protocols/cryptography/IHasher';
+import { IHashComparer } from '@/data/protocols/cryptography/IHashComparer';
 
 export const mockHasher = (): IHasher => {
   class HasherStub implements IHasher {
@@ -7,4 +8,13 @@ export const mockHasher = (): IHasher => {
     }
   }
   return new HasherStub();
+};
+
+export const mockHashComparer = (): IHashComparer => {
+  class HashCompareStub implements IHashComparer {
+    async compare(value: string, hash: string): Promise<boolean> {
+      return Promise.resolve(true);
+    }
+  }
+  return new HashCompareStub();
 };
