@@ -2,28 +2,33 @@ import { DbAuthentication } from '@/data/usecases/account/authentication/DbAuthe
 
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
 import { IHashComparer } from '@/data/protocols/cryptography/IHashComparer';
+import { IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
 
 import { mockAuthentication, throwError } from '@/tests/domain/mocks';
-import { mockHashComparer, mockLoadAccountByEmailRepository } from '../mocks';
+import { mockEncrypter, mockHashComparer, mockLoadAccountByEmailRepository } from '../mocks';
 
 type ISutTypes = {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
   hashComparerStub: IHashComparer
+  encrypterStub: IEncrypter
 }
 
 const makeSut = (): ISutTypes => {
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository();
   const hashComparerStub = mockHashComparer();
+  const encrypterStub = mockEncrypter();
   const sut = new DbAuthentication(
     loadAccountByEmailRepositoryStub,
     hashComparerStub,
+    encrypterStub,
   );
 
   return {
     sut,
     loadAccountByEmailRepositoryStub,
     hashComparerStub,
+    encrypterStub,
   };
 };
 
@@ -69,5 +74,12 @@ describe('DbAuthentication UseCase', () => {
     jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(Promise.resolve(false));
     const account = await sut.auth(mockAuthentication());
     expect(account).toBeNull();
+  });
+
+  it('should call Encrypter with correct id', async () => {
+    const { sut, encrypterStub } = makeSut();
+    const encryptSpy = jest.spyOn(encrypterStub, 'encrypt');
+    await sut.auth(mockAuthentication());
+    expect(encryptSpy).toHaveBeenLastCalledWith('any_id');
   });
 });
