@@ -89,4 +89,11 @@ describe('DbAuthentication UseCase', () => {
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow();
   });
+
+  it('should return an accessToken on success', async () => {
+    const { sut } = makeSut();
+    const accessToken = await sut.auth(mockAuthentication());
+    expect(accessToken).toBeTruthy();
+    expect(accessToken).toBe('any_token');
+  });
 });
