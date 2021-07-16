@@ -13,6 +13,6 @@ app.use(express.json()); */
 
 app.listen(3333, () => console.log('Server running at port 3333')); */
 
-KnexHelper.connect('production').then(async () => {
+KnexHelper.connect('production').then(() => {
   app.listen(3333, () => console.log('Server running at port 3333'));
 }).catch(console.error);
