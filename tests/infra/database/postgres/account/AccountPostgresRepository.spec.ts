@@ -35,5 +35,10 @@ describe('Account Postgres Repository', () => {
       expect(account.password).toBe('any_password');
       await KnexHelper.knex('users').delete('*');
     });
+
+    it('should return null if loadByEmail fails', async () => {
+      const account = await sut.loadByEmail('any_email');
+      expect(account).toBeFalsy();
+    });
   });
 });
