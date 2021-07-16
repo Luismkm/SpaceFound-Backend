@@ -23,4 +23,17 @@ describe('Account Postgres Repository', () => {
       await KnexHelper.knex('users').delete('*');
     });
   });
+
+  describe('loadByEmail', () => {
+    it('should return an account on loadByEmail success', async () => {
+      await sut.create(mockAccountDTO());
+      const account = await sut.loadByEmail('any_email');
+      expect(account.name).toBeTruthy();
+      expect(account.id).toBeTruthy();
+      expect(account.name).toBe('any_name');
+      expect(account.email).toBe('any_email');
+      expect(account.password).toBe('any_password');
+      await KnexHelper.knex('users').delete('*');
+    });
+  });
 });
