@@ -1,6 +1,8 @@
 import { InvalidParamError } from '@/presentation/errors';
-import { IEmailValidator } from '@/validation/protocols/IEmailValidator';
 import { EmailValidation } from '@/validation/validators';
+
+import { IEmailValidator } from '@/validation/protocols/IEmailValidator';
+
 import { mockEmailValidator } from '@/tests/validation/mocks/mockEmailValidator';
 import { throwError } from '@/tests/domain/mocks';
 

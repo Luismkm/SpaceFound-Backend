@@ -9,7 +9,7 @@ import { IAuthentication, IHttpRequest, IValidation } from '@/presentation/contr
 
 import { mockAuthentication, mockCreateAccount } from '@/tests/presentation/mocks';
 import { mockValidation } from '@/tests/validation/mocks/mockValidation';
-import { mockAccount, throwError } from '@/tests/domain/mocks';
+import { throwError } from '@/tests/domain/mocks';
 
 const mockRequest = ():IHttpRequest => ({
   body: {

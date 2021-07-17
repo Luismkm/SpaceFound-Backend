@@ -1,8 +1,9 @@
-import { IValidation } from '@/presentation/protocols';
 import { ValidationComposite } from '@/validation/validators/ValidationComposite';
+import { MissingParamError } from '@/presentation/errors';
+
+import { IValidation } from '@/presentation/protocols';
 
 import { mockValidation } from '@/tests/validation/mocks/mockValidation';
-import { MissingParamError } from '@/presentation/errors';
 
 type ISutTypes = {
   sut: ValidationComposite
