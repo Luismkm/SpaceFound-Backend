@@ -81,4 +81,11 @@ describe('DbCreateAccount Usecase', () => {
     const account = await sut.create(mockAccountDTO());
     expect(account).toBeNull();
   });
+
+  it('should call LoadAccountByEmailRepository with correct value', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut();
+    const loadByEmailSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail');
+    await sut.create(mockAccountDTO());
+    expect(loadByEmailSpy).toHaveBeenLastCalledWith('any_email');
+  });
 });
