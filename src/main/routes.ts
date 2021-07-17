@@ -1,5 +1,5 @@
 import express from 'express';
-import { KnexHelper } from './helpers/index2';
+import { KnexHelper } from '../infra/database/helpers';
 
 const routes = express.Router();
 

@@ -1,4 +1,4 @@
-import { KnexHelper } from '@/main/helpers/index2';
+import { KnexHelper } from '@/infra/database/helpers';
 
 import { AccountPostgresRepository } from '@/infra/database/postgres/account/AccountPostgresRepository';
 import { mockAccountDTO } from '@/tests/domain/mocks';

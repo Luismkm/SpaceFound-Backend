@@ -1,4 +1,4 @@
-import { KnexHelper } from '@/main/helpers/index2';
+import { KnexHelper } from '@/infra/database/helpers';
 
 import { ICreateAccountRepository } from '@/data/protocols';
 import { IAccount } from '@/domain/models/IAccount';

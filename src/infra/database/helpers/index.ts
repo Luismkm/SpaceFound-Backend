@@ -1,5 +1,5 @@
 import knex, { Knex } from 'knex';
-import knexFile from '../../infra/database/helpers/knexfile';
+import knexFile from './knexfile';
 
 export const KnexHelper = {
   knex: null as Knex,
