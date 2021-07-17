@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/main/server.ts",
+    "start": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules  src/main/server.ts",
     "test": "jest --silent --noStackTrace --detectOpenHandles --runInBand",
     "test:verbose": "jest --detectOpenHandles --runInBand",
     "test:unit": "yarn test -- --watch --detectOpenHandles -c jest.unit.config.js",
