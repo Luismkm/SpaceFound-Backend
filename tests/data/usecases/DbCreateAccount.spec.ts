@@ -2,24 +2,34 @@ import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateA
 
 import { ICreateAccountRepository } from '@/data/protocols/db/account/ICreateAccountRepository';
 
-import { mockCreateAccountRepository, mockHasher } from '@/tests/data/mocks';
+import { mockCreateAccountRepository, mockHasher, mockLoadAccountByEmailRepository } from '@/tests/data/mocks';
 import { mockAccount, mockAccountDTO, throwError } from '@/tests/domain/mocks';
 import { IHasher } from '@/data/protocols/cryptography/IHasher';
+import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
 
 type ISutTypes = {
   sut: DbCreateAccount
   hasherStub: IHasher
   createAccountRepositoryStub: ICreateAccountRepository
+  loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository
 }
 
 const makeSut = (): ISutTypes => {
   const createAccountRepositoryStub = mockCreateAccountRepository();
+  const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository();
+  jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
+    .mockReturnValue(Promise.resolve(null));
   const hasherStub = mockHasher();
-  const sut = new DbCreateAccount(hasherStub, createAccountRepositoryStub);
+  const sut = new DbCreateAccount(
+    hasherStub,
+    createAccountRepositoryStub,
+    loadAccountByEmailRepositoryStub,
+  );
   return {
     sut,
     hasherStub,
     createAccountRepositoryStub,
+    loadAccountByEmailRepositoryStub,
   };
 };
 
@@ -62,5 +72,13 @@ describe('DbCreateAccount Usecase', () => {
     const { sut } = makeSut();
     const account = await sut.create(mockAccountDTO());
     expect(account).toEqual(mockAccount());
+  });
+
+  it('should return null if LoadAccountByEmailRepository not return null', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut();
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
+      .mockReturnValueOnce(Promise.resolve(mockAccount()));
+    const account = await sut.create(mockAccountDTO());
+    expect(account).toBeNull();
   });
 });
