@@ -1,5 +1,5 @@
 import express from 'express';
-import { KnexHelper } from '../infra/database/helpers';
+import { knexHelper } from '../infra/database/helpers';
 
 const routes = express.Router();
 
@@ -10,7 +10,7 @@ routes.get('/points', async (req, res) => {
     password: 'any_password',
   };
   const { name, email, password } = account;
-  const insertedUsersIds = await KnexHelper.knex('users').insert({ name, email, password }).returning('id');
+  const insertedUsersIds = await knexHelper.knex('users').insert({ name, email, password }).returning('id');
   console.log(insertedUsersIds);
   res.send('ok');
 });

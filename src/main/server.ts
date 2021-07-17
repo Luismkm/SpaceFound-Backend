@@ -1,5 +1,5 @@
 import express from 'express';
-import { KnexHelper } from '../infra/database/helpers/index';
+import { knexHelper } from '../infra/database/helpers/index';
 /* import cors from 'cors';
 import path from 'path'; */
 import routes from './routes';
@@ -13,6 +13,6 @@ app.use(express.json()); */
 
 app.listen(3333, () => console.log('Server running at port 3333')); */
 
-KnexHelper.connect('production').then(() => {
+knexHelper.connect('production').then(() => {
   app.listen(3333, () => console.log('Server running at port 3333'));
 }).catch(console.error);

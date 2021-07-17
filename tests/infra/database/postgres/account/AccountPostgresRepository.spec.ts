@@ -1,4 +1,4 @@
-import { KnexHelper } from '@/infra/database/helpers';
+import { knexHelper } from '@/infra/database/helpers';
 
 import { AccountPostgresRepository } from '@/infra/database/postgres/account/AccountPostgresRepository';
 import { mockAccountDTO } from '@/tests/domain/mocks';
@@ -7,7 +7,7 @@ let sut: AccountPostgresRepository;
 
 describe('Account Postgres Repository', () => {
   beforeAll(() => {
-    KnexHelper.connect('development');
+    knexHelper.connect('development');
   });
   beforeEach(() => {
     sut = new AccountPostgresRepository();
@@ -20,7 +20,7 @@ describe('Account Postgres Repository', () => {
       expect(account.name).toBe('any_name');
       expect(account.email).toBe('any_email');
       expect(account.password).toBe('any_password');
-      await KnexHelper.knex('users').delete('*');
+      await knexHelper.knex('users').delete('*');
     });
   });
 
@@ -33,7 +33,7 @@ describe('Account Postgres Repository', () => {
       expect(account.name).toBe('any_name');
       expect(account.email).toBe('any_email');
       expect(account.password).toBe('any_password');
-      await KnexHelper.knex('users').delete('*');
+      await knexHelper.knex('users').delete('*');
     });
 
     it('should return null if loadByEmail fails', async () => {

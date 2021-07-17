@@ -1,7 +1,7 @@
 import knex, { Knex } from 'knex';
 import knexFile from './knexfile';
 
-export const KnexHelper = {
+export const knexHelper = {
   knex: null as Knex,
   type: null as string,
 
