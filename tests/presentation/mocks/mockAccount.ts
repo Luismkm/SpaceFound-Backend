@@ -14,7 +14,7 @@ export const mockCreateAccount = (): ICreateAccount => {
 
 export const mockAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(data: IAuthenticationDTO) {
+    async auth(authentication: IAuthenticationDTO): Promise<string> {
       return Promise.resolve('any_token');
     }
   }
