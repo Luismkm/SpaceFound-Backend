@@ -1,5 +1,5 @@
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
-import { badRequest, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import {
   IController, IHttpRequest, IHttpResponse, IValidation,
 } from '@/presentation/protocols';
@@ -15,9 +15,12 @@ export class LoginController implements IController {
     if (error) {
       return badRequest(error);
     }
+
     const accessToken = await this.authentication.auth(httpRequest.body);
     if (!accessToken) {
       return unauthorized();
     }
+
+    return success({ accessToken });
   }
 }
