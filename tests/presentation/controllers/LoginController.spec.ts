@@ -4,7 +4,7 @@ import { mockAuthentication } from '@/tests/presentation/mocks/mockAccount';
 
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
 import { IHttpRequest, IValidation } from '@/presentation/protocols';
-import { badRequest, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { MissingParamError } from '@/presentation/errors';
 
 const mockRequest = (): IHttpRequest => ({
@@ -61,5 +61,11 @@ describe('Login Controller', () => {
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null));
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(unauthorized());
+  });
+
+  it('should return 200 if valid credentials are provided', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(success({ accessToken: 'any_token' }));
   });
 });
