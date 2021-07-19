@@ -1,11 +1,15 @@
-import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { LoginController } from '@/presentation/controllers/login/login/LoginController';
-import { mockAuthentication } from '@/tests/presentation/mocks/mockAccount';
+import { MissingParamError } from '@/presentation/errors';
+import {
+  badRequest, serverError, success, unauthorized,
+} from '@/presentation/helpers/http/httpHelper';
 
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
 import { IHttpRequest, IValidation } from '@/presentation/protocols';
-import { badRequest, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
-import { MissingParamError } from '@/presentation/errors';
+
+import { throwError } from '@/tests/domain/mocks';
+import { mockAuthentication } from '@/tests/presentation/mocks/mockAccount';
+import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 
 const mockRequest = (): IHttpRequest => ({
   body: {
@@ -61,6 +65,13 @@ describe('Login Controller', () => {
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null));
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(unauthorized());
+  });
+
+  it('should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut();
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(throwError);
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 
   it('should return 200 if valid credentials are provided', async () => {
