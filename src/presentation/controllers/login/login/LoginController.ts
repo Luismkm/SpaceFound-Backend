@@ -1,5 +1,7 @@
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
-import { badRequest, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import {
+  badRequest, serverError, success, unauthorized,
+} from '@/presentation/helpers/http/httpHelper';
 import {
   IController, IHttpRequest, IHttpResponse, IValidation,
 } from '@/presentation/protocols';
@@ -11,16 +13,22 @@ export class LoginController implements IController {
   ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
-    const error = this.validation.validate(httpRequest.body);
-    if (error) {
-      return badRequest(error);
-    }
+    try {
+      const error = this.validation.validate(httpRequest.body);
+      if (error) {
+        return badRequest(error);
+      }
 
-    const accessToken = await this.authentication.auth(httpRequest.body);
-    if (!accessToken) {
-      return unauthorized();
-    }
+      const { email, password } = httpRequest.body;
 
-    return success({ accessToken });
+      const accessToken = await this.authentication.auth({ email, password });
+      if (!accessToken) {
+        return unauthorized();
+      }
+
+      return success({ accessToken });
+    } catch (error) {
+      return serverError(error);
+    }
   }
 }
