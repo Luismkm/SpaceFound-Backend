@@ -4,7 +4,8 @@ import { mockAuthentication } from '@/tests/presentation/mocks/mockAccount';
 
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
 import { IHttpRequest, IValidation } from '@/presentation/protocols';
-import { unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { MissingParamError } from '@/presentation/errors';
 
 const mockRequest = (): IHttpRequest => ({
   body: {
@@ -38,6 +39,13 @@ describe('Login Controller', () => {
     const httpRequest = mockRequest();
     await sut.handle(httpRequest);
     expect(validationSpy).toHaveBeenCalledWith(httpRequest.body);
+  });
+
+  it('should return 400 if Validation return an error', async () => {
+    const { sut, validationStub } = makeSut();
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
   });
 
   it('should call Authentication with correct values', async () => {
