@@ -3,7 +3,7 @@ import { LoginController } from '@/presentation/controllers/login/login/LoginCon
 import { mockAuthentication } from '@/tests/presentation/mocks/mockAccount';
 
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
-import { IHttpRequest } from '@/presentation/protocols';
+import { IHttpRequest, IValidation } from '@/presentation/protocols';
 import { unauthorized } from '@/presentation/helpers/http/httpHelper';
 
 const mockRequest = (): IHttpRequest => ({
@@ -16,6 +16,7 @@ const mockRequest = (): IHttpRequest => ({
 type ISutTypes = {
   sut: LoginController,
   authenticationStub: IAuthentication
+  validationStub: IValidation
 }
 
 const makeSut = (): ISutTypes => {
@@ -26,18 +27,25 @@ const makeSut = (): ISutTypes => {
   return {
     sut,
     authenticationStub,
+    validationStub,
   };
 };
 
 describe('Login Controller', () => {
+  it('should call Validation with correct values', async () => {
+    const { sut, validationStub } = makeSut();
+    const validationSpy = jest.spyOn(validationStub, 'validate');
+    const httpRequest = mockRequest();
+    await sut.handle(httpRequest);
+    expect(validationSpy).toHaveBeenCalledWith(httpRequest.body);
+  });
+
   it('should call Authentication with correct values', async () => {
     const { sut, authenticationStub } = makeSut();
     const authSpy = jest.spyOn(authenticationStub, 'auth');
-    await sut.handle(mockRequest());
-    expect(authSpy).toHaveBeenCalledWith({
-      email: 'any_email',
-      password: 'any_password',
-    });
+    const httpRequest = mockRequest();
+    await sut.handle(httpRequest);
+    expect(authSpy).toHaveBeenCalledWith(httpRequest.body);
   });
 
   it('should return 401 if invalid credentials are provided', async () => {
