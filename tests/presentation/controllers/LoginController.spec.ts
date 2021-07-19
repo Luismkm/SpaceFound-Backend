@@ -4,6 +4,7 @@ import { mockAuthentication } from '@/tests/presentation/mocks/mockAccount';
 
 import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
 import { IHttpRequest } from '@/presentation/protocols';
+import { unauthorized } from '@/presentation/helpers/http/httpHelper';
 
 const mockRequest = (): IHttpRequest => ({
   body: {
@@ -37,5 +38,12 @@ describe('Login Controller', () => {
       email: 'any_email',
       password: 'any_password',
     });
+  });
+
+  it('should return 401 if invalid credentials are provided', async () => {
+    const { sut, authenticationStub } = makeSut();
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null));
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(unauthorized());
   });
 });
