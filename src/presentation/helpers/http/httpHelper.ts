@@ -1,4 +1,5 @@
 import { ServerError } from '@/presentation/errors';
+import { UnauthorizedError } from '@/presentation/errors/UnauthorizedError';
 import { IHttpResponse } from '@/presentation/protocols';
 
 export const success = (data: any):IHttpResponse => ({
@@ -9,6 +10,11 @@ export const success = (data: any):IHttpResponse => ({
 export const badRequest = (error: Error):IHttpResponse => ({
   statusCode: 400,
   body: error,
+});
+
+export const unauthorized = ():IHttpResponse => ({
+  statusCode: 401,
+  body: new UnauthorizedError(),
 });
 
 export const forbidden = (error: Error): IHttpResponse => ({
