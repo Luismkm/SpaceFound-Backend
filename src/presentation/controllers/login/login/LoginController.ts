@@ -11,6 +11,7 @@ export class LoginController implements IController {
   ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+    this.validation.validate(httpRequest.body);
     const accessToken = await this.authentication.auth(httpRequest.body);
     if (!accessToken) {
       return unauthorized();
