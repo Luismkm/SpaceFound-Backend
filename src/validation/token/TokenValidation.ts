@@ -5,7 +5,7 @@ import { IHttpRequest, IHttpResponse, IMiddleware } from '@/presentation/protoco
 export class TokenValidation implements IMiddleware {
   constructor(private readonly decrypter: IDecrypter) {}
 
-  async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  handle(httpRequest: IHttpRequest): IHttpResponse {
     try {
       const accessToken = httpRequest.headers?.['x-access-token'];
 
@@ -17,7 +17,8 @@ export class TokenValidation implements IMiddleware {
           return success({ user: sub });
         }
       }
-    } catch (error) {
+      return unauthorized();
+    } catch {
       return unauthorized();
     }
   }

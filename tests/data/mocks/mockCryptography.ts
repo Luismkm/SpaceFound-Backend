@@ -1,6 +1,6 @@
-import { IHasher } from '@/data/protocols/cryptography/IHasher';
-import { IHashComparer } from '@/data/protocols/cryptography/IHashComparer';
-import { IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
+import {
+  IDecrypter, IEncrypter, IHashComparer, IHasher, ITokenPayload,
+} from '@/data/protocols/cryptography';
 
 export const mockHasher = (): IHasher => {
   class HasherStub implements IHasher {
@@ -27,4 +27,16 @@ export const mockEncrypter = (): IEncrypter => {
     }
   }
   return new EncrypterStub();
+};
+
+export const mockDecrypter = (): IDecrypter => {
+  class DecrypterStub implements IDecrypter {
+    decrypt(value: string): ITokenPayload {
+      return {
+        iat: 123456,
+        sub: 'any_value',
+      };
+    }
+  }
+  return new DecrypterStub();
 };
