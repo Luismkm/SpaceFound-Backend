@@ -1,3 +1,3 @@
 export interface IEncrypter {
-  encrypt(value: string): string
+  encrypt(value: string): any
 }

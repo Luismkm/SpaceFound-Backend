@@ -1,8 +1,10 @@
 export type IHttpRequest = {
-  body?: any
+  headers?: any;
+  body?: any;
+  user?: any;
 }
 
 export type IHttpResponse = {
-  statusCode: number,
-  body: any
+  statusCode: number;
+  body: any;
 }
