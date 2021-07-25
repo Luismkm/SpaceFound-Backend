@@ -2,7 +2,9 @@ import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateA
 
 import { ICreateAccountRepository } from '@/data/protocols/db/account/ICreateAccountRepository';
 
-import { mockCreateAccountRepository, mockHasher, mockLoadAccountByEmailRepository } from '@/tests/data/mocks';
+import {
+  mockCreateAccountRepository, mockHasher, mockLoadAccountByEmailRepository, mockUuidGenerator,
+} from '@/tests/data/mocks';
 import { mockAccount, mockAccountDTO, throwError } from '@/tests/domain/mocks';
 import { IHasher } from '@/data/protocols/cryptography/IHasher';
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
@@ -20,8 +22,10 @@ const makeSut = (): ISutTypes => {
   jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
     .mockReturnValue(Promise.resolve(null));
   const hasherStub = mockHasher();
+  const uuidStub = mockUuidGenerator();
   const sut = new DbCreateAccount(
     hasherStub,
+    uuidStub,
     createAccountRepositoryStub,
     loadAccountByEmailRepositoryStub,
   );
@@ -53,6 +57,7 @@ describe('DbCreateAccount Usecase', () => {
     const createSpy = jest.spyOn(createAccountRepositoryStub, 'create');
     await sut.create(mockAccountDTO());
     expect(createSpy).toHaveBeenCalledWith({
+      id: 'any_uuid',
       name: 'any_name',
       email: 'any_email',
       password: 'hashed_password',

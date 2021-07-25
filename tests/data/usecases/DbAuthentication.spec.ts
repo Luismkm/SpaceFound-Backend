@@ -59,7 +59,7 @@ describe('DbAuthentication UseCase', () => {
     const { sut, hashComparerStub } = makeSut();
     const compareSpy = jest.spyOn(hashComparerStub, 'compare');
     await sut.auth(mockAuthenticationDTO());
-    expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password');
+    expect(compareSpy).toHaveBeenCalledWith('any_password', 'any_password');
   });
 
   it('should throw if HashComparer throws', async () => {
@@ -80,7 +80,7 @@ describe('DbAuthentication UseCase', () => {
     const { sut, encrypterStub } = makeSut();
     const encryptSpy = jest.spyOn(encrypterStub, 'encrypt');
     await sut.auth(mockAuthenticationDTO());
-    expect(encryptSpy).toHaveBeenLastCalledWith('any_id');
+    expect(encryptSpy).toHaveBeenLastCalledWith('any_uuid');
   });
 
   it('should throw if Encrypter throws', async () => {

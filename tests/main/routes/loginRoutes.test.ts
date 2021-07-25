@@ -30,6 +30,7 @@ describe('Login Routes', () => {
     it('should return 200 on login', async () => {
       const password = await hash('123', 12);
       await knexHelper.knex('users').insert({
+        id: 'any_uuid',
         name: 'any_name',
         email: 'any_email@email.com',
         password,
