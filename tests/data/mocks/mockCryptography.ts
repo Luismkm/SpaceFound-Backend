@@ -1,6 +1,7 @@
 import {
-  IDecrypter, IEncrypter, IHashComparer, IHasher, ITokenPayload,
+  IDecrypter, IEncrypter, IHashComparer, IHasher,
 } from '@/data/protocols/cryptography';
+import { ITokenPayload } from '@/data/protocols/helpers/ITokenPayload';
 
 export const mockHasher = (): IHasher => {
   class HasherStub implements IHasher {

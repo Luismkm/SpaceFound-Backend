@@ -4,6 +4,9 @@ import { IController, IHttpRequest } from '@/presentation/protocols';
 export const adaptRoute = (controller: IController) => async (req: Request, res: Response) => {
   const httpRequest: IHttpRequest = {
     body: req.body,
+    userId: req.user,
+    file: req.file,
+
   };
 
   const httpResponse = await controller.handle(httpRequest);

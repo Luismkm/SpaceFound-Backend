@@ -3,4 +3,5 @@ export type IAccount = {
   name: string
   email: string
   password: string
+  avatar?: string
 }

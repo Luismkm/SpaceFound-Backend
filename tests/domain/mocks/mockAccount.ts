@@ -8,7 +8,9 @@ export const mockAccountDTO = (): ICreateAccountDTO => ({
   password: 'any_password',
 });
 
-export const mockAccount = (): IAccount => ({ ...mockAccountDTO(), id: 'any_uuid', password: 'any_password' });
+export const mockAccount = (): IAccount => ({
+  ...mockAccountDTO(), id: 'any_uuid', password: 'any_password', avatar: 'any_avatar',
+});
 
 export const mockAuthenticationDTO = (): IAuthenticationDTO => ({
   email: 'any_email',

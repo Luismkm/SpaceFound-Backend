@@ -1,7 +1,10 @@
 export type IHttpRequest = {
   headers?: any;
   body?: any;
-  user?: any;
+  userId?: any;
+  file?:{
+    filename: any;
+  }
 }
 
 export type IHttpResponse = {
