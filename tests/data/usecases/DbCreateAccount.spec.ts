@@ -1,13 +1,13 @@
 import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateAccount';
 
 import { ICreateAccountRepository } from '@/data/protocols/db/account/ICreateAccountRepository';
+import { IHasher } from '@/data/protocols/cryptography/IHasher';
+import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
 
 import {
   mockCreateAccountRepository, mockHasher, mockLoadAccountByEmailRepository, mockUuidGenerator,
 } from '@/tests/data/mocks';
 import { mockAccount, mockAccountDTO, throwError } from '@/tests/domain/mocks';
-import { IHasher } from '@/data/protocols/cryptography/IHasher';
-import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
 
 type ISutTypes = {
   sut: DbCreateAccount

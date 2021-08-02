@@ -1,5 +1,7 @@
-import { DbFindUserById } from '@/data/usecases/user/findUserById/DbFindUserById';
+import { DbFindUserById } from '@/data/usecases/user/DbFindUserById';
+
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
+
 import { mockAccount, throwError } from '@/tests/domain/mocks';
 import { mockFindUserByIdRepository } from '../mocks/mockDbUser';
 

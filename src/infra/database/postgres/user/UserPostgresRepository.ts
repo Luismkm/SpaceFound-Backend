@@ -1,8 +1,8 @@
 import { knexHelper } from '@/infra/database/helpers';
 
-import { IAccount } from '@/domain/models/IAccount';
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 import { IUpdateAvatarRepository } from '@/data/protocols/db/user/IUpdateAvatarRepository';
+import { IAccount } from '@/data/usecases/user/DbUserProtocols';
 
 export class UserPostgresRepository implements
   IFindUserByIdRepository,

@@ -1,6 +1,7 @@
 import { IAccount } from '@/domain/models/IAccount';
 import { IAuthentication, IAuthenticationDTO } from '@/domain/usecases/account/IAuthentication';
 import { ICreateAccount, ICreateAccountDTO } from '@/domain/usecases/account/ICreateAccount';
+
 import { mockAccount } from '@/tests/domain/mocks';
 
 export const mockCreateAccount = (): ICreateAccount => {

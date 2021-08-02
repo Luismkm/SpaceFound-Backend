@@ -1,5 +1,5 @@
 import { JwtAdapter } from '@/infra/cryptography/jwtAdapter/JwtAdapter';
-import { IHttpRequest, IHttpResponse, IMiddleware } from '@/presentation/protocols';
+import { IMiddleware } from '@/presentation/protocols';
 import { TokenValidation } from '@/validation/token/TokenValidation';
 import authConfig from '@/main/config/auth';
 

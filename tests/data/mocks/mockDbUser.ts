@@ -1,5 +1,6 @@
 import { IFindUserByIdRepository, IUpdateAvatarRepository } from '@/data/protocols/db/user';
 import { IAccount } from '@/domain/models/IAccount';
+
 import { mockAccount } from '@/tests/domain/mocks';
 
 export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {

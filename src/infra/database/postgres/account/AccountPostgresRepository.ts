@@ -1,8 +1,8 @@
 import { knexHelper } from '@/infra/database/helpers';
 
 import { ICreateAccountRepository } from '@/data/protocols';
-import { IAccount } from '@/domain/models/IAccount';
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
+import { IAccount } from '@/data/usecases/user/DbUserProtocols';
 
 export class AccountPostgresRepository implements
  ICreateAccountRepository,

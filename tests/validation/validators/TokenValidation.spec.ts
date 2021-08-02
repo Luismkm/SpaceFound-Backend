@@ -1,9 +1,11 @@
-import { IDecrypter } from '@/data/protocols/cryptography';
 import { success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { TokenValidation } from '@/validation/token/TokenValidation';
+
+import { IDecrypter } from '@/data/protocols/cryptography';
 import { IHttpRequest } from '@/presentation/protocols';
+
 import { mockDecrypter } from '@/tests/data/mocks';
 import { throwError } from '@/tests/domain/mocks';
-import { TokenValidation } from '@/validation/token/TokenValidation';
 
 type ISutTypes = {
   sut: TokenValidation

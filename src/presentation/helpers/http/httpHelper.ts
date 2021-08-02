@@ -1,5 +1,6 @@
 import { ServerError } from '@/presentation/errors';
 import { UnauthorizedError } from '@/presentation/errors/UnauthorizedError';
+
 import { IHttpResponse } from '@/presentation/protocols';
 
 export const success = (data: any):IHttpResponse => ({

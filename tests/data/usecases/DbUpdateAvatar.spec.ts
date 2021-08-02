@@ -1,9 +1,10 @@
 import { DbUpdateAvatar } from '@/data/usecases/user/DbUpdateAvatar';
-import { mockStorageProviderStub } from '@/tests/infra/mock/mockStorageProvider';
+
 import { IStorageProvider } from '@/data/protocols/storageProvider/IStorageProvider';
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 import { IUpdateAvatarRepository } from '@/data/protocols/db/user/IUpdateAvatarRepository';
-import { mockAccount } from '@/tests/domain/mocks';
+
+import { mockStorageProviderStub } from '@/tests/infra/mock/mockStorageProvider';
 import { mockFindUserByIdRepository, mockUpdateAvatarRepository } from '../mocks/mockDbUser';
 
 const mockUuidParam = 'any_uuid';

@@ -1,7 +1,6 @@
 // import express { Express } from 'express';
-import express, {
-  Request, Response, NextFunction, Express,
-} from 'express';
+import express, { Express } from 'express';
+
 import uploadConfig from '@/main/config/upload';
 import { bodyParser, cors } from '../middlewares';
 

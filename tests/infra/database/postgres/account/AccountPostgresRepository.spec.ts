@@ -1,7 +1,7 @@
 import { knexHelper } from '@/infra/database/helpers';
-
 import { AccountPostgresRepository } from '@/infra/database/postgres/account/AccountPostgresRepository';
-import { mockAccount, mockAccountDTO } from '@/tests/domain/mocks';
+
+import { mockAccount } from '@/tests/domain/mocks';
 
 let sut: AccountPostgresRepository;
 

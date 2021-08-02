@@ -1,6 +1,5 @@
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
-import { IAccount } from '@/domain/models/IAccount';
-import { IFindUserById } from '@/domain/usecases/user/IFindUserById';
+import { IAccount, IFindUserById } from './DbUserProtocols';
 
 export class DbFindUserById implements IFindUserById {
   constructor(private readonly loadUserByIdRepository: IFindUserByIdRepository) {}

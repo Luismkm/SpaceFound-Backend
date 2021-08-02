@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { adaptRoute } from '../adapter/express/expressRouterAdapter';
+
 import { makeLoginController } from '../factories/controllers/login/login/loginControllerFactory';
 import { makeSignUpController } from '../factories/controllers/login/signUp/signUpControllerFactory';
 
