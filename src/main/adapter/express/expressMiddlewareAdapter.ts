@@ -9,12 +9,10 @@ export const adaptMiddleware = (middleware: IMiddleware) => (
     };
 
     const httpResponse = middleware.handle(httpRequest);
-    console.log(httpResponse);
     if (httpResponse.statusCode === 200) {
       Object.assign(req, httpResponse.body);
       next();
     } else {
-      // console.log(httpResponse);
       res.status(httpResponse.statusCode).json({
         error: httpResponse.body.message,
       });
