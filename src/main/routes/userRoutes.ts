@@ -4,7 +4,7 @@ import multer from 'multer';
 import uploadConfig from '../config/upload';
 import { adaptRoute } from '../adapter/express/expressRouterAdapter';
 import { auth } from '../middlewares/auth';
-import { makeUserAvatarController } from '../factories/controllers/login/users/userAvatarControllerFactory';
+import { makeUserAvatarController } from '../factories/controllers/user/userAvatarControllerFactory';
 
 const upload = multer(uploadConfig.multer);
 
