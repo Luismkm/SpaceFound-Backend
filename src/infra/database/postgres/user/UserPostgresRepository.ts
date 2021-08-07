@@ -13,7 +13,6 @@ export class UserPostgresRepository implements
   }
 
   async update(userId: string, fileName: string): Promise<IAccount> {
-    console.log(userId, fileName);
     await knexHelper.knex('users').update('avatar', fileName).where('id', userId);
     return null;
   }

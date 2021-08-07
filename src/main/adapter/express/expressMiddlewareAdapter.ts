@@ -9,7 +9,7 @@ export const adaptMiddleware = (middleware: IMiddleware) => (
     };
 
     const httpResponse = middleware.handle(httpRequest);
-    // console.log(httpResponse);
+    console.log(httpResponse);
     if (httpResponse.statusCode === 200) {
       Object.assign(req, httpResponse.body);
       next();
