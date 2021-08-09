@@ -24,7 +24,7 @@ describe('Login Routes', () => {
   describe('POST /rate', () => {
     it('should return 200 on create rate', async () => {
       const accessToken = makeAccesToken();
-      const a = await request(app)
+      await request(app)
         .post('/api/rate')
         .set('x-access-token', accessToken)
         .send({
