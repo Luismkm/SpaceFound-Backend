@@ -27,3 +27,8 @@ export const serverError = (error: Error): IHttpResponse => ({
   statusCode: 500,
   body: new ServerError(error.stack),
 });
+
+export const noContent = (): IHttpResponse => ({
+  statusCode: 204,
+  body: null,
+});
