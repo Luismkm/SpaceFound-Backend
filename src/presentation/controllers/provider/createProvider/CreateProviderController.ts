@@ -4,7 +4,7 @@ import {
 
 import {
   IController, ICreateProvider, IHttpRequest, IHttpResponse, IValidation,
-} from '@/presentation/controllers/provider/ProviderControllerProtocols';
+} from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
 
 export class CreateProviderController implements IController {
   constructor(

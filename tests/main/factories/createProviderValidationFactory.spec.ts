@@ -2,7 +2,7 @@ import { RequiredFieldValidation, ValidationComposite } from '@/validation/valid
 
 import { IValidation } from '@/presentation/protocols';
 
-import { makeCreateProviderValidation } from '@/main/factories/controllers/provider/createProviderValidationFactory';
+import { makeCreateProviderValidation } from '@/main/factories/controllers/provider/createProvider/createProviderValidationFactory';
 
 jest.mock('@/validation/validators/ValidationComposite');
 

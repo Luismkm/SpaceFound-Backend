@@ -1,4 +1,4 @@
-import { CreateProviderController } from '@/presentation/controllers/provider/CreateProviderController';
+import { CreateProviderController } from '@/presentation/controllers/provider/createProvider/CreateProviderController';
 import { mockCreateProvider } from '@/tests/data/mocks/mockDbProvider';
 import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { IValidation, IHttpRequest } from '@/presentation/protocols';
