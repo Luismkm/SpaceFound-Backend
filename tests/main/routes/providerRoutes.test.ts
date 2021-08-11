@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { hash } from 'bcrypt';
 
+import { sign } from 'jsonwebtoken';
 import app from '@/main/config/app';
 import { knexHelper } from '@/infra/database/helpers';
-import { sign } from 'jsonwebtoken';
 import authConfig from '@/main/config/auth';
 
 const makeAccesToken = (): string => {
@@ -43,6 +43,14 @@ describe('Login Routes', () => {
           description: 'any_description',
         })
         .expect(401);
+    });
+  });
+
+  describe('GET /providers', () => {
+    it('Should return 204 on load providers', async () => {
+      await request(app)
+        .get('/api/providers')
+        .expect(204);
     });
   });
 });
