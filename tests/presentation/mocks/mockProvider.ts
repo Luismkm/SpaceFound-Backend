@@ -1,6 +1,16 @@
 import { IProvider } from '@/domain/models/IProvider';
 import { ILoadProviders } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
-import { mockProviders } from '@/tests/domain/mocks/mockProvider';
+import { mockProvider, mockProviders } from '@/tests/domain/mocks/mockProvider';
+import { ICreateProvider } from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
+
+export const mockCreateProvider = ():ICreateProvider => {
+  class CreateProvidersStub implements ICreateProvider {
+    async create(): Promise<IProvider> {
+      return Promise.resolve(mockProvider());
+    }
+  }
+  return new CreateProvidersStub();
+};
 
 export const mockLoadProviders = ():ILoadProviders => {
   class LoadProvidersStub implements ILoadProviders {

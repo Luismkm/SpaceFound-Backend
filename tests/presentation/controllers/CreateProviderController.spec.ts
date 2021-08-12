@@ -1,11 +1,11 @@
 import { CreateProviderController } from '@/presentation/controllers/provider/createProvider/CreateProviderController';
-import { mockCreateProvider } from '@/tests/data/mocks/mockDbProvider';
 import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { IValidation, IHttpRequest } from '@/presentation/protocols';
 import { MissingParamError, ServerError } from '@/presentation/errors';
 import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
 import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
 import { throwError } from '@/tests/domain/mocks';
+import { mockCreateProvider } from '../mocks/mockProvider';
 
 const mockRequest = ():IHttpRequest => ({
   userId: 'any_uuid',

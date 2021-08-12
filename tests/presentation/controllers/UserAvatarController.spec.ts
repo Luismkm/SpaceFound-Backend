@@ -4,8 +4,8 @@ import { serverError, unauthorized } from '@/presentation/helpers/http/httpHelpe
 import { IHttpRequest } from '@/presentation/protocols/IHttp';
 import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 
-import { mockDbUpdateAvatar } from '@/tests/data/mocks';
 import { mockAccount, throwError } from '@/tests/domain/mocks';
+import { mockUpdateAvatar } from '../mocks/mockUser';
 
 const mockRequest = (): IHttpRequest => ({
   userId: 'uuid',
@@ -20,7 +20,7 @@ type ISutTypes = {
 }
 
 const makeSut = (): ISutTypes => {
-  const updateAvatarStub = mockDbUpdateAvatar();
+  const updateAvatarStub = mockUpdateAvatar();
   const sut = new UserAvatarController(updateAvatarStub);
   return {
     sut,
