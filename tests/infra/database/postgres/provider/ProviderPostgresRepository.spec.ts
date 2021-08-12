@@ -14,6 +14,20 @@ describe('Provider Postgres Repository', () => {
     await knexHelper.knex('providers').delete('*');
   });
 
+  describe('create()', () => {
+    it('should create a provider on success', async () => {
+      await sut.create({
+        id: 'any_uuid',
+        idBusiness: 1,
+        description: 'any_description',
+        idUser: 'any_uuid',
+      });
+      const provider = await knexHelper.knex('providers').where({ id_user: 'any_uuid' }).select('*');
+      console.log(provider);
+      expect(provider[0]).toBeTruthy();
+    });
+  });
+
   describe('loadAll()', () => {
     it('should load all providers on success', async () => {
       await knexHelper.knex('providers').insert({
