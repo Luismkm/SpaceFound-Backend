@@ -1,5 +1,7 @@
 import DbCreateRate from '@/data/usecases/rate/DbCreateRate';
+
 import { ICreateRateRepository } from '@/data/protocols/db/rate/ICreateRateRepository';
+
 import { mockRate, mockRateDTO } from '@/tests/domain/mocks/mockRate';
 import { throwError } from '@/tests/domain/mocks';
 import { mockCreateRateRepository } from '../mocks/mockDbRate';

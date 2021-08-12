@@ -1,5 +1,6 @@
 import { IAccount } from '@/domain/models/IAccount';
 import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
+
 import { mockAccount } from '@/tests/domain/mocks/mockAccount';
 
 export const mockUpdateAvatar = ():IUpdateAvatar => {

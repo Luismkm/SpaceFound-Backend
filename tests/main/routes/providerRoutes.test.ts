@@ -1,7 +1,6 @@
 import request from 'supertest';
-import { hash } from 'bcrypt';
-
 import { sign } from 'jsonwebtoken';
+
 import app from '@/main/config/app';
 import { knexHelper } from '@/infra/database/helpers';
 import authConfig from '@/main/config/auth';

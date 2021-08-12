@@ -1,5 +1,6 @@
 import { knexHelper } from '@/infra/database/helpers';
 import { RatePostgresRepository } from '@/infra/database/postgres/rate/RatePostgresRepository';
+
 import { mockRateDTO } from '@/tests/domain/mocks/mockRate';
 
 let sut: RatePostgresRepository;

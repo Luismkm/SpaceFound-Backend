@@ -1,7 +1,8 @@
 import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
 import { IProvider } from '@/domain/models/IProvider';
-import { mockProvider, mockProviders } from '@/tests/domain/mocks/mockProvider';
 import { ILoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
+
+import { mockProvider, mockProviders } from '@/tests/domain/mocks/mockProvider';
 
 export const mockCreateProvider = (): ICreateProviderRepository => {
   class CreateProviderRepositoryStub implements ICreateProviderRepository {

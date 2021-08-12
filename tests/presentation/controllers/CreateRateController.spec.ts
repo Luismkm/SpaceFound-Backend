@@ -1,10 +1,12 @@
-import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
 import { CreateRateController } from '@/presentation/controllers/rate/CreateRateController';
-import { mockValidation } from '@/tests/validation/mocks/mockValidation';
-import { IValidation } from '@/presentation/protocols/IValidation';
-import { IHttpRequest } from '@/presentation/protocols';
 import { MissingParamError, ServerError } from '@/presentation/errors';
 import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
+
+import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
+import { IValidation } from '@/presentation/protocols/IValidation';
+import { IHttpRequest } from '@/presentation/protocols';
+
+import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { throwError } from '@/tests/domain/mocks';
 import { mockCreateRate } from '../mocks/mockRate';
 

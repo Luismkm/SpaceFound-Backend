@@ -1,4 +1,5 @@
 import { DbLoadProviders } from '@/data/usecases/provider/DbLoadProviders';
+
 import { ILoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
 
 import { mockLoadProvidersRepository } from '../mocks/mockDbProvider';

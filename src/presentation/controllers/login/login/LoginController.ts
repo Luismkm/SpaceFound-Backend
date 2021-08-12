@@ -1,10 +1,11 @@
-import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
 import {
   badRequest, serverError, success, unauthorized,
 } from '@/presentation/helpers/http/httpHelper';
+
 import {
   IController, IHttpRequest, IHttpResponse, IValidation,
 } from '@/presentation/protocols';
+import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
 
 export class LoginController implements IController {
   constructor(

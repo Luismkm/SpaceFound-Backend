@@ -23,7 +23,6 @@ describe('Provider Postgres Repository', () => {
         idUser: 'any_uuid',
       });
       const provider = await knexHelper.knex('providers').where({ id_user: 'any_uuid' }).select('*');
-      console.log(provider);
       expect(provider[0]).toBeTruthy();
     });
   });

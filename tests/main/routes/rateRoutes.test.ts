@@ -1,8 +1,8 @@
 import request from 'supertest';
+import { sign } from 'jsonwebtoken';
 
 import app from '@/main/config/app';
 import { knexHelper } from '@/infra/database/helpers';
-import { sign } from 'jsonwebtoken';
 import authConfig from '@/main/config/auth';
 
 const makeAccesToken = (): string => {

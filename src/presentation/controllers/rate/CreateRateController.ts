@@ -1,8 +1,9 @@
-import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
 import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
+
 import {
   IController, IHttpRequest, IHttpResponse, IValidation,
 } from '@/presentation/protocols';
+import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
 
 export class CreateRateController implements IController {
   constructor(

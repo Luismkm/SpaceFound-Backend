@@ -1,9 +1,11 @@
 import DbCreateProvider from '@/data/usecases/provider/DbCreateProvider';
+
 import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
-import { mockProviderDTO } from '@/tests/domain/mocks/mockProvider';
 import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
+
 import { mockUuidGenerator } from '../mocks';
 import { mockCreateProvider } from '../mocks/mockDbProvider';
+import { mockProviderDTO } from '@/tests/domain/mocks/mockProvider';
 
 type ISutTypes = {
   sut: DbCreateProvider
