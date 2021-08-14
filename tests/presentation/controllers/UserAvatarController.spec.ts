@@ -7,7 +7,7 @@ import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 import { mockAccount, throwError } from '@/tests/domain/mocks';
 import { mockUpdateAvatar } from '../mocks/mockUser';
 
-const mockRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): IHttpRequest => ({
   userId: 'uuid',
   file: {
     filename: 'any_name',
@@ -42,14 +42,14 @@ describe('UserAvatarController', () => {
   it('should call updateAvatar with correc values ', async () => {
     const { sut, updateAvatarStub } = makeSut();
     const updateSpy = jest.spyOn(updateAvatarStub, 'update');
-    await sut.handle(mockRequest());
+    await sut.handle(makeFakeRequest());
     expect(updateSpy).toHaveBeenCalledWith('uuid', 'any_name');
   });
 
   it('should return unauthorized if user not exists', async () => {
     const { sut, updateAvatarStub } = makeSut();
     jest.spyOn(updateAvatarStub, 'update').mockImplementationOnce(null);
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(unauthorized());
   });
 
@@ -57,7 +57,7 @@ describe('UserAvatarController', () => {
     const { sut, updateAvatarStub } = makeSut();
     jest.spyOn(updateAvatarStub, 'update')
       .mockReturnValueOnce(Promise.resolve(mockAccount()));
-    const httpRequest = await sut.handle(mockRequest());
+    const httpRequest = await sut.handle(makeFakeRequest());
     expect(httpRequest).toEqual({
       statusCode: 200,
       body: mockAccount(),
@@ -67,7 +67,7 @@ describe('UserAvatarController', () => {
   it('Should return 500 if UpdateAvatar throws', async () => {
     const { sut, updateAvatarStub } = makeSut();
     jest.spyOn(updateAvatarStub, 'update').mockImplementationOnce(throwError);
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
 });

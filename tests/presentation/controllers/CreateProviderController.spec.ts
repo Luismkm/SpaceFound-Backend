@@ -9,7 +9,7 @@ import { throwError } from '@/tests/domain/mocks';
 import { mockCreateProvider } from '../mocks/mockProvider';
 import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 
-const mockRequest = ():IHttpRequest => ({
+const makeFakeRequest = ():IHttpRequest => ({
   userId: 'any_uuid',
   body: {
     idBusiness: 0,
@@ -38,7 +38,7 @@ describe('CreateProvider Controller', () => {
   it('should call CreateAccount with correct values', async () => {
     const { sut, createProviderStub } = makeSut();
     const createSpy = jest.spyOn(createProviderStub, 'create');
-    await sut.handle(mockRequest());
+    await sut.handle(makeFakeRequest());
     expect(createSpy).toHaveBeenCalledWith({
       idUser: 'any_uuid',
       idBusiness: 0,
@@ -48,7 +48,7 @@ describe('CreateProvider Controller', () => {
   it('should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, 'validate');
-    const httpResponse = mockRequest();
+    const httpResponse = makeFakeRequest();
     await sut.handle(httpResponse);
     expect(validateSpy).toHaveBeenLastCalledWith(httpResponse.body);
   });
@@ -56,7 +56,7 @@ describe('CreateProvider Controller', () => {
   it('should return 400 if Validation return an error', async () => {
     const { sut, validationStub } = makeSut();
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
   });
 
@@ -64,13 +64,13 @@ describe('CreateProvider Controller', () => {
     const { sut, createProviderStub } = makeSut();
     jest.spyOn(createProviderStub, 'create')
       .mockImplementationOnce(throwError);
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 
   it('should return 200 if CreateProvider success', async () => {
     const { sut } = makeSut();
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(success({
       id: 'any_uuid',
       idBusiness: 0,

@@ -10,7 +10,7 @@ import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { throwError } from '@/tests/domain/mocks';
 import { mockCreateRate } from '../mocks/mockRate';
 
-const mockRequest = ():IHttpRequest => ({
+const makeFakeRequest = ():IHttpRequest => ({
   userId: 'any_uuid',
   body: {
     idProvider: 'any_uuid',
@@ -40,7 +40,7 @@ describe('CreateRate Controller', () => {
   it('should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, 'validate');
-    const httpResponse = mockRequest();
+    const httpResponse = makeFakeRequest();
     await sut.handle(httpResponse);
     expect(validateSpy).toHaveBeenLastCalledWith(httpResponse.body);
   });
@@ -48,14 +48,14 @@ describe('CreateRate Controller', () => {
   it('should return 400 if Validation return an error', async () => {
     const { sut, validationStub } = makeSut();
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
   });
 
   it('should call CreateRate with correct values', async () => {
     const { sut, createRateStub } = makeSut();
     const createSpy = jest.spyOn(createRateStub, 'create');
-    await sut.handle(mockRequest());
+    await sut.handle(makeFakeRequest());
     expect(createSpy).toHaveBeenCalledWith({
       idUser: 'any_uuid',
       idProvider: 'any_uuid',
@@ -68,13 +68,13 @@ describe('CreateRate Controller', () => {
     const { sut, createRateStub } = makeSut();
     jest.spyOn(createRateStub, 'create')
       .mockImplementationOnce(throwError);
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 
   it('should return 200 if valid data is provided', async () => {
     const { sut } = makeSut();
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(success({
       id: 1,
       idUser: 'any_uuid',
