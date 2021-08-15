@@ -56,4 +56,18 @@ describe('Provider Postgres Repository', () => {
       expect(providers.length).toEqual(0);
     });
   });
+
+  describe('loadById()', () => {
+    it('should load provider by id', async () => {
+      await knexHelper.knex('providers').insert({
+        id: 'any_uuid',
+        id_business: 1,
+        description: 'any_description',
+        id_user: 'any_uuid',
+      });
+
+      const provider = await sut.loadById('any_uuid');
+      expect(provider).toBeTruthy();
+    });
+  });
 });
