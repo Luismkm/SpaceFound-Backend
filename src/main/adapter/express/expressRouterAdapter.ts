@@ -7,6 +7,7 @@ export const adaptRoute = (controller: IController) => async (req: Request, res:
     body: req.body,
     userId: req.user,
     file: req.file,
+    params: req.params,
 
   };
 

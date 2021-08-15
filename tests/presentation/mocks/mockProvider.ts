@@ -1,8 +1,9 @@
 import { IProvider } from '@/domain/models/IProvider';
-import { ILoadProviders } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
+import { ILoadProviderById, ILoadProviders } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
 import { ICreateProvider } from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
 
-import { mockProvider, mockProviders } from '@/tests/domain/mocks/mockProvider';
+import { mockProvider, mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockProvider';
+import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 
 export const mockCreateProvider = ():ICreateProvider => {
   class CreateProvidersStub implements ICreateProvider {
@@ -20,4 +21,13 @@ export const mockLoadProviders = ():ILoadProviders => {
     }
   }
   return new LoadProvidersStub();
+};
+
+export const mockLoadProviderById = ():ILoadProviderById => {
+  class LoadProviderByIdStub implements ILoadProviderById {
+    async loadById(): Promise<IProviderProfile> {
+      return Promise.resolve(mockProviderProfile());
+    }
+  }
+  return new LoadProviderByIdStub();
 };

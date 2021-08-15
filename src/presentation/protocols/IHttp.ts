@@ -2,6 +2,7 @@ export type IHttpRequest = {
   headers?: any;
   body?: any;
   userId?: any;
+  params?: any;
   file?:{
     filename: any;
   }
