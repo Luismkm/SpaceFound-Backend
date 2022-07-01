@@ -1,5 +1,7 @@
-import { IAccount } from '@/domain/models/IAccount';
+type Output = {
+  avatar: string
+}
 
 export interface IUpdateAvatarRepository {
-  update(userId: string, fileName: string): Promise<IAccount | undefined>
+  updateAvatar(userId: string, fileName: string): Promise<Output>
 }

@@ -9,7 +9,7 @@ export class DbUpdateAvatar implements IUpdateAvatar {
     private readonly updateAvatarRepository: IUpdateAvatarRepository,
   ) {}
 
-  async update(userId:string, avatarFileName: string): Promise<IAccount> {
+  async updateAvatar(userId:string, avatarFileName: string): Promise<IAccount> {
     const user = await this.findUserByIdRepository.findById(userId);
 
     if (!user) {
@@ -23,7 +23,7 @@ export class DbUpdateAvatar implements IUpdateAvatar {
     const filename = await this.storageProvider.saveFile(avatarFileName);
 
     user.avatar = filename;
-    await this.updateAvatarRepository.update(userId, filename);
+    await this.updateAvatarRepository.updateAvatar(userId, filename);
     return user;
   }
 }

@@ -5,7 +5,7 @@ import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 
 export class UserAvatarController implements IController {
   constructor(
-    private readonly updateAvatar: IUpdateAvatar,
+    private readonly update: IUpdateAvatar,
   ) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
@@ -17,14 +17,14 @@ export class UserAvatarController implements IController {
         return unauthorized();
       }
 
-      const user = await this.updateAvatar.update(userId, filename);
+      const user = await this.update.updateAvatar(userId, filename);
 
       if (!user) {
         return unauthorized();
       }
 
       return success(user);
-    } catch (error) {
+    } catch (error: any) {
       return serverError(error);
     }
   }

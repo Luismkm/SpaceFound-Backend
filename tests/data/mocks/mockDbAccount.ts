@@ -17,7 +17,7 @@ export const mockCreateAccountRepository = (): ICreateAccountRepository => {
 
 export const mockDbUpdateAvatar = (): IUpdateAvatar => {
   class DbUpdateAvatarStub implements IUpdateAvatar {
-    update(userId: string, fileName: string): Promise<IAccount> {
+    updateAvatar(userId: string, fileName: string): Promise<IAccount> {
       return Promise.resolve(mockAccount());
     }
   }
