@@ -39,41 +39,41 @@ describe('DbUpdateAvatar', () => {
   it('should call findUserByIdRepository with correct value', async () => {
     const { sut, findUserByIdRepositoryStub } = makeSut();
     const findSpy = jest.spyOn(findUserByIdRepositoryStub, 'findById');
-    await sut.update(mockUuidParam, mockFilename);
+    await sut.updateAvatar(mockUuidParam, mockFilename);
     expect(findSpy).toHaveBeenCalledWith('any_uuid');
   });
 
   it('should return if user not exists', async () => {
     const { sut, findUserByIdRepositoryStub } = makeSut();
     jest.spyOn(findUserByIdRepositoryStub, 'findById').mockReturnValueOnce(null);
-    const account = await sut.update(mockUuidParam, mockFilename);
+    const account = await sut.updateAvatar(mockUuidParam, mockFilename);
     expect(account).toBeNull();
   });
 
   it('should call deleteFile if user have avatar', async () => {
     const { sut, storageProviderStub } = makeSut();
     const deleteSpy = jest.spyOn(storageProviderStub, 'deleteFile');
-    await sut.update(mockUuidParam, mockFilename);
+    await sut.updateAvatar(mockUuidParam, mockFilename);
     expect(deleteSpy).toHaveBeenCalledWith('any_avatar');
   });
 
   it('should call saveFile with correct value', async () => {
     const { sut, storageProviderStub } = makeSut();
     const saveSpy = jest.spyOn(storageProviderStub, 'saveFile');
-    await sut.update(mockUuidParam, mockFilename);
+    await sut.updateAvatar(mockUuidParam, mockFilename);
     expect(saveSpy).toHaveBeenCalledWith('any_avatar_name');
   });
 
   it('should call updateRepository with correct value', async () => {
     const { sut, updateAvatarRepositoryStub } = makeSut();
-    const updateAvatar = jest.spyOn(updateAvatarRepositoryStub, 'update');
-    await sut.update(mockUuidParam, mockFilename);
+    const updateAvatar = jest.spyOn(updateAvatarRepositoryStub, 'updateAvatar');
+    await sut.updateAvatar(mockUuidParam, mockFilename);
     expect(updateAvatar).toHaveBeenCalledWith('any_uuid', 'new_avatar');
   });
 
   it('should return an user on success', async () => {
     const { sut } = makeSut();
-    const account = await sut.update(mockUuidParam, mockFilename);
+    const account = await sut.updateAvatar(mockUuidParam, mockFilename);
     expect(account).toBeTruthy();
   });
 });

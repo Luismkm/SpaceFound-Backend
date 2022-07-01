@@ -41,21 +41,21 @@ describe('UserAvatarController', () => {
 
   it('should call updateAvatar with correc values ', async () => {
     const { sut, updateAvatarStub } = makeSut();
-    const updateSpy = jest.spyOn(updateAvatarStub, 'update');
+    const updateSpy = jest.spyOn(updateAvatarStub, 'updateAvatar');
     await sut.handle(makeFakeRequest());
     expect(updateSpy).toHaveBeenCalledWith('uuid', 'any_name');
   });
 
   it('should return unauthorized if user not exists', async () => {
     const { sut, updateAvatarStub } = makeSut();
-    jest.spyOn(updateAvatarStub, 'update').mockImplementationOnce(null);
+    jest.spyOn(updateAvatarStub, 'updateAvatar').mockImplementationOnce(null);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(unauthorized());
   });
 
   it('should return status code 200 on success', async () => {
     const { sut, updateAvatarStub } = makeSut();
-    jest.spyOn(updateAvatarStub, 'update')
+    jest.spyOn(updateAvatarStub, 'updateAvatar')
       .mockReturnValueOnce(Promise.resolve(mockAccount()));
     const httpRequest = await sut.handle(makeFakeRequest());
     expect(httpRequest).toEqual({
@@ -66,7 +66,7 @@ describe('UserAvatarController', () => {
 
   it('Should return 500 if UpdateAvatar throws', async () => {
     const { sut, updateAvatarStub } = makeSut();
-    jest.spyOn(updateAvatarStub, 'update').mockImplementationOnce(throwError);
+    jest.spyOn(updateAvatarStub, 'updateAvatar').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
