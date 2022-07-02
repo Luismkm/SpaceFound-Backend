@@ -27,6 +27,7 @@
       "max-classes-per-file": "off",
       "import/no-extraneous-dependencies": "off",
       "object-curly-newline": "off",
+      "max-len": "off",
       "import/extensions":[
         "error",
         "ignorePackages",
