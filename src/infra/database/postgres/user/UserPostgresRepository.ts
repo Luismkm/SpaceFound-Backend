@@ -1,10 +1,8 @@
 import { knexHelper } from '@/infra/database/helpers';
 
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
-import { IUpdateAvatarRepository, UpdateAvatarRepository } from '@/data/protocols/db/user/IUpdateAvatarRepository';
-import { IUpdateUserProfileRepository } from '@/data/protocols/db/user/IUpdateProfileRepository';
+import { IUpdateAvatarRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository, UpdateAvatarRepository } from '@/data/protocols';
 import { IAccount } from '@/data/usecases/user/DbUserProtocols';
-import { IUpdateUserProfileDTO } from '@/domain/usecases/protocols/IUserProfileDTO';
 
 export class UserPostgresRepository implements
   IFindUserByIdRepository,
@@ -20,7 +18,7 @@ export class UserPostgresRepository implements
     return null;
   }
 
-  async update(profile: IUpdateUserProfileDTO): Promise<IAccount> {
+  async update(profile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
     await knexHelper.knex('users').update({ name: profile.name, email: profile.email }).where('id', profile.userId).limit(1);
     return null;
   }

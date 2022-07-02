@@ -1,6 +1,6 @@
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
-import { IUpdateUserProfileRepository } from '@/data/protocols/db/user/IUpdateProfileRepository';
+import { IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user/IUpdateProfileRepository';
 import { IUpdateUserProfileDTO } from '@/domain/usecases/protocols/IUserProfileDTO';
 import { IAccount, IUpdateProfile } from './DbUserProtocols';
 
@@ -10,7 +10,7 @@ export class DbUpdateUserProfile implements IUpdateProfile {
     private readonly loadAccountByEmailRepository: ILoadAccountByEmailRepository,
   ) {}
 
-  async update(userProfile: IUpdateUserProfileDTO): Promise<IAccount> {
+  async update(userProfile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
     /*  const user = await this.findUserByIdRepository.findById(userProfile.userId);
 
     if (!user) {

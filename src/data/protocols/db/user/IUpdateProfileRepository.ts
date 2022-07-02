@@ -1,6 +1,5 @@
-import { IAccount } from '@/domain/models/IAccount';
-import { IUpdateUserProfileDTO } from '@/domain/usecases/protocols/IUserProfileDTO';
+import { UpdateUserProfileRepository } from '@/domain/usecases/user/IUpdateProfile';
 
 export interface IUpdateUserProfileRepository {
-  update(profile: IUpdateUserProfileDTO): Promise<IAccount>
+  update(profile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result>
 }
