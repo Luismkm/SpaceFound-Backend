@@ -28,6 +28,9 @@
       "import/no-extraneous-dependencies": "off",
       "object-curly-newline": "off",
       "max-len": "off",
+      "lines-between-class-members": "off",
+      "import/export": "off",
+      "no-redeclare": "off",
       "import/extensions":[
         "error",
         "ignorePackages",
