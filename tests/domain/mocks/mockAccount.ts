@@ -1,18 +1,23 @@
-import { ICreateAccountDTO } from '@/domain/usecases/account/ICreateAccount';
+import { CreateAccount } from '@/domain/usecases/account/ICreateAccount';
 import { IAccount } from '@/domain/models/IAccount';
-import { IAuthenticationDTO } from '@/data/usecases/account/authentication/DbAuthenticationProtocols';
+import { Authentication } from '@/domain/usecases/account/IAuthentication';
 
-export const mockAccountDTO = (): ICreateAccountDTO => ({
+export const mockCreateAccountParams = (): CreateAccount.Params => ({
   name: 'any_name',
   email: 'any_email',
   password: 'any_password',
+  avatar: 'any_avatar',
 });
 
 export const mockAccount = (): IAccount => ({
-  ...mockAccountDTO(), id: 'any_uuid', password: 'any_password', avatar: 'any_avatar',
+  id: 'any_uuid',
+  name: 'any_name',
+  email: 'any_email',
+  password: 'any_password',
+  avatar: 'any_avatar',
 });
 
-export const mockAuthenticationDTO = (): IAuthenticationDTO => ({
+export const mockAuthenticationParams = (): Authentication.Params => ({
   email: 'any_email',
   password: 'any_password',
 });

@@ -3,23 +3,27 @@ import {
 } from '@/data/protocols/cryptography';
 import { ITokenPayload } from '@/data/protocols/helpers/ITokenPayload';
 
-export const mockHasher = (): IHasher => {
-  class HasherStub implements IHasher {
-    async hash(value: string): Promise<string> {
-      return Promise.resolve('hashed_password');
-    }
-  }
-  return new HasherStub();
-};
+export class HasherSpy implements IHasher {
+  digest = 'hashed_password'
+  plaintext: string
 
-export const mockHashComparer = (): IHashComparer => {
-  class HashCompareStub implements IHashComparer {
-    async compare(value: string, hash: string): Promise<boolean> {
-      return Promise.resolve(true);
-    }
+  async hash(plaintext: string): Promise<string> {
+    this.plaintext = plaintext;
+    return this.digest;
   }
-  return new HashCompareStub();
-};
+}
+
+export class HashComparerSpy implements IHashComparer {
+  plaintext: string
+  digest: string
+  isValid = true
+
+  async compare(plaintext: string, digest: string): Promise<boolean> {
+    this.plaintext = plaintext;
+    this.digest = digest;
+    return this.isValid;
+  }
+}
 
 export const mockEncrypter = (): IEncrypter => {
   class EncrypterStub implements IEncrypter {

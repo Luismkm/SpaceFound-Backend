@@ -1,7 +1,14 @@
-import { IAccount } from '@/domain/models/IAccount';
+export namespace CreateAccount {
+  export type Params = {
+    name: string
+    email: string
+    password: string
+    avatar?: string
+  }
 
-export type ICreateAccountDTO = Omit<IAccount, 'id'>
+  export type Result = boolean
+}
 
 export interface ICreateAccount {
-  create(account: ICreateAccountDTO): Promise<IAccount>
+  create(account: CreateAccount.Params): Promise<CreateAccount.Result>
 }

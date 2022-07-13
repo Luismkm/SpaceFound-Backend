@@ -1,6 +1,6 @@
-import { IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
+import { IEncrypter, IHashComparer } from '@/data/protocols/cryptography';
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
-import { IAuthentication, IAuthenticationDTO, IHashComparer } from './DbAuthenticationProtocols';
+import { IAuthentication, Authentication } from '@/domain/usecases/account';
 
 export class DbAuthentication implements IAuthentication {
   constructor(
@@ -9,10 +9,10 @@ export class DbAuthentication implements IAuthentication {
     private readonly encrypter: IEncrypter,
   ) {}
 
-  async auth(authentication: IAuthenticationDTO): Promise<string> {
-    const account = await this.loadAccountByEmailRepository.loadByEmail(authentication.email);
+  async auth(authenticationParams: Authentication.Params): Promise<Authentication.Result> {
+    const account = await this.loadAccountByEmailRepository.loadByEmail(authenticationParams.email);
     if (account) {
-      const isValid = await this.hashComparer.compare(authentication.password, account.password);
+      const isValid = await this.hashComparer.compare(authenticationParams.password, account.password);
       if (isValid) {
         const accessToken = this.encrypter.encrypt(account.id);
         return accessToken;

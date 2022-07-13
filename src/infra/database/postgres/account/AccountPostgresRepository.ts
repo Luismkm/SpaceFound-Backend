@@ -1,25 +1,26 @@
 import { knexHelper } from '@/infra/database/helpers';
 
-import { ICreateAccountRepository } from '@/data/protocols';
+import { CreateAccountRepository, ICreateAccountRepository } from '@/data/protocols';
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
-import { IAccount } from '@/data/usecases/user/DbUserProtocols';
+import { ICheckAccountByEmailRepository } from '@/data/protocols/db/account/ICheckAccountByEmailRepository';
 
 export class AccountPostgresRepository implements
- ICreateAccountRepository,
- ILoadAccountByEmailRepository {
-  async create(account: IAccount): Promise<IAccount> {
-    const {
-      id, name, email, password,
-    } = account;
-    await knexHelper.knex('users').insert({
-      id, name, email, password,
-    });
-    return account;
+  ICreateAccountRepository,
+  ILoadAccountByEmailRepository,
+  ICheckAccountByEmailRepository {
+  async create(account: CreateAccountRepository.Params): Promise<CreateAccountRepository.Result> {
+    const { id, name, email, password } = account;
+    const accountCreated = await knexHelper.knex('users').insert({ id, name, email, password }).returning('id');
+    return accountCreated !== null;
   }
 
-  async loadByEmail(value: string): Promise<any> {
-    const email = value;
+  async loadByEmail(email: string): Promise<any> {
     const account = await knexHelper.knex('users').where('email', email);
     return account[0];
+  }
+
+  async checkByEmail(email: string): Promise<boolean> {
+    const account = await knexHelper.knex('users').where('email', email);
+    return account[0] !== null;
   }
 }

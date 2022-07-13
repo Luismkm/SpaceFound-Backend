@@ -1,4 +1,4 @@
-export namespace UpdateUserProfileRepository {
+export namespace UpdateUserProfile {
   export type Params = {
     userId: string;
     name: string;
@@ -15,5 +15,5 @@ export namespace UpdateUserProfileRepository {
 }
 
 export interface IUpdateProfile {
-  update(user: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result>
+  update(user: UpdateUserProfile.Params): Promise<UpdateUserProfile.Result>
 }

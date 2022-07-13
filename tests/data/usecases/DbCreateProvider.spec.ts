@@ -1,11 +1,11 @@
 import DbCreateProvider from '@/data/usecases/provider/DbCreateProvider';
 
 import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
-import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
 
-import { mockUuidGenerator } from '../mocks';
 import { mockCreateProvider } from '../mocks/mockDbProvider';
 import { mockProviderDTO } from '@/tests/domain/mocks/mockProvider';
+import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
+import { UuidGeneratorStub } from '@/tests/data/mocks';
 
 type ISutTypes = {
   sut: DbCreateProvider
@@ -14,7 +14,7 @@ type ISutTypes = {
 }
 
 const makeSut = (): ISutTypes => {
-  const uuidStub = mockUuidGenerator();
+  const uuidStub = new UuidGeneratorStub();
   const createProviderRepositoryStub = mockCreateProvider();
   const sut = new DbCreateProvider(uuidStub, createProviderRepositoryStub);
   return {
@@ -27,9 +27,9 @@ const makeSut = (): ISutTypes => {
 describe('DbCreateProvider Usecase', () => {
   it('should call uuidGenerator', async () => {
     const { sut, uuidStub } = makeSut();
-    const uuidSpy = jest.spyOn(uuidStub, 'uuidGenerator');
+    const generateUuid = jest.spyOn(uuidStub, 'uuidGenerator');
     await sut.create(mockProviderDTO());
-    expect(uuidSpy).toHaveBeenCalled();
+    expect(generateUuid).toBeCalled();
   });
 
   it('should call CreateProviderRepository with correct values', async () => {

@@ -1,13 +1,9 @@
-import { IAccount } from '@/domain/models/IAccount';
-import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
+import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 
-import { mockAccount } from '@/tests/domain/mocks/mockAccount';
+export class UpdateAvatarStub implements IUpdateAvatar {
+  result = 'any_result'
 
-export const mockUpdateAvatar = ():IUpdateAvatar => {
-  class UpdateAvatarStub implements IUpdateAvatar {
-    async updateAvatar(): Promise<IAccount> {
-      return Promise.resolve(mockAccount());
-    }
+  async updateAvatar(): Promise<UpdateAvatar.Result> {
+    return this.result;
   }
-  return new UpdateAvatarStub();
-};
+}

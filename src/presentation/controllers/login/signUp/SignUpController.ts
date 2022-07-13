@@ -1,12 +1,16 @@
 import { EmailInUseError } from '@/presentation/errors';
-import {
-  badRequest, forbidden, serverError, success,
-} from '@/presentation/helpers/http/httpHelper';
+import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { IAuthentication, ICreateAccount } from '@/domain/usecases/account';
+import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
 
-import {
-  IAuthentication,
-  IController, ICreateAccount, IHttpRequest, IHttpResponse, IValidation,
-} from '@/presentation/controllers/login/signUp/SignUpControllerProtocols';
+export namespace SignUpController {
+  export type Request = {
+    name: string
+    email: string
+    password: string
+    passwordConfirmation: string
+  }
+}
 
 export class SignUpController implements IController {
   constructor(
@@ -15,24 +19,15 @@ export class SignUpController implements IController {
     private readonly authentication: IAuthentication,
   ) {}
 
-  async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle(request: SignUpController.Request): Promise<IHttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
-      if (error) {
-        return badRequest(error);
-      }
-
-      const { name, email, password } = httpRequest.body;
-
+      const error = this.validation.validate(request);
+      if (error) return badRequest(error);
+      const { name, email, password } = request;
       const account = await this.createAccount.create({ name, email, password });
-      if (!account) {
-        return forbidden(new EmailInUseError());
-      }
-
+      if (!account) return forbidden(new EmailInUseError());
       const accessToken = await this.authentication.auth({ email, password });
-      if (accessToken) {
-        return success({ accessToken });
-      }
+      if (accessToken) return success(accessToken);
     } catch (error: any) {
       return serverError(error);
     }

@@ -1,6 +1,7 @@
 import { ICreateProviderDTO } from '@/domain/usecases/provider/ICreateProvider';
 import { IProvider } from '@/domain/models/IProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
+import { LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
 
 export const mockProviderDTO = (): ICreateProviderDTO => ({
   idBusiness: 0,
@@ -12,17 +13,21 @@ export const mockProvider = (): IProvider => ({
   ...mockProviderDTO(), id: 'any_uuid',
 });
 
-export const mockProviders = (): IProvider[] => [{
+export const mockProviders = (): LoadProvidersRepository.Result[] => [{
   id: 'any_uuid',
-  idBusiness: 1,
+  idBusiness: 'any_uuid',
   description: 'any_description',
   idUser: 'any_uuid',
+  idProvider: 'any_uuid',
+  average: 4.5,
 },
 {
-  id: 'other_uuid',
-  idBusiness: 2,
-  description: 'other_description',
-  idUser: 'other_uuid',
+  id: 'any_uuid',
+  idBusiness: 'any_uuid',
+  description: 'any_description',
+  idUser: 'any_uuid',
+  idProvider: 'any_uuid',
+  average: 4.5,
 }];
 
 export const mockProviderProfile = ():IProviderProfile => ({

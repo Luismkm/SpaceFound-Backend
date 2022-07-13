@@ -23,9 +23,9 @@ export const forbidden = (error: Error): IHttpResponse => ({
   body: error,
 });
 
-export const serverError = (error: Error): IHttpResponse => ({
+export const serverError = (error: unknown): IHttpResponse => ({
   statusCode: 500,
-  body: new ServerError(error.stack),
+  body: new ServerError(error instanceof Error ? error.stack : undefined),
 });
 
 export const noContent = (): IHttpResponse => ({

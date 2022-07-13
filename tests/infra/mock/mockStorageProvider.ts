@@ -1,14 +1,11 @@
 import { IStorageProvider } from '@/data/protocols/storageProvider/IStorageProvider';
 
-export const mockStorageProviderStub = (): IStorageProvider => {
-  class StorageProviderStub implements IStorageProvider {
-    async saveFile(file: string): Promise<string> {
-      return Promise.resolve('new_avatar');
-    }
-
-    async deleteFile(file: string): Promise<void> {
-      return Promise.resolve(null);
-    }
+export class StorageProviderSpy implements IStorageProvider {
+  async saveFile(file: string): Promise<string> {
+    return Promise.resolve('new_url');
   }
-  return new StorageProviderStub();
-};
+
+  async deleteFile(file: string): Promise<void> {
+    return Promise.resolve();
+  }
+}

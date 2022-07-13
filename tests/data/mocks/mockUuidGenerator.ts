@@ -1,10 +1,8 @@
 import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
 
-export const mockUuidGenerator = (): IUuidGenerator => {
-  class UuidGeneratorStub implements IUuidGenerator {
-    uuidGenerator(): string {
-      return 'any_uuid';
-    }
+export class UuidGeneratorStub implements IUuidGenerator {
+  digest = 'any_uuid'
+  uuidGenerator(): string {
+    return this.digest;
   }
-  return new UuidGeneratorStub();
-};
+}

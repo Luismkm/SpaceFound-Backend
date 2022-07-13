@@ -1,34 +1,52 @@
-import { ICreateAccountRepository } from '@/data/protocols';
-import { IAccount } from '@/domain/models/IAccount';
-import { ICreateAccountDTO } from '@/domain/usecases/account/ICreateAccount';
-import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
-import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
+import {
+  CreateAccountRepository, ICreateAccountRepository,
+  UpdateAvatarRepository, IUpdateAvatarRepository,
+  LoadAccountByEmailRepository, ILoadAccountByEmailRepository,
+  CheckAccountByEmailRepository, ICheckAccountByEmailRepository,
+} from '@/data/protocols';
 
-import { mockAccount } from '@/tests/domain/mocks';
+export class CreateAccountRepositorySpy implements ICreateAccountRepository {
+  params: CreateAccountRepository.Params
+  result = true
 
-export const mockCreateAccountRepository = (): ICreateAccountRepository => {
-  class CreateAccountRepositoryStub implements ICreateAccountRepository {
-    async create(account: ICreateAccountDTO): Promise<IAccount> {
-      return Promise.resolve(mockAccount());
-    }
+  async create(params: CreateAccountRepository.Params): Promise<CreateAccountRepository.Result> {
+    this.params = params;
+    return this.result;
   }
-  return new CreateAccountRepositoryStub();
-};
+}
 
-export const mockDbUpdateAvatar = (): IUpdateAvatar => {
-  class DbUpdateAvatarStub implements IUpdateAvatar {
-    updateAvatar(userId: string, fileName: string): Promise<IAccount> {
-      return Promise.resolve(mockAccount());
-    }
-  }
-  return new DbUpdateAvatarStub();
-};
+export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
+  params: UpdateAvatarRepository.Params
+  result = 'any_url'
 
-export const mockLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
-  class LoadAccountByEmailRepository implements ILoadAccountByEmailRepository {
-    async loadByEmail(email: string): Promise<IAccount> {
-      return Promise.resolve(mockAccount());
-    }
+  async updateAvatar(params: UpdateAvatarRepository.Params): Promise<UpdateAvatarRepository.Result> {
+    this.params = params;
+    return this.result;
   }
-  return new LoadAccountByEmailRepository();
-};
+}
+
+export class LoadAccountByEmailRepositorySpy implements ILoadAccountByEmailRepository {
+  email: string
+  result = {
+    id: 'any_uuid',
+    name: 'any_name',
+    email: 'any_email',
+    password: 'any_password',
+    avatar: 'any_avatar',
+  }
+
+  async loadByEmail(email: string): Promise<LoadAccountByEmailRepository.Result> {
+    this.email = email;
+    return this.result;
+  }
+}
+
+export class CheckAccountByEmailRepositorySpy implements ICheckAccountByEmailRepository {
+  params: string
+  result: boolean
+
+  async checkByEmail(email: string): Promise<CheckAccountByEmailRepository.Result> {
+    this.params = email;
+    return this.result;
+  }
+}

@@ -1,5 +1,14 @@
-import { IProvider } from '@/domain/models/IProvider';
+export namespace LoadProvidersRepository {
+  export type Result = {
+    id: string,
+    idBusiness: string,
+    description: string,
+    idUser: string,
+    idProvider: string,
+    average: number
+  }
+}
 
 export interface ILoadProvidersRepository {
-  loadAll(): Promise<IProvider[]>
+  loadAll(): Promise<LoadProvidersRepository.Result[]>
 }

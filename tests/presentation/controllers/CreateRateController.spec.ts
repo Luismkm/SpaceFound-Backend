@@ -4,11 +4,11 @@ import { badRequest, serverError, success } from '@/presentation/helpers/http/ht
 
 import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
 import { IValidation } from '@/presentation/protocols/IValidation';
-import { IHttpRequest } from '@/presentation/protocols';
 
 import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { throwError } from '@/tests/domain/mocks';
 import { mockCreateRate } from '../mocks/mockRate';
+import { IHttpRequest } from '@/presentation/protocols';
 
 const makeFakeRequest = ():IHttpRequest => ({
   userId: 'any_uuid',

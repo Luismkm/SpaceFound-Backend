@@ -1,6 +1,6 @@
 import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
 import { IProvider } from '@/domain/models/IProvider';
-import { ILoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
+import { ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
 import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
 
 import { mockProvider, mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockProvider';
@@ -17,7 +17,7 @@ export const mockCreateProvider = (): ICreateProviderRepository => {
 
 export const mockLoadProvidersRepository = (): ILoadProvidersRepository => {
   class LoadProvidersRepositoryStub implements ILoadProvidersRepository {
-    async loadAll(): Promise<IProvider[]> {
+    async loadAll(): Promise<LoadProvidersRepository.Result[]> {
       return Promise.resolve(mockProviders());
     }
   }

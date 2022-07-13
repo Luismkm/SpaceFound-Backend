@@ -1,7 +1,8 @@
-import { IFindUserByIdRepository, IUpdateAvatarRepository, UpdateAvatarRepository } from '@/data/protocols/db/user';
+import { IFindUserByIdRepository } from '@/data/protocols/db/user';
 import { IAccount } from '@/domain/models/IAccount';
 
 import { mockAccount } from '@/tests/domain/mocks';
+import { IUpdateAvatarRepository } from '@/data/protocols/db';
 
 export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {
   class FindUserByIdRepositoryStub implements IFindUserByIdRepository {
@@ -12,9 +13,9 @@ export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {
   return new FindUserByIdRepositoryStub();
 };
 
-export const mockUpdateAvatarRepository = (): IUpdateAvatarRepository => {
+/* export const mockUpdateAvatarRepository = (): IUpdateAvatarRepository => {
   class FindUserByIdRepositoryStub implements IUpdateAvatarRepository {
-    async updateAvatar(id: string): Promise<UpdateAvatarRepository.Result> {
+    async updateAvatar(): Promise<UpdateAvatarRepository.Result> {
       return Promise.resolve({
         avatar: 'updated_avatar',
       });
@@ -22,3 +23,4 @@ export const mockUpdateAvatarRepository = (): IUpdateAvatarRepository => {
   }
   return new FindUserByIdRepositoryStub();
 };
+ */

@@ -1,14 +1,14 @@
 import { knexHelper } from '@/infra/database/helpers';
 
 import {
-  ICreateProviderRepository, ILoadProviderByIdRepository, ILoadProvidersRepository, IProvider,
+  ICreateProviderRepository, ILoadProviderByIdRepository, ILoadProvidersRepository, IProvider, LoadProvidersRepository,
 } from './ProviderPostgresRepositoryProtocols';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 
 export class ProviderPostgresRepository implements
- ICreateProviderRepository,
- ILoadProvidersRepository,
- ILoadProviderByIdRepository {
+  ICreateProviderRepository,
+  ILoadProvidersRepository,
+  ILoadProviderByIdRepository {
   async create(provider: IProvider): Promise<IProvider> {
     const {
       id, idBusiness, description, idUser,
@@ -20,8 +20,17 @@ export class ProviderPostgresRepository implements
     return providerCreated[0];
   }
 
-  async loadAll(): Promise<IProvider[]> {
-    const providers = await knexHelper.knex('providers').select('*');
+  async loadAll(): Promise<LoadProvidersRepository.Result[]> {
+    const avgStar = knexHelper.knex.select('id_provider')
+      .avg('star as average')
+      .from('rates')
+      .groupBy('id_provider')
+      .as('rates_avg');
+
+    const providers = await knexHelper
+      .knex('providers')
+      .select('*').leftJoin(avgStar, 'providers.id', 'rates_avg.id_provider');
+
     return providers;
   }
 

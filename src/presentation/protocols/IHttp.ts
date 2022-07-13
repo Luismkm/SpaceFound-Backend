@@ -4,7 +4,7 @@ export type IHttpRequest = {
   userId?: any;
   params?: any;
   file?:{
-    filename: any;
+    fileName: any;
   }
 }
 

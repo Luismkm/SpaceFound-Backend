@@ -1,23 +1,39 @@
-import { IAccount } from '@/domain/models/IAccount';
-import { IAuthentication, IAuthenticationDTO } from '@/domain/usecases/account/IAuthentication';
-import { ICreateAccount, ICreateAccountDTO } from '@/domain/usecases/account/ICreateAccount';
+import { Authentication, IAuthentication } from '@/domain/usecases/account/IAuthentication';
+import { CreateAccount, ICreateAccount } from '@/domain/usecases/account/ICreateAccount';
+import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
 
-import { mockAccount } from '@/tests/domain/mocks';
+export class CreateAccountSpy implements ICreateAccount {
+  params: CreateAccount.Params
+  result = true
 
-export const mockCreateAccount = (): ICreateAccount => {
-  class CreateAccountStub implements ICreateAccount {
-    async create(account: ICreateAccountDTO): Promise<IAccount> {
-      return Promise.resolve(mockAccount());
-    }
+  async create(params: CreateAccount.Params): Promise<CreateAccount.Result> {
+    this.params = params;
+    return this.result;
   }
-  return new CreateAccountStub();
-};
+}
 
-export const mockAuthentication = (): IAuthentication => {
-  class AuthenticationStub implements IAuthentication {
-    async auth(authentication: IAuthenticationDTO): Promise<string> {
-      return Promise.resolve('any_token');
-    }
+export class UpdateAvatarSpy implements IUpdateAvatar {
+  params: UpdateAvatar.Params
+  result = 'any_url'
+
+  async updateAvatar(params: UpdateAvatar.Params): Promise<UpdateAvatar.Result> {
+    this.params = {
+      userId: params.userId,
+      fileName: params.fileName,
+    };
+    return this.result;
   }
-  return new AuthenticationStub();
-};
+}
+
+export class AuthenticationSpy implements IAuthentication {
+  params: Authentication.Params
+  result = {
+    accessToken: 'any_access_token',
+    name: 'any_name',
+  }
+
+  async auth(params: Authentication.Params): Promise<Authentication.Result> {
+    this.params = params;
+    return this.result;
+  }
+}
