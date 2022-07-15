@@ -1,4 +1,4 @@
-import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateAccount';
+import { DbCreateAccount } from '@/data/usecases/account/DbCreateAccount';
 import { BcryptAdapter } from '@/infra/cryptography/bcryptAdapter/BcryptAdapter';
 import { AccountPostgresRepository } from '@/infra/database/postgres/account/AccountPostgresRepository';
 import { UuidAdapter } from '@/infra/helpers/uuidAdapter/UuidAdapter';

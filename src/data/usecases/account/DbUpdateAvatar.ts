@@ -1,7 +1,7 @@
 import { IUpdateAvatarRepository } from '@/data/protocols/db';
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
-import { IStorageProvider } from './DbUserProtocols';
+import { IStorageProvider } from '../user/DbUserProtocols';
 
 export class DbUpdateAvatar implements IUpdateAvatar {
   constructor(

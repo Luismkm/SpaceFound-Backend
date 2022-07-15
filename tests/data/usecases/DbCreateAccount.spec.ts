@@ -1,4 +1,4 @@
-import { DbCreateAccount } from '@/data/usecases/account/createAccount/DbCreateAccount';
+import { DbCreateAccount } from '@/data/usecases/account/DbCreateAccount';
 
 import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorStub } from '@/tests/data/mocks';
 import { mockCreateAccountParams, throwError } from '@/tests/domain/mocks';

@@ -5,15 +5,9 @@ export namespace UpdateUserProfile {
     email: string;
   }
 
-  export type Result = {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-    avatar: string;
-  }
+  export type Result = boolean
 }
 
-export interface IUpdateProfile {
+export interface IUpdateUserProfile {
   update(user: UpdateUserProfile.Params): Promise<UpdateUserProfile.Result>
 }

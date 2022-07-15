@@ -1,4 +1,4 @@
-import { DbAuthentication } from '@/data/usecases/account/authentication/DbAuthentication';
+import { DbAuthentication } from '@/data/usecases/account/DbAuthentication';
 import { IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
 
 import { HashComparerSpy, LoadAccountByEmailRepositorySpy, mockEncrypter } from '@/tests/data/mocks';

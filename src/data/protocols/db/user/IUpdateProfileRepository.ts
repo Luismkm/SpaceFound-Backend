@@ -1,4 +1,4 @@
-import { UpdateUserProfile } from '@/domain/usecases/user/IUpdateProfile';
+import { UpdateUserProfile } from '@/domain/usecases/user/IUpdateUserProfile';
 
 export namespace UpdateUserProfileRepository {
   export type Params = UpdateUserProfile.Params
