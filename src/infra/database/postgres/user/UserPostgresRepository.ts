@@ -19,7 +19,7 @@ export class UserPostgresRepository implements
   }
 
   async update(profile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
-    await knexHelper.knex('users').update({ name: profile.name, email: profile.email }).where('id', profile.userId).limit(1);
-    return null;
+    const asReturn = await knexHelper.knex('users').update({ name: profile.name, email: profile.email }).where('id', profile.userId).limit(1);
+    return asReturn !== null;
   }
 }

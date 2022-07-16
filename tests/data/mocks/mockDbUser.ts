@@ -1,4 +1,4 @@
-import { IFindUserByIdRepository } from '@/data/protocols/db/user';
+import { IFindUserByIdRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
 import { IAccount } from '@/domain/models/IAccount';
 
 import { mockAccount } from '@/tests/domain/mocks';
@@ -13,6 +13,16 @@ export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {
   return new FindUserByIdRepositoryStub();
 };
 
+export class UpdateUserProfileRepositorySpy implements IUpdateUserProfileRepository {
+  params: UpdateUserProfileRepository.Params
+  result = true
+
+  async update(params: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
+    this.params = params;
+    return this.result;
+  }
+}
+
 /* export const mockUpdateAvatarRepository = (): IUpdateAvatarRepository => {
   class FindUserByIdRepositoryStub implements IUpdateAvatarRepository {
     async updateAvatar(): Promise<UpdateAvatarRepository.Result> {
@@ -22,5 +32,4 @@ export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {
     }
   }
   return new FindUserByIdRepositoryStub();
-};
- */
+}; */

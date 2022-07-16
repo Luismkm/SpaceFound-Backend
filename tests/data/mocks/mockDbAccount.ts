@@ -43,7 +43,7 @@ export class LoadAccountByEmailRepositorySpy implements ILoadAccountByEmailRepos
 
 export class CheckAccountByEmailRepositorySpy implements ICheckAccountByEmailRepository {
   params: string
-  result: boolean
+  result: true
 
   async checkByEmail(email: string): Promise<CheckAccountByEmailRepository.Result> {
     this.params = email;
