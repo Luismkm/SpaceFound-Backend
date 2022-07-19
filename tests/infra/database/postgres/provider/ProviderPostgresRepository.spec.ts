@@ -11,36 +11,37 @@ describe('Provider Postgres Repository', () => {
     sut = new ProviderPostgresRepository();
   });
   afterEach(async () => {
-    await knexHelper.knex('providers').delete('*');
+    await knexHelper.knex('provider').delete('*');
   });
 
   describe('create()', () => {
     it('should create a provider on success', async () => {
       await sut.create({
         id: 'any_uuid',
-        idBusiness: 1,
+        name: 'any_name',
         description: 'any_description',
-        idUser: 'any_uuid',
+        cnpj: 'any_cnpj',
+        serviceId: 1,
+        createdAt: new Date(),
+        userId: 'any_uuid',
       });
-      const provider = await knexHelper.knex('providers').where({ id_user: 'any_uuid' }).select('*');
+      const provider = await knexHelper.knex('provider').where({ user_id: 'any_uuid' }).select('*');
       expect(provider[0]).toBeTruthy();
     });
   });
 
   describe('loadAll()', () => {
     it('should load all providers on success', async () => {
-      await knexHelper.knex('providers').insert({
+      await knexHelper.knex('provider').insert({
         id: 'any_uuid',
-        id_business: 1,
         description: 'any_description',
-        id_user: 'any_uuid',
+        user_id: 'any_uuid',
       });
 
-      await knexHelper.knex('providers').insert({
+      await knexHelper.knex('provider').insert({
         id: 'other_uuid',
-        id_business: 2,
         description: 'other_description',
-        id_user: 'other_uuid',
+        user_id: 'other_uuid',
       });
 
       const providers = await sut.loadAll();
@@ -59,11 +60,10 @@ describe('Provider Postgres Repository', () => {
 
   describe('loadById()', () => {
     it('should load provider by id', async () => {
-      await knexHelper.knex('providers').insert({
+      await knexHelper.knex('provider').insert({
         id: 'any_uuid',
-        id_business: 1,
         description: 'any_description',
-        id_user: 'any_uuid',
+        user_id: 'any_uuid',
       });
 
       const provider = await sut.loadById('any_uuid');

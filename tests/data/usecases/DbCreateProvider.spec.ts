@@ -1,52 +1,61 @@
+import MockDate from 'mockdate';
+
 import DbCreateProvider from '@/data/usecases/provider/DbCreateProvider';
 
-import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
-
-import { mockCreateProvider } from '../mocks/mockDbProvider';
-import { mockProviderDTO } from '@/tests/domain/mocks/mockProvider';
-import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
-import { UuidGeneratorStub } from '@/tests/data/mocks';
+import { UuidGeneratorSpy } from '@/tests/data/mocks';
+import { CreateProviderRepositorySpy } from '@/tests/data/mocks/mockDbProvider';
+import { mockCreateProviderParams } from '@/tests/domain/mocks/mockProvider';
 
 type ISutTypes = {
   sut: DbCreateProvider
-  uuidStub: IUuidGenerator
-  createProviderRepositoryStub: ICreateProviderRepository
+  uuidSpy: UuidGeneratorSpy
+  createProviderRepositorySpy: CreateProviderRepositorySpy
 }
 
 const makeSut = (): ISutTypes => {
-  const uuidStub = new UuidGeneratorStub();
-  const createProviderRepositoryStub = mockCreateProvider();
-  const sut = new DbCreateProvider(uuidStub, createProviderRepositoryStub);
+  const uuidSpy = new UuidGeneratorSpy();
+  const createProviderRepositorySpy = new CreateProviderRepositorySpy();
+  const sut = new DbCreateProvider(uuidSpy, createProviderRepositorySpy);
   return {
     sut,
-    uuidStub,
-    createProviderRepositoryStub,
+    uuidSpy,
+    createProviderRepositorySpy,
   };
 };
 
 describe('DbCreateProvider Usecase', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
   it('should call uuidGenerator', async () => {
-    const { sut, uuidStub } = makeSut();
-    const generateUuid = jest.spyOn(uuidStub, 'uuidGenerator');
-    await sut.create(mockProviderDTO());
+    const { sut, uuidSpy } = makeSut();
+    const generateUuid = jest.spyOn(uuidSpy, 'uuidGenerator');
+    await sut.create(mockCreateProviderParams());
     expect(generateUuid).toBeCalled();
   });
 
   it('should call CreateProviderRepository with correct values', async () => {
-    const { sut, createProviderRepositoryStub } = makeSut();
-    const createSpy = jest.spyOn(createProviderRepositoryStub, 'create');
-    await sut.create(mockProviderDTO());
-    expect(createSpy).toHaveBeenCalledWith({
-      idBusiness: 0,
-      description: 'any_description',
-      idUser: 'any_uuid',
-      id: 'any_uuid',
+    const { sut, uuidSpy, createProviderRepositorySpy } = makeSut();
+    const params = mockCreateProviderParams();
+    await sut.create(params);
+    expect(createProviderRepositorySpy.params).toEqual({
+      id: uuidSpy.digest,
+      cnpj: params.cnpj,
+      description: params.description,
+      name: params.name,
+      createdAt: params.createdAt,
+      serviceId: params.serviceId,
+      userId: params.userId,
     });
   });
 
   it('should return a Provider on success', async () => {
     const { sut } = makeSut();
-    const provider = await sut.create(mockProviderDTO());
-    expect(provider).toBeTruthy();
+    const provider = await sut.create(mockCreateProviderParams());
+    expect(provider).toBe(true);
   });
 });

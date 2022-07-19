@@ -1,12 +1,12 @@
 import { DbCreateAccount } from '@/data/usecases/account/DbCreateAccount';
 
-import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorStub } from '@/tests/data/mocks';
+import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorSpy } from '@/tests/data/mocks';
 import { mockCreateAccountParams, throwError } from '@/tests/domain/mocks';
 
 type ISutTypes = {
   sut: DbCreateAccount
   hasherSpy: HasherSpy
-  uuidStub: UuidGeneratorStub
+  uuidSpy: UuidGeneratorSpy
   createAccountRepositorySpy: CreateAccountRepositorySpy
   checkAccountByEmailRepositorySpy: CheckAccountByEmailRepositorySpy
 }
@@ -15,17 +15,17 @@ const makeSut = (): ISutTypes => {
   const createAccountRepositorySpy = new CreateAccountRepositorySpy();
   const checkAccountByEmailRepositorySpy = new CheckAccountByEmailRepositorySpy();
   const hasherSpy = new HasherSpy();
-  const uuidStub = new UuidGeneratorStub();
+  const uuidSpy = new UuidGeneratorSpy();
   const sut = new DbCreateAccount(
     hasherSpy,
-    uuidStub,
+    uuidSpy,
     createAccountRepositorySpy,
     checkAccountByEmailRepositorySpy,
   );
   return {
     sut,
     hasherSpy,
-    uuidStub,
+    uuidSpy,
     createAccountRepositorySpy,
     checkAccountByEmailRepositorySpy,
   };
@@ -47,11 +47,11 @@ describe('DbCreateAccount Usecase', () => {
   });
 
   it('Should call CreateAccountRepository with correct values', async () => {
-    const { sut, hasherSpy, uuidStub, createAccountRepositorySpy } = makeSut();
+    const { sut, hasherSpy, uuidSpy, createAccountRepositorySpy } = makeSut();
     const createAccountParams = mockCreateAccountParams();
     await sut.create(createAccountParams);
     expect(createAccountRepositorySpy.params).toEqual({
-      id: uuidStub.digest,
+      id: uuidSpy.digest,
       name: createAccountParams.name,
       email: createAccountParams.email,
       password: hasherSpy.digest,

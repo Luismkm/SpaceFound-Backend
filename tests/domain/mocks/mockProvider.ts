@@ -1,16 +1,15 @@
-import { ICreateProviderDTO } from '@/domain/usecases/provider/ICreateProvider';
 import { IProvider } from '@/domain/models/IProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 import { LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
+import { CreateProvider } from '@/domain//usecases/provider/ICreateProvider';
 
-export const mockProviderDTO = (): ICreateProviderDTO => ({
-  idBusiness: 0,
+export const mockCreateProviderParams = (): CreateProvider.Params => ({
+  name: 'any_name',
   description: 'any_description',
-  idUser: 'any_uuid',
-});
-
-export const mockProvider = (): IProvider => ({
-  ...mockProviderDTO(), id: 'any_uuid',
+  cnpj: 'any_cnpj',
+  serviceId: 1,
+  userId: 'any_uuid',
+  createdAt: new Date(),
 });
 
 export const mockProviders = (): LoadProvidersRepository.Result[] => [{

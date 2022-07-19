@@ -1,5 +1,16 @@
-import { IProvider } from '@/domain/models/IProvider';
+export namespace CreateProviderRepository {
+  export type Params = {
+    id: string
+    name: string
+    description: string
+    serviceId: number
+    cnpj: string
+    userId: string
+    createdAt: Date
+  }
 
+  export type Result = boolean
+}
 export interface ICreateProviderRepository {
-  create(provider: IProvider): Promise<IProvider>
+  create(params: CreateProviderRepository.Params): Promise<CreateProviderRepository.Result>
 }

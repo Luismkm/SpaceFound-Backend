@@ -16,7 +16,7 @@ export class UpdateProfileController implements IController {
     private readonly updateUserProfile: IUpdateUserProfile,
   ) {}
 
-  async handle(request: UpdateProfileController.Request): Promise<any> {
+  async handle(request: UpdateProfileController.Request): Promise<IHttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) return badRequest(error);

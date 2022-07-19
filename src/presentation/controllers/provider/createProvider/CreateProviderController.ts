@@ -1,10 +1,15 @@
-import {
-  badRequest, serverError, success,
-} from '@/presentation/helpers/http/httpHelper';
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
+import { IController, ICreateProvider, IHttpResponse, IValidation } from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
 
-import {
-  IController, ICreateProvider, IHttpRequest, IHttpResponse, IValidation,
-} from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
+export namespace CreateProviderController {
+  export type Request = {
+    name: string
+    description: string
+    cnpj: string
+    serviceId: number
+    userId: string
+  }
+}
 
 export class CreateProviderController implements IController {
   constructor(
@@ -12,19 +17,14 @@ export class CreateProviderController implements IController {
     private readonly validation: IValidation,
   ) {}
 
-  async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle(request: CreateProviderController.Request): Promise<IHttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
+      const error = this.validation.validate(request);
       if (error) {
         return badRequest(error);
       }
-
-      const { userId } = httpRequest;
-      const { idBusiness, description } = httpRequest.body;
-      const provider = await
-      this.createProvider.create({ idUser: userId, idBusiness, description });
-
-      return success(provider);
+      const provider = await this.createProvider.create({ ...request, createdAt: new Date() });
+      if (provider) return noContent();
     } catch (error) {
       return serverError(error);
     }

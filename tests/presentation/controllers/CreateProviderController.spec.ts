@@ -1,81 +1,85 @@
+import MockDate from 'mockdate';
+
 import { CreateProviderController } from '@/presentation/controllers/provider/createProvider/CreateProviderController';
 import { MissingParamError, ServerError } from '@/presentation/errors';
-import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
-
-import { ICreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
-import { IValidation, IHttpRequest } from '@/presentation/protocols';
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
 
 import { throwError } from '@/tests/domain/mocks';
-import { mockCreateProvider } from '../mocks/mockProvider';
-import { mockValidation } from '@/tests/validation/mocks/mockValidation';
+import { CreateProviderSpy } from '@/tests/presentation/mocks/mockProvider';
+import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
 
-const makeFakeRequest = ():IHttpRequest => ({
+const mockRequest = ():CreateProviderController.Request => ({
+  name: 'any_name',
+  description: 'any_description',
+  cnpj: 'any_cnpj',
+  serviceId: 1,
   userId: 'any_uuid',
-  body: {
-    idBusiness: 0,
-    description: 'any_description',
-  },
 });
 
 type ISutTypes = {
   sut: CreateProviderController
-  validationStub: IValidation
-  createProviderStub: ICreateProviderRepository
+  validationSpy: ValidationSpy
+  createProviderSpy: CreateProviderSpy
 }
 
 const makeSut = (): ISutTypes => {
-  const createProviderStub = mockCreateProvider();
-  const validationStub = mockValidation();
-  const sut = new CreateProviderController(createProviderStub, validationStub);
+  const createProviderSpy = new CreateProviderSpy();
+  const validationSpy = new ValidationSpy();
+  const sut = new CreateProviderController(createProviderSpy, validationSpy);
   return {
     sut,
-    validationStub,
-    createProviderStub,
+    validationSpy,
+    createProviderSpy,
   };
 };
 
 describe('CreateProvider Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
   it('should call CreateAccount with correct values', async () => {
-    const { sut, createProviderStub } = makeSut();
-    const createSpy = jest.spyOn(createProviderStub, 'create');
-    await sut.handle(makeFakeRequest());
-    expect(createSpy).toHaveBeenCalledWith({
-      idUser: 'any_uuid',
-      idBusiness: 0,
-      description: 'any_description',
+    const { sut, createProviderSpy } = makeSut();
+    const request = mockRequest();
+    await sut.handle(request);
+    expect(createProviderSpy.params).toEqual({
+      name: request.name,
+      description: request.description,
+      cnpj: request.cnpj,
+      serviceId: request.serviceId,
+      createdAt: new Date(),
+      userId: request.userId,
     });
   });
   it('should call Validation with correct values', async () => {
-    const { sut, validationStub } = makeSut();
-    const validateSpy = jest.spyOn(validationStub, 'validate');
-    const httpResponse = makeFakeRequest();
+    const { sut, validationSpy } = makeSut();
+    const validateSpy = jest.spyOn(validationSpy, 'validate');
+    const httpResponse = mockRequest();
     await sut.handle(httpResponse);
-    expect(validateSpy).toHaveBeenLastCalledWith(httpResponse.body);
+    expect(validateSpy).toHaveBeenLastCalledWith(httpResponse);
   });
 
   it('should return 400 if Validation return an error', async () => {
-    const { sut, validationStub } = makeSut();
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
-    const httpResponse = await sut.handle(makeFakeRequest());
+    const { sut, validationSpy } = makeSut();
+    jest.spyOn(validationSpy, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
+    const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
   });
 
   it('should return 500 if CreateAccount throws ', async () => {
-    const { sut, createProviderStub } = makeSut();
-    jest.spyOn(createProviderStub, 'create')
+    const { sut, createProviderSpy } = makeSut();
+    jest.spyOn(createProviderSpy, 'create')
       .mockImplementationOnce(throwError);
-    const httpResponse = await sut.handle(makeFakeRequest());
+    const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 
-  it('should return 200 if CreateProvider success', async () => {
+  it('should return 204 if CreateProvider success', async () => {
     const { sut } = makeSut();
-    const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success({
-      id: 'any_uuid',
-      idBusiness: 0,
-      description: 'any_description',
-      idUser: 'any_uuid',
-    }));
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(noContent());
   });
 });
