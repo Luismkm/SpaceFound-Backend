@@ -23,7 +23,7 @@ describe('Account Postgres Repository', () => {
     it('should return true on update with success', async () => {
       const succeeds = await sut.update(mockParams());
       expect(succeeds).toBeTruthy();
-      await knexHelper.knex('users').delete('*');
+      await knexHelper.knex('user').delete('*');
     });
   });
 });

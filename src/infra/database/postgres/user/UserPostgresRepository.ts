@@ -9,17 +9,17 @@ export class UserPostgresRepository implements
   IUpdateAvatarRepository,
   IUpdateUserProfileRepository {
   async findById(id: string): Promise<undefined> {
-    const user = await knexHelper.knex('users').where('id', id);
+    const user = await knexHelper.knex('user').where('id', id);
     return user[0];
   }
 
   async updateAvatar({ userId, fileName }: UpdateAvatarRepository.Params): Promise<UpdateAvatarRepository.Result> {
-    const avatar = await knexHelper.knex('users').update('avatar', fileName).where('id', userId).returning('avatar');
+    const avatar = await knexHelper.knex('user').update('avatar', fileName).where('id', userId).returning('avatar');
     return avatar[0];
   }
 
   async update(profile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
-    const asReturn = await knexHelper.knex('users').update({ name: profile.name, email: profile.email }).where('id', profile.userId).limit(1);
+    const asReturn = await knexHelper.knex('user').update({ name: profile.name, email: profile.email }).where('id', profile.userId).limit(1);
     return asReturn !== null;
   }
 }

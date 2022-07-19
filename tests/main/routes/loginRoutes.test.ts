@@ -10,7 +10,7 @@ describe('Login Routes', () => {
   });
 
   afterEach(async () => {
-    await knexHelper.knex('users').delete('*');
+    await knexHelper.knex('user').delete('*');
   });
   describe('POST /signup', () => {
     it('should return 200 on signup', async () => {
@@ -29,7 +29,7 @@ describe('Login Routes', () => {
   describe('POST /login', () => {
     it('should return 200 on login', async () => {
       const password = await hash('123', 12);
-      await knexHelper.knex('users').insert({
+      await knexHelper.knex('user').insert({
         id: 'any_uuid',
         name: 'any_name',
         email: 'any_email@email.com',

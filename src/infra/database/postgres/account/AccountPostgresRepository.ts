@@ -10,17 +10,17 @@ export class AccountPostgresRepository implements
   ICheckAccountByEmailRepository {
   async create(account: CreateAccountRepository.Params): Promise<CreateAccountRepository.Result> {
     const { id, name, email, password } = account;
-    const accountCreated = await knexHelper.knex('users').insert({ id, name, email, password }).returning('id');
+    const accountCreated = await knexHelper.knex('user').insert({ id, name, email, password }).returning('id');
     return accountCreated !== null;
   }
 
   async loadByEmail(email: string): Promise<any> {
-    const account = await knexHelper.knex('users').where('email', email);
+    const account = await knexHelper.knex('user').where('email', email);
     return account[0];
   }
 
   async checkByEmail(email: string): Promise<boolean> {
-    const account = await knexHelper.knex('users').where('email', email);
+    const account = await knexHelper.knex('user').where('email', email);
     return account[0] !== null;
   }
 }

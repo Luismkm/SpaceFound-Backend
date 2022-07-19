@@ -16,7 +16,7 @@ describe('Account Postgres Repository', () => {
     it('should return true on create success', async () => {
       const account = await sut.create(mockAccount());
       expect(account).toBeTruthy();
-      await knexHelper.knex('users').delete('*');
+      await knexHelper.knex('user').delete('*');
     });
   });
 
@@ -29,7 +29,7 @@ describe('Account Postgres Repository', () => {
       expect(account.name).toBe('any_name');
       expect(account.email).toBe('any_email');
       expect(account.password).toBe('any_password');
-      await knexHelper.knex('users').delete('*');
+      await knexHelper.knex('user').delete('*');
     });
 
     it('should return null if loadByEmail fails', async () => {
