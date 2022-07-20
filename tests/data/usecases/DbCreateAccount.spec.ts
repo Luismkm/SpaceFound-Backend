@@ -1,3 +1,4 @@
+import MockDate from 'mockdate';
 import { DbCreateAccount } from '@/data/usecases/account/DbCreateAccount';
 
 import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorSpy } from '@/tests/data/mocks';
@@ -32,6 +33,14 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('DbCreateAccount Usecase', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
   it('should call Hasher with correct password', async () => {
     const { sut, hasherSpy } = makeSut();
     const request = mockCreateAccountParams();
@@ -48,14 +57,15 @@ describe('DbCreateAccount Usecase', () => {
 
   it('Should call CreateAccountRepository with correct values', async () => {
     const { sut, hasherSpy, uuidSpy, createAccountRepositorySpy } = makeSut();
-    const createAccountParams = mockCreateAccountParams();
-    await sut.create(createAccountParams);
+    const params = mockCreateAccountParams();
+    await sut.create(params);
     expect(createAccountRepositorySpy.params).toEqual({
       id: uuidSpy.digest,
-      name: createAccountParams.name,
-      email: createAccountParams.email,
+      name: params.name,
+      email: params.email,
       password: hasherSpy.digest,
-      avatar: createAccountParams.avatar,
+      cityId: params.cityId,
+      createdAt: params.createdAt,
     });
   });
 

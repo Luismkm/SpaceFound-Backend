@@ -1,3 +1,5 @@
+import MockDate from 'mockdate';
+
 import { ServerError, MissingParamError, EmailInUseError } from '@/presentation/errors';
 import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
 import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
@@ -11,6 +13,7 @@ const mockRequest = (): SignUpController.Request => ({
   email: 'any_email',
   password: 'any_passowrd',
   passwordConfirmation: 'any_password',
+  cityId: 1,
 });
 
 type ISutTypes = {
@@ -34,6 +37,13 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('SignUp Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+  afterAll(() => {
+    MockDate.reset();
+  });
+
   it('should call CreateAccount with correct values', async () => {
     const { sut, createAccountSpy } = makeSut();
     const request = mockRequest();
@@ -42,6 +52,8 @@ describe('SignUp Controller', () => {
       name: request.name,
       email: request.email,
       password: request.password,
+      cityId: request.cityId,
+      createdAt: new Date(),
     });
   });
 

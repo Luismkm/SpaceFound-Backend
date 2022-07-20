@@ -12,14 +12,14 @@ export class DbCreateAccount implements ICreateAccount {
     private readonly checkAccountByEmailRepository: ICheckAccountByEmailRepository,
   ) {}
 
-  async create(account: CreateAccount.Params): Promise<CreateAccount.Result> {
+  async create(params: CreateAccount.Params): Promise<CreateAccount.Result> {
     let accountCreated = false;
-    const checkUserExists = await this.checkAccountByEmailRepository.checkByEmail(account.email);
+    const checkUserExists = await this.checkAccountByEmailRepository.checkByEmail(params.email);
     if (!checkUserExists) {
-      const passwordHashed = await this.hasher.hash(account.password);
+      const passwordHashed = await this.hasher.hash(params.password);
       const uuid = this.uuid.uuidGenerator();
       accountCreated = await this.createAccountRepository.create({
-        ...account, password: passwordHashed, id: uuid,
+        ...params, password: passwordHashed, id: uuid,
       });
     }
     return accountCreated;

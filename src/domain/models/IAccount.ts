@@ -3,5 +3,7 @@ export type IAccount = {
   name: string
   email: string
   password: string
+  cityId: number
+  createdAt: Date
   avatar?: string
 }

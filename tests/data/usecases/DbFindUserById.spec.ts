@@ -1,9 +1,10 @@
-import { DbFindUserById } from '@/data/usecases/user/DbFindUserById';
+import Mockdate from 'mockdate';
 
+import { DbFindUserById } from '@/data/usecases/user/DbFindUserById';
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 
 import { mockAccount, throwError } from '@/tests/domain/mocks';
-import { mockFindUserByIdRepository } from '../mocks/mockDbUser';
+import { mockFindUserByIdRepository } from '@/tests/data/mocks/mockDbUser';
 
 type ISutTypes = {
   sut: DbFindUserById
@@ -20,6 +21,14 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('DbFindUserById', () => {
+  beforeAll(() => {
+    Mockdate.set(new Date());
+  });
+
+  afterAll(() => {
+    Mockdate.reset();
+  });
+
   it('should call findUserById', async () => {
     const { sut, findUserByIdRepositoryStub } = makeSut();
     const findSpy = jest.spyOn(findUserByIdRepositoryStub, 'findById');

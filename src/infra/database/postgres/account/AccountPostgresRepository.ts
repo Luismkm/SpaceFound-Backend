@@ -9,8 +9,8 @@ export class AccountPostgresRepository implements
   ILoadAccountByEmailRepository,
   ICheckAccountByEmailRepository {
   async create(account: CreateAccountRepository.Params): Promise<CreateAccountRepository.Result> {
-    const { id, name, email, password } = account;
-    const accountCreated = await knexHelper.knex('user').insert({ id, name, email, password }).returning('id');
+    const { id, name, email, password, cityId } = account;
+    const accountCreated = await knexHelper.knex('user').insert({ id, name, email, password, city_id: cityId }).returning('id');
     return accountCreated !== null;
   }
 

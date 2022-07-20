@@ -3,7 +3,8 @@ export namespace CreateAccount {
     name: string
     email: string
     password: string
-    avatar?: string
+    cityId: number
+    createdAt: Date
   }
 
   export type Result = boolean

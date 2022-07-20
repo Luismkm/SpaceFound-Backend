@@ -9,6 +9,7 @@ export namespace SignUpController {
     email: string
     password: string
     passwordConfirmation: string
+    cityId: number
   }
 }
 
@@ -23,8 +24,8 @@ export class SignUpController implements IController {
     try {
       const error = this.validation.validate(request);
       if (error) return badRequest(error);
-      const { name, email, password } = request;
-      const account = await this.createAccount.create({ name, email, password });
+      const { name, email, password, cityId } = request;
+      const account = await this.createAccount.create({ name, email, password, cityId, createdAt: new Date() });
       if (!account) return forbidden(new EmailInUseError());
       const accessToken = await this.authentication.auth({ email, password });
       if (accessToken) return success(accessToken);

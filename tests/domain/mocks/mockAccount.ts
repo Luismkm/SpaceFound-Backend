@@ -6,7 +6,8 @@ export const mockCreateAccountParams = (): CreateAccount.Params => ({
   name: 'any_name',
   email: 'any_email',
   password: 'any_password',
-  avatar: 'any_avatar',
+  cityId: 1,
+  createdAt: new Date(),
 });
 
 export const mockAccount = (): IAccount => ({
@@ -15,6 +16,8 @@ export const mockAccount = (): IAccount => ({
   email: 'any_email',
   password: 'any_password',
   avatar: 'any_avatar',
+  cityId: 1,
+  createdAt: new Date(),
 });
 
 export const mockAuthenticationParams = (): Authentication.Params => ({
