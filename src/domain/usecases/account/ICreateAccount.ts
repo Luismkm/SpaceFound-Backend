@@ -11,5 +11,5 @@ export namespace CreateAccount {
 }
 
 export interface ICreateAccount {
-  create(account: CreateAccount.Params): Promise<CreateAccount.Result>
+  create(params: CreateAccount.Params): Promise<CreateAccount.Result>
 }

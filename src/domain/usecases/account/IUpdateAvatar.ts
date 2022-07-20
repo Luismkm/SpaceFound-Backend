@@ -8,5 +8,5 @@ export namespace UpdateAvatar {
 }
 
 export interface IUpdateAvatar {
-  updateAvatar(account: UpdateAvatar.Params): Promise<UpdateAvatar.Result>
+  updateAvatar(params: UpdateAvatar.Params): Promise<UpdateAvatar.Result>
 }

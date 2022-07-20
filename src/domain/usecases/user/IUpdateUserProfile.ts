@@ -9,5 +9,5 @@ export namespace UpdateUserProfile {
 }
 
 export interface IUpdateUserProfile {
-  update(user: UpdateUserProfile.Params): Promise<UpdateUserProfile.Result>
+  update(params: UpdateUserProfile.Params): Promise<UpdateUserProfile.Result>
 }

@@ -11,5 +11,5 @@ export namespace Authentication {
 }
 
 export interface IAuthentication {
-  auth(authentication: Authentication.Params): Promise<Authentication.Result>
+  auth(params: Authentication.Params): Promise<Authentication.Result>
 }
