@@ -21,6 +21,6 @@ export class AccountPostgresRepository implements
 
   async checkByEmail(email: string): Promise<boolean> {
     const account = await knexHelper.knex('user').where('email', email);
-    return account[0] !== null;
+    return account.length === 1;
   }
 }
