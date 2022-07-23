@@ -19,10 +19,10 @@ describe('Login Routes', () => {
   });
 
   afterEach(async () => {
-    await knexHelper.knex('providers').delete('*');
+    await knexHelper.knex('provider').delete('*');
   });
   describe('POST /provider', () => {
-    it('should return 200 on create provider', async () => {
+    it('should return 204 on create provider', async () => {
       const accessToken = makeAccesToken();
       await request(app)
         .post('/api/provider')
@@ -31,7 +31,7 @@ describe('Login Routes', () => {
           idBusiness: 1,
           description: 'any_description',
         })
-        .expect(200);
+        .expect(204);
     });
 
     it('Should return 401 on create provider without accessToken', async () => {
@@ -46,7 +46,7 @@ describe('Login Routes', () => {
   });
 
   describe('GET /providers', () => {
-    it('Should return 204 on load providers', async () => {
+    it('Should return 204 on load providers returns empty', async () => {
       await request(app)
         .get('/api/providers')
         .expect(204);
