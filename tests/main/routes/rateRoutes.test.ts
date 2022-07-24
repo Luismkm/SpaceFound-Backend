@@ -13,7 +13,7 @@ const makeAccesToken = (): string => {
   return token;
 };
 
-describe('Login Routes', () => {
+describe('Rate Routes', () => {
   beforeAll(() => {
     knexHelper.connect('development');
   });
