@@ -6,9 +6,9 @@ import { knexHelper } from '@/infra/database/helpers';
 import authConfig from '@/main/config/auth';
 
 const makeAccesToken = (): string => {
-  const id = 'any_uuid';
-  const token = sign({}, authConfig.jwt.secret, {
-    subject: id,
+  const userId = 'any_uuid';
+  const token = sign({ userId }, authConfig.jwt.secret, {
+    subject: userId,
   });
   return token;
 };
