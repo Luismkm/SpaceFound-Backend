@@ -8,9 +8,7 @@ export class JwtAdapter implements IEncrypter, IDecrypter {
   constructor(private readonly secret: string) {}
 
   encrypt(value: string): string {
-    const token = sign({}, this.secret, {
-      subject: value,
-    });
+    const token = sign({ sub: 'any' }, this.secret);
     return token;
   }
 
