@@ -53,7 +53,7 @@ describe('DbCreateProvider Usecase', () => {
     });
   });
 
-  it('should return a Provider on success', async () => {
+  it('should return true on success', async () => {
     const { sut } = makeSut();
     const provider = await sut.create(mockCreateProviderParams());
     expect(provider).toBe(true);
