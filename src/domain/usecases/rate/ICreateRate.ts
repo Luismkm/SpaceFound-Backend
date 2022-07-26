@@ -1,7 +1,14 @@
-import { IRate } from '@/domain/models/IRate';
+export namespace CreateRate {
+  export type Params = {
+    star: number
+    comment: string
+    userId: string
+    providerId: string
+    createdAt: Date
+  }
 
-export type ICreateRateDTO = Omit<IRate, 'id'>
-
+  export type Result = boolean
+}
 export interface ICreateRate {
-  create(rate: ICreateRateDTO): Promise<IRate>
+  create(params: CreateRate.Params): Promise<CreateRate.Result>
 }

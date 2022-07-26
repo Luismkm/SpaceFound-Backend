@@ -1,13 +1,9 @@
-import { IRate } from '@/domain/models/IRate';
-import { ICreateRateDTO } from '@/domain/usecases/rate/ICreateRate';
+import { CreateRate } from '@/domain/usecases/rate/ICreateRate';
 
-export const mockRateDTO = (): ICreateRateDTO => ({
-  idUser: 'any_uuid',
-  idProvider: 'any_uuid',
+export const mockRateParams = (): CreateRate.Params => ({
   star: 1,
   comment: 'any_comment',
-});
-
-export const mockRate = (): IRate => ({
-  ...mockRateDTO(), id: 1,
+  userId: 'any_uuid',
+  providerId: 'any_uuid',
+  createdAt: new Date(),
 });
