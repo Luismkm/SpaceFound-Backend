@@ -1,86 +1,83 @@
+import MockDate from 'mockdate';
 import { CreateRateController } from '@/presentation/controllers/rate/CreateRateController';
 import { MissingParamError, ServerError } from '@/presentation/errors';
-import { badRequest, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
 
-import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
-import { IValidation } from '@/presentation/protocols/IValidation';
-
-import { mockValidation } from '@/tests/validation/mocks/mockValidation';
 import { throwError } from '@/tests/domain/mocks';
-import { mockCreateRate } from '../mocks/mockRate';
-import { IHttpRequest } from '@/presentation/protocols';
+import { CreateRateSpy } from '@/tests/presentation/mocks/mockRate';
+import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
 
-const makeFakeRequest = ():IHttpRequest => ({
+const mockRequest = ():CreateRateController.Request => ({
   userId: 'any_uuid',
-  body: {
-    idProvider: 'any_uuid',
-    star: 1,
-    comment: 'any_comment',
-  },
+  providerId: 'any_uuid',
+  star: 1,
+  comment: 'any_comment',
 });
 
 type ISutTypes = {
   sut: CreateRateController
-  createRateStub: ICreateRate
-  validationStub: IValidation
+  createRateSpy: CreateRateSpy
+  validationSpy: ValidationSpy
 }
 
 const makeSut = ():ISutTypes => {
-  const createRateStub = mockCreateRate();
-  const validationStub = mockValidation();
-  const sut = new CreateRateController(createRateStub, validationStub);
+  const createRateSpy = new CreateRateSpy();
+  const validationSpy = new ValidationSpy();
+  const sut = new CreateRateController(createRateSpy, validationSpy);
   return {
     sut,
-    createRateStub,
-    validationStub,
+    createRateSpy,
+    validationSpy,
   };
 };
 
 describe('CreateRate Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date());
+  });
+
+  afterAll(() => {
+    MockDate.reset();
+  });
+
   it('should call Validation with correct values', async () => {
-    const { sut, validationStub } = makeSut();
-    const validateSpy = jest.spyOn(validationStub, 'validate');
-    const httpResponse = makeFakeRequest();
-    await sut.handle(httpResponse);
-    expect(validateSpy).toHaveBeenLastCalledWith(httpResponse.body);
+    const { sut, validationSpy } = makeSut();
+    const request = mockRequest();
+    await sut.handle(request);
+    expect(validationSpy.input).toBe(request);
   });
 
   it('should return 400 if Validation return an error', async () => {
-    const { sut, validationStub } = makeSut();
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
-    const httpResponse = await sut.handle(makeFakeRequest());
+    const { sut, validationSpy } = makeSut();
+    jest.spyOn(validationSpy, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
+    const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
   });
 
   it('should call CreateRate with correct values', async () => {
-    const { sut, createRateStub } = makeSut();
-    const createSpy = jest.spyOn(createRateStub, 'create');
-    await sut.handle(makeFakeRequest());
-    expect(createSpy).toHaveBeenCalledWith({
-      idUser: 'any_uuid',
-      idProvider: 'any_uuid',
-      star: 1,
-      comment: 'any_comment',
+    const { sut, createRateSpy } = makeSut();
+    const request = mockRequest();
+    await sut.handle(request);
+    expect(createRateSpy.params).toEqual({
+      userId: request.userId,
+      providerId: request.providerId,
+      star: request.star,
+      comment: request.comment,
+      createdAt: new Date(),
     });
   });
 
   it('should return 500 if CreateRate throws ', async () => {
-    const { sut, createRateStub } = makeSut();
-    jest.spyOn(createRateStub, 'create')
+    const { sut, createRateSpy } = makeSut();
+    jest.spyOn(createRateSpy, 'create')
       .mockImplementationOnce(throwError);
-    const httpResponse = await sut.handle(makeFakeRequest());
+    const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 
-  it('should return 200 if valid data is provided', async () => {
+  it('should return 204 if rated with success', async () => {
     const { sut } = makeSut();
-    const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success({
-      id: 1,
-      idUser: 'any_uuid',
-      idProvider: 'any_uuid',
-      star: 1,
-      comment: 'any_comment',
-    }));
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse).toEqual(noContent());
   });
 });

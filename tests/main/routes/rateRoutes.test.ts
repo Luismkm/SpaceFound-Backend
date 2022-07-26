@@ -19,7 +19,7 @@ describe('Rate Routes', () => {
   });
 
   afterEach(async () => {
-    await knexHelper.knex('providers').delete('*');
+    await knexHelper.knex('provider').delete('*');
   });
   describe('POST /rate', () => {
     it('should return 200 on create rate', async () => {
@@ -28,7 +28,7 @@ describe('Rate Routes', () => {
         .post('/api/rate')
         .set('x-access-token', accessToken)
         .send({
-          idProvider: 'any_uuid',
+          providerId: 'any_uuid',
           star: 1,
           comment: 'any_comment',
         })

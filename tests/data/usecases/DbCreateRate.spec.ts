@@ -1,50 +1,52 @@
 import DbCreateRate from '@/data/usecases/rate/DbCreateRate';
 
-import { ICreateRateRepository } from '@/data/protocols/db/rate/ICreateRateRepository';
-
-import { mockRate, mockRateDTO } from '@/tests/domain/mocks/mockRate';
+import { mockRateParams } from '@/tests/domain/mocks/mockRate';
 import { throwError } from '@/tests/domain/mocks';
-import { mockCreateRateRepository } from '../mocks/mockDbRate';
+import { CreateRateRepositorySpy } from '@/tests/data/mocks/mockDbRate';
+import { UuidGeneratorSpy } from '@/tests/data/mocks';
 
 type ISutTypes = {
   sut: DbCreateRate
-  createRateRepositoryStub: ICreateRateRepository
+  uuidSpy: UuidGeneratorSpy
+  createRateRepositorySpy: CreateRateRepositorySpy
 }
 
 const makeSut = ():ISutTypes => {
-  const createRateRepositoryStub = mockCreateRateRepository();
-  const sut = new DbCreateRate(createRateRepositoryStub);
+  const uuidSpy = new UuidGeneratorSpy();
+  const createRateRepositorySpy = new CreateRateRepositorySpy();
+  const sut = new DbCreateRate(uuidSpy, createRateRepositorySpy);
   return {
     sut,
-    createRateRepositoryStub,
+    uuidSpy,
+    createRateRepositorySpy,
   };
 };
 
 describe('Db Create Rate', () => {
   it('should call CreateRateRepository with correct values', async () => {
-    const { sut, createRateRepositoryStub } = makeSut();
-    const createSpy = jest.spyOn(createRateRepositoryStub, 'create');
-    await sut.create(mockRateDTO());
-    expect(createSpy).toHaveBeenCalledWith({
-      idUser: 'any_uuid',
-      idProvider: 'any_uuid',
-      star: 1,
-      comment: 'any_comment',
+    const { sut, uuidSpy, createRateRepositorySpy } = makeSut();
+    const params = mockRateParams();
+    await sut.create(params);
+    expect(createRateRepositorySpy.params).toEqual({
+      id: uuidSpy.digest,
+      star: params.star,
+      comment: params.comment,
+      userId: params.userId,
+      providerId: params.providerId,
+      createdAt: params.createdAt,
     });
   });
 
   it('Should throw if CreateRateRepository throws ', async () => {
-    const { sut, createRateRepositoryStub } = makeSut();
-    jest
-      .spyOn(createRateRepositoryStub, 'create')
-      .mockImplementationOnce(throwError);
-    const promise = sut.create(mockRateDTO());
+    const { sut, createRateRepositorySpy } = makeSut();
+    jest.spyOn(createRateRepositorySpy, 'create').mockImplementationOnce(throwError);
+    const promise = sut.create(mockRateParams());
     await expect(promise).rejects.toThrow();
   });
 
-  it('Should return a rate on success', async () => {
+  it('Should return true on success', async () => {
     const { sut } = makeSut();
-    const rate = await sut.create(mockRateDTO());
-    expect(rate).toEqual(mockRate());
+    const rate = await sut.create(mockRateParams());
+    expect(rate).toBe(true);
   });
 });
