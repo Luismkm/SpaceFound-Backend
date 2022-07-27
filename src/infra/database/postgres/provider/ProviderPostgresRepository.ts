@@ -1,7 +1,6 @@
 import { knexHelper } from '@/infra/database/helpers';
 import { CreateProviderRepository } from '@/data/protocols';
 import { ICreateProviderRepository, ILoadProviderByIdRepository, ILoadProvidersRepository, LoadProvidersRepository } from './ProviderPostgresRepositoryProtocols';
-import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 
 export class ProviderPostgresRepository implements
   ICreateProviderRepository,
@@ -13,44 +12,33 @@ export class ProviderPostgresRepository implements
     let insertedService;
 
     await knexHelper.knex.transaction(async (trx) => {
-      providerCreated = await trx('provider')
-        .insert({ id, name, description, cnpj, user_id: userId, created_at: createdAt })
-        .returning('*');
-
+      providerCreated = await trx('provider').insert({ id, name, description, cnpj, user_id: userId, created_at: createdAt }).returning('*');
       insertedService = await trx('provider_service').insert({ provider_id: id, service_id: serviceId });
     });
-
-    if (providerCreated && insertedService) {
-      return true;
-    }
+    if (providerCreated && insertedService) return true;
     return false;
   }
 
   async loadAll(): Promise<LoadProvidersRepository.Result[]> {
-    const avgStar = knexHelper.knex.select('id_provider')
+    const avgStar = knexHelper.knex.select('provider_id')
       .avg('star as average')
-      .from('rates')
-      .groupBy('id_provider')
-      .as('rates_avg');
+      .from('rate')
+      .groupBy('provider_id')
+      .as('rate_avg');
 
     const providers = await knexHelper
       .knex('provider')
-      .select('*').leftJoin(avgStar, 'provider.id', 'rates_avg.id_provider');
+      .select('*').leftJoin(avgStar, 'provider.id', 'rate_avg.provider_id');
 
     return providers;
   }
 
-  async loadById(id: string): Promise<IProviderProfile> {
-    const provider = await knexHelper.knex('provider')
-      .innerJoin('rates', 'provider.id', '=', 'rates.id_provider')
-      .where('provider.id', id);
-
-    const averageStarsArray = await knexHelper.knex('rates').avg('star').where('id_provider', id);
-    const averageStars = Number(averageStarsArray[0].avg.toFixed(2));
-
-    return {
-      provider,
-      averageStars,
-    };
+  async loadById(id: string): Promise<any> {
+    const provider = await knexHelper.knex.select('*').from('provider').where('provider.id', id);
+    const averageStarsArray = await knexHelper.knex('rate').avg('star').where('provider_id', id);
+    const { avg } = averageStarsArray[0];
+    const averageStars = avg !== null ? averageStarsArray[0].avg : 0;
+    const result = { averageStars, ...provider[0] };
+    return result;
   }
 }
