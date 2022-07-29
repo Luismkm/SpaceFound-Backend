@@ -1,5 +1,4 @@
 import { ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
-import { IProvider } from '@/domain/models/IProvider';
 import { ILoadProviders } from '@/domain/usecases/provider/ILoadProviders';
 
 export class DbLoadProviders implements ILoadProviders {

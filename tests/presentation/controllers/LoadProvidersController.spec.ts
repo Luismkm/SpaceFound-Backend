@@ -1,10 +1,9 @@
-import { LoadProvidersController } from '@/presentation/controllers/provider/loadProvider/LoadProvidersController';
 import { noContent, serverError, success } from '@/presentation/helpers/http/httpHelper';
-
-import { ILoadProviders } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
+import { LoadProvidersController } from '@/presentation/controllers/provider/LoadProvidersController';
+import { ILoadProviders } from '@/domain/usecases/provider/ILoadProviders';
 
 import { mockProviders } from '@/tests/domain/mocks/mockProvider';
-import { mockLoadProviders } from '../mocks/mockProvider';
+import { mockLoadProviders } from '@/tests/presentation/mocks/mockProvider';
 import { throwError } from '@/tests/domain/mocks';
 
 type ISutTypes = {

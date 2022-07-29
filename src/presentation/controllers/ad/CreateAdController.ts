@@ -1,6 +1,6 @@
-import { ICreateAd } from '@/domain/usecases/ad/ICreateAd';
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
+import { ICreateAd } from '@/domain/usecases/ad/ICreateAd';
 
 export namespace CreateAdController {
   export type Request = {

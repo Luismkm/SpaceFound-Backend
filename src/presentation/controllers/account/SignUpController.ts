@@ -1,7 +1,7 @@
 import { EmailInUseError } from '@/presentation/errors';
 import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
-import { IAuthentication, ICreateAccount } from '@/domain/usecases/account';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
+import { IAuthentication, ICreateAccount } from '@/domain/usecases/account';
 
 export namespace SignUpController {
   export type Request = {

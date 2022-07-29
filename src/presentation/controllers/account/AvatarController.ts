@@ -1,9 +1,8 @@
+import { IUpdateAvatar } from '@/domain/usecases/account';
 import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
-
 import { IController, IHttpRequest, IHttpResponse } from '@/presentation/protocols';
-import { IUpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 
-export class UserAvatarController implements IController {
+export class AvatarController implements IController {
   constructor(
     private readonly update: IUpdateAvatar,
   ) {}

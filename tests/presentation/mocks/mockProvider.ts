@@ -1,9 +1,8 @@
-import { IProvider } from '@/domain/models/IProvider';
-import { ILoadProviderById, ILoadProviders, LoadProviders } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
-import { CreateProvider, ICreateProvider } from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
-
 import { mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
+import { CreateProvider, ICreateProvider } from '@/domain/usecases/provider/ICreateProvider';
+import { ILoadProviders, LoadProviders } from '@/domain/usecases/provider/ILoadProviders';
+import { ILoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
 
 export class CreateProviderSpy implements ICreateProvider {
   params: CreateProvider.Params

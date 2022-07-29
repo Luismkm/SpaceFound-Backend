@@ -1,12 +1,12 @@
 import MockDate from 'mockdate';
 
 import { ServerError, MissingParamError, EmailInUseError } from '@/presentation/errors';
-import { SignUpController } from '@/presentation/controllers/login/signUp/SignUpController';
 import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
 
-import { AuthenticationSpy, CreateAccountSpy } from '@/tests/presentation/mocks';
 import { throwError } from '@/tests/domain/mocks';
 import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
+import { AuthenticationSpy, CreateAccountSpy } from '@/tests/presentation/mocks';
+import { SignUpController } from '@/presentation/controllers/account/SignUpController';
 
 const mockRequest = (): SignUpController.Request => ({
   name: 'any_name',

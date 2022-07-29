@@ -8,7 +8,6 @@ let sut: ProviderPostgresRepository;
 describe('Provider Postgres Repository', () => {
   beforeAll(() => {
     MockDate.set(new Date('2020-10-10T03:00:00.000Z'));
-
     knexHelper.connect('development');
   });
 
@@ -26,8 +25,8 @@ describe('Provider Postgres Repository', () => {
   });
 
   describe('create()', () => {
-    it('should create a provider on success', async () => {
-      await sut.create({
+    it('should return true on create provider with success', async () => {
+      const mockProviderParams = {
         id: 'any_uuid',
         name: 'any_name',
         description: 'any_description',
@@ -35,25 +34,24 @@ describe('Provider Postgres Repository', () => {
         serviceId: 1,
         createdAt: new Date(),
         userId: 'any_uuid',
-      });
-      const provider = await knexHelper.knex('provider').where({ user_id: 'any_uuid' }).select('*');
-      expect(provider[0]).toBeTruthy();
+      };
+      const isValid = await sut.create(mockProviderParams);
+      expect(isValid).toBe(true);
     });
   });
 
   describe('loadAll()', () => {
     it('should load all providers on success', async () => {
-      await knexHelper.knex('provider').insert({
+      await knexHelper.knex('provider').insert([{
         id: 'any_uuid',
         description: 'any_description',
         user_id: 'any_uuid',
-      });
-
-      await knexHelper.knex('provider').insert({
+      },
+      {
         id: 'any_uuid2',
         description: 'any_description2',
         user_id: 'any_uuid2',
-      });
+      }]);
 
       const providers = await sut.loadAll();
       expect(providers).toBeTruthy();
@@ -61,11 +59,6 @@ describe('Provider Postgres Repository', () => {
       expect(providers[0].id).toBeTruthy();
       expect(providers[0].description).toBe('any_description');
       expect(providers[1].description).toBe('any_description2');
-    });
-
-    it('should load empty list', async () => {
-      const providers = await sut.loadAll();
-      expect(providers.length).toEqual(0);
     });
   });
 

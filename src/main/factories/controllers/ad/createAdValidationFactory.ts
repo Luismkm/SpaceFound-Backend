@@ -1,5 +1,4 @@
 import { RequiredFieldValidation, ValidationComposite } from '@/validation/validators';
-
 import { IValidation } from '@/presentation/protocols';
 
 export const makeCreateAdValidation = (): ValidationComposite => {

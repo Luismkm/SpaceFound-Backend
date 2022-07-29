@@ -1,5 +1,6 @@
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
-import { IController, ICreateProvider, IHttpResponse, IValidation } from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
+import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
+import { ICreateProvider } from '@/domain/usecases/provider/ICreateProvider';
 
 export namespace CreateProviderController {
   export type Request = {

@@ -1,6 +1,6 @@
+import { badRequest, noContent, serverError, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
 import { IUpdateUserProfile } from '@/domain/usecases/user/IUpdateUserProfile';
-import { badRequest, noContent, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
-import { IController, IHttpRequest, IHttpResponse, IValidation } from '@/presentation/protocols';
 
 export namespace UpdateProfileController {
   export type Request = {

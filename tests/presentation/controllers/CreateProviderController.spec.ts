@@ -1,8 +1,8 @@
 import MockDate from 'mockdate';
 
-import { CreateProviderController } from '@/presentation/controllers/provider/createProvider/CreateProviderController';
 import { MissingParamError, ServerError } from '@/presentation/errors';
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
+import { CreateProviderController } from '@/presentation/controllers/provider/CreateProviderController';
 
 import { throwError } from '@/tests/domain/mocks';
 import { CreateProviderSpy } from '@/tests/presentation/mocks/mockProvider';

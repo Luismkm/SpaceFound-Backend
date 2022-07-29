@@ -1,7 +1,6 @@
 import DbCreateProvider from '@/data/usecases/provider/DbCreateProvider';
 import { ProviderPostgresRepository } from '@/infra/database/postgres/provider/ProviderPostgresRepository';
 import { UuidAdapter } from '@/infra/helpers/uuidAdapter/UuidAdapter';
-
 import { ICreateProvider } from '@/domain/usecases/provider/ICreateProvider';
 
 export const makeDbCreateProvider = (): ICreateProvider => {

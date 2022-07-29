@@ -1,14 +1,12 @@
-import { LoadProviderByIdController } from '@/presentation/controllers/provider/loadProvider/LoadProviderByIdController';
-import {
-  forbidden, noContent, serverError, success,
-} from '@/presentation/helpers/http/httpHelper';
-
-import { IHttpRequest, ILoadProviderById } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
-
-import { mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockProvider';
-import { mockLoadProviderById } from '../mocks/mockProvider';
-import { throwError } from '@/tests/domain/mocks';
+import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { IHttpRequest } from '@/presentation/protocols';
 import { InvalidParamError } from '@/presentation/errors';
+import { LoadProviderByIdController } from '@/presentation/controllers/provider/LoadProviderByIdController';
+import { ILoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
+
+import { throwError } from '@/tests/domain/mocks';
+import { mockLoadProviderById } from '@/tests/presentation/mocks/mockProvider';
+import { mockProviderProfile } from '@/tests/domain/mocks/mockProvider';
 
 const makeFakeRequest = ():IHttpRequest => ({
   params: {

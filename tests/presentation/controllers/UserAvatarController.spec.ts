@@ -1,9 +1,9 @@
-import { UserAvatarController } from '@/presentation/controllers/user/UserAvatarController';
 import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
-
-import { mockAccount, throwError } from '@/tests/domain/mocks';
-import { UpdateAvatarSpy } from '../mocks';
 import { IHttpRequest } from '@/presentation/protocols';
+import { AvatarController } from '@/presentation/controllers/account/AvatarController';
+
+import { throwError } from '@/tests/domain/mocks';
+import { UpdateAvatarSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): IHttpRequest => ({
   userId: 'uuid',
@@ -12,14 +12,14 @@ const mockRequest = (): IHttpRequest => ({
   },
 });
 type ISutTypes = {
-  sut: UserAvatarController
+  sut: AvatarController
   updateAvatarSpy: UpdateAvatarSpy
 
 }
 
 const makeSut = (): ISutTypes => {
   const updateAvatarSpy = new UpdateAvatarSpy();
-  const sut = new UserAvatarController(updateAvatarSpy);
+  const sut = new AvatarController(updateAvatarSpy);
   return {
     sut,
     updateAvatarSpy,

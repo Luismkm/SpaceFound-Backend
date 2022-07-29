@@ -4,7 +4,7 @@ import { IValidation } from '@/presentation/protocols';
 
 export const makeCreateProviderValidation = (): ValidationComposite => {
   const validations: IValidation[] = [];
-  for (const field of ['idBusiness', 'description']) {
+  for (const field of ['name', 'description', 'serviceId']) {
     validations.push(new RequiredFieldValidation(field));
   }
 

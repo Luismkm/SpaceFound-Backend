@@ -1,6 +1,5 @@
 import { knexHelper } from '@/infra/database/helpers';
 
-import { mockAccount } from '@/tests/domain/mocks';
 import { UserPostgresRepository } from '@/infra/database/postgres/user/UserPostgresRepository';
 import { UpdateUserProfileRepository } from '@/data/protocols';
 
@@ -19,6 +18,7 @@ describe('Account Postgres Repository', () => {
   beforeEach(() => {
     sut = new UserPostgresRepository();
   });
+
   describe('update', () => {
     it('should return true on update with success', async () => {
       const succeeds = await sut.update(mockParams());
@@ -26,4 +26,12 @@ describe('Account Postgres Repository', () => {
       await knexHelper.knex('user').delete('*');
     });
   });
+
+  /* describe('findById', () => {
+    it('should return true on update with success', async () => {
+      const succeeds = await sut.update(mockParams());
+      expect(succeeds).toBeTruthy();
+      await knexHelper.knex('user').delete('*');
+    });
+  }); */
 });
