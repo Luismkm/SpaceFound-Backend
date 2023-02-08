@@ -1,7 +1,8 @@
+import { IAuthentication } from '@/domain/usecases/account';
+import { ICreateUserAccount } from '@/domain/usecases/user';
 import { EmailInUseError } from '@/presentation/errors';
 import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
-import { IAuthentication, ICreateAccount } from '@/domain/usecases/account';
 
 export namespace SignUpController {
   export type Request = {
@@ -15,7 +16,7 @@ export namespace SignUpController {
 
 export class SignUpController implements IController {
   constructor(
-    private readonly createAccount: ICreateAccount,
+    private readonly createAccount: ICreateUserAccount,
     private readonly validation: IValidation,
     private readonly authentication: IAuthentication,
   ) {}

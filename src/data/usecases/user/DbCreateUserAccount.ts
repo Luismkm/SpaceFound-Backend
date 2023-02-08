@@ -2,9 +2,9 @@ import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
 import { ICreateAccountRepository } from '@/data/protocols/db/user/ICreateUserAccountRepository';
 import { IHasher } from '@/data/protocols';
 import { ICheckAccountByEmailRepository } from '@/data/protocols/db/user/ICheckUserByEmailRepository';
-import { CreateAccount, ICreateAccount } from '@/domain/usecases/account/ICreateAccount';
+import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
 
-export class DbCreateAccount implements ICreateAccount {
+export class DbCreateUserAccount implements ICreateUserAccount {
   constructor(
     private readonly hasher: IHasher,
     private readonly uuid: IUuidGenerator,
@@ -12,7 +12,7 @@ export class DbCreateAccount implements ICreateAccount {
     private readonly checkAccountByEmailRepository: ICheckAccountByEmailRepository,
   ) {}
 
-  async create(params: CreateAccount.Params): Promise<CreateAccount.Result> {
+  async create(params: CreateUserAccount.Params): Promise<CreateUserAccount.Result> {
     let accountCreated = false;
     const checkUserExists = await this.checkAccountByEmailRepository.checkByEmail(params.email);
     if (!checkUserExists) {

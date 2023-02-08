@@ -1,11 +1,11 @@
 import MockDate from 'mockdate';
-import { DbCreateAccount } from '@/data/usecases/account/DbCreateAccount';
+import { DbCreateUserAccount } from '@/data/usecases/user/DbCreateUserAccount';
 
 import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorSpy } from '@/tests/data/mocks';
 import { mockCreateAccountParams, throwError } from '@/tests/domain/mocks';
 
 type ISutTypes = {
-  sut: DbCreateAccount
+  sut: DbCreateUserAccount
   hasherSpy: HasherSpy
   uuidSpy: UuidGeneratorSpy
   createAccountRepositorySpy: CreateAccountRepositorySpy
@@ -17,7 +17,7 @@ const makeSut = (): ISutTypes => {
   const checkAccountByEmailRepositorySpy = new CheckAccountByEmailRepositorySpy();
   const hasherSpy = new HasherSpy();
   const uuidSpy = new UuidGeneratorSpy();
-  const sut = new DbCreateAccount(
+  const sut = new DbCreateUserAccount(
     hasherSpy,
     uuidSpy,
     createAccountRepositorySpy,
@@ -32,7 +32,7 @@ const makeSut = (): ISutTypes => {
   };
 };
 
-describe('DbCreateAccount Usecase', () => {
+describe('DbCreateUserAccount Usecase', () => {
   beforeAll(() => {
     MockDate.set(new Date());
   });

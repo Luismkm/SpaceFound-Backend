@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import DbCreateProvider from '@/data/usecases/provider/DbCreateProvider';
+import DbCreateProvider from '@/data/usecases/provider/DbCreateAccountProvider';
 
 import { UuidGeneratorSpy } from '@/tests/data/mocks';
 import { CreateProviderRepositorySpy } from '@/tests/data/mocks/mockDbProvider';
@@ -49,7 +49,6 @@ describe('DbCreateProvider Usecase', () => {
       name: params.name,
       createdAt: params.createdAt,
       serviceId: params.serviceId,
-      userId: params.userId,
     });
   });
 

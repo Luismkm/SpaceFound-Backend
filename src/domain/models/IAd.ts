@@ -1,8 +1,8 @@
-export type PublishService = {
+export type ad = {
   id: string
   user_id: string
   description: string
-  is_publish_active: boolean
+  is_ad_active: boolean
   created_at: Date
   update_at: Date
 }

@@ -1,12 +1,12 @@
 import { Authentication, IAuthentication } from '@/domain/usecases/account/IAuthentication';
-import { CreateAccount, ICreateAccount } from '@/domain/usecases/account/ICreateAccount';
+import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
 import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
 
-export class CreateAccountSpy implements ICreateAccount {
-  params: CreateAccount.Params
+export class CreateAccountSpy implements ICreateUserAccount {
+  params: CreateUserAccount.Params
   result = true
 
-  async create(params: CreateAccount.Params): Promise<CreateAccount.Result> {
+  async create(params: CreateUserAccount.Params): Promise<CreateUserAccount.Result> {
     this.params = params;
     return this.result;
   }

@@ -1,14 +1,13 @@
 import { IProvider } from '@/domain/models/IProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 import { LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
-import { CreateProvider } from '@/domain//usecases/provider/ICreateProvider';
+import { CreateAccountProvider } from '@/domain/usecases/provider/ICreateAccountProvider';
 
-export const mockCreateProviderParams = (): CreateProvider.Params => ({
+export const mockCreateProviderParams = (): CreateAccountProvider.Params => ({
   name: 'any_name',
   description: 'any_description',
   cnpj: 'any_cnpj',
   serviceId: 1,
-  userId: 'any_uuid',
   createdAt: new Date(),
 });
 

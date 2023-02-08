@@ -1,4 +1,4 @@
-export * from './ICreateUserRepository';
+export * from './ICreateUserAccountRepository';
 export * from './ILoadUserByEmailRepository';
 export * from './IUpdateUserAvatarRepository';
 export * from './ICheckUserByEmailRepository';

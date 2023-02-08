@@ -1,15 +1,15 @@
-import { ICreateProviderRepository, CreateProviderRepository } from '@/data/protocols/db/provider/ICreateProviderRepository';
+import { ICreateProviderAccountRepository, CreateProviderAccountRepository } from '@/data/protocols/db/provider/ICreateProviderAccountRepository';
 import { ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
 import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
 
 import { mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 
-export class CreateProviderRepositorySpy implements ICreateProviderRepository {
-  params: CreateProviderRepository.Params
+export class CreateProviderRepositorySpy implements ICreateProviderAccountRepository {
+  params: CreateProviderAccountRepository.Params
   result = true
 
-  async create(params: CreateProviderRepository.Params): Promise<CreateProviderRepository.Result> {
+  async create(params: CreateProviderAccountRepository.Params): Promise<CreateProviderAccountRepository.Result> {
     this.params = params;
     return this.result;
   }
