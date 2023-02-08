@@ -1,4 +1,4 @@
-export namespace UpdateAvatarRepository {
+export namespace UpdateUserAvatarRepository {
   export type Params = {
     userId: string
     fileName: string
@@ -8,5 +8,5 @@ export namespace UpdateAvatarRepository {
 }
 
 export interface IUpdateAvatarRepository {
-  updateAvatar(data: UpdateAvatarRepository.Params): Promise<UpdateAvatarRepository.Result>
+  updateAvatar(data: UpdateUserAvatarRepository.Params): Promise<UpdateUserAvatarRepository.Result>
 }

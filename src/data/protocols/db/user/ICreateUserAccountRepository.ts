@@ -1,4 +1,4 @@
-export namespace CreateAccountRepository {
+export namespace CreateUserAccountRepository {
   export type Params = {
     id: string
     name: string
@@ -12,5 +12,5 @@ export namespace CreateAccountRepository {
 }
 
 export interface ICreateAccountRepository {
-  create(account: CreateAccountRepository.Params): Promise<CreateAccountRepository.Result>
+  create(account: CreateUserAccountRepository.Params): Promise<CreateUserAccountRepository.Result>
 }

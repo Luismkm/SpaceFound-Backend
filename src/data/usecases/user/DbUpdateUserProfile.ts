@@ -1,5 +1,5 @@
 import { ICheckAccountByEmailRepository } from '@/data/protocols';
-import { IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user/IUpdateProfileRepository';
+import { IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user/IUpdateUserProfileRepository';
 import { IUpdateUserProfile } from '@/domain/usecases/user/IUpdateUserProfile';
 
 export class DbUpdateUserProfile implements IUpdateUserProfile {

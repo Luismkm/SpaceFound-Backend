@@ -1,5 +1,5 @@
 import { CreateAccount } from '@/domain/usecases/account/ICreateAccount';
-import { IAccount } from '@/domain/models/IAccount';
+import { IUser } from '@/domain/models/IUser';
 import { Authentication } from '@/domain/usecases/account/IAuthentication';
 
 export const mockCreateAccountParams = (): CreateAccount.Params => ({
@@ -10,7 +10,7 @@ export const mockCreateAccountParams = (): CreateAccount.Params => ({
   createdAt: new Date(),
 });
 
-export const mockAccount = (): IAccount => ({
+export const mockAccount = (): IUser => ({
   id: 'any_uuid',
   name: 'any_name',
   email: 'any_email',

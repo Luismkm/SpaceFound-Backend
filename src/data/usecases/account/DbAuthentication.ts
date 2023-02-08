@@ -1,5 +1,5 @@
 import { IEncrypter, IHashComparer } from '@/data/protocols/cryptography';
-import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/ILoadAccountByEmailRepository';
+import { ILoadAccountByEmailRepository } from '@/data/protocols/db/user/ILoadUserByEmailRepository';
 import { IAuthentication, Authentication } from '@/domain/usecases/account';
 
 export class DbAuthentication implements IAuthentication {
