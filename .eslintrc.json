@@ -24,6 +24,7 @@
       "import/prefer-default-export": "off",
       "no-restricted-syntax": "off",
       "no-unused-vars": "off",
+      "camelcase": "off",
       "max-classes-per-file": "off",
       "import/no-extraneous-dependencies": "off",
       "object-curly-newline": "off",
