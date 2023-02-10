@@ -6,9 +6,9 @@ import { badRequest, forbidden, serverError, success } from '@/presentation/help
 import { throwError } from '@/tests/domain/mocks';
 import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
 import { AuthenticationSpy, CreateAccountSpy } from '@/tests/presentation/mocks';
-import { SignUpController } from '@/presentation/controllers/account/SignUpController';
+import { SignUpUserController } from '@/presentation/controllers/user/SignUpUserController';
 
-const mockRequest = (): SignUpController.Request => ({
+const mockRequest = (): SignUpUserController.Request => ({
   name: 'any_name',
   email: 'any_email',
   password: 'any_passowrd',
@@ -17,7 +17,7 @@ const mockRequest = (): SignUpController.Request => ({
 });
 
 type ISutTypes = {
-  sut: SignUpController,
+  sut: SignUpUserController,
   createAccountSpy: CreateAccountSpy
   validationSpy: ValidationSpy
   authenticationSpy: AuthenticationSpy
@@ -27,7 +27,7 @@ const makeSut = (): ISutTypes => {
   const createAccountSpy = new CreateAccountSpy();
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
-  const sut = new SignUpController(createAccountSpy, validationSpy, authenticationSpy);
+  const sut = new SignUpUserController(createAccountSpy, validationSpy, authenticationSpy);
   return {
     sut,
     createAccountSpy,

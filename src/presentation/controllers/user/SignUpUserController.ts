@@ -4,7 +4,7 @@ import { EmailInUseError } from '@/presentation/errors';
 import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
 
-export namespace SignUpController {
+export namespace SignUpUserController {
   export type Request = {
     name: string
     email: string
@@ -14,14 +14,14 @@ export namespace SignUpController {
   }
 }
 
-export class SignUpController implements IController {
+export class SignUpUserController implements IController {
   constructor(
     private readonly createAccount: ICreateUserAccount,
     private readonly validation: IValidation,
     private readonly authentication: IAuthentication,
   ) {}
 
-  async handle(request: SignUpController.Request): Promise<IHttpResponse> {
+  async handle(request: SignUpUserController.Request): Promise<IHttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) return badRequest(error);
