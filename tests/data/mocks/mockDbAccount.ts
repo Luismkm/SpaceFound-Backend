@@ -2,7 +2,7 @@ import {
   CreateUserAccountRepository, ICreateAccountRepository,
   UpdateUserAvatarRepository, IUpdateAvatarRepository,
   LoadUserByEmailRepository, ILoadAccountByEmailRepository,
-  CheckUserByEmailRepository, ICheckAccountByEmailRepository,
+  CheckAccountByEmailRepository, ICheckAccountByEmailRepository,
 } from '@/data/protocols';
 
 export class CreateAccountRepositorySpy implements ICreateAccountRepository {
@@ -45,7 +45,7 @@ export class CheckAccountByEmailRepositorySpy implements ICheckAccountByEmailRep
   params: string
   result: true
 
-  async checkByEmail(email: string): Promise<CheckUserByEmailRepository.Result> {
+  async checkByEmail(email: string): Promise<CheckAccountByEmailRepository.Result> {
     this.params = email;
     return this.result;
   }

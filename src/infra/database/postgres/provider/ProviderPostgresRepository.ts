@@ -1,17 +1,17 @@
 import { knexHelper } from '@/infra/database/helpers';
-import { CreateProviderRepository, ICreateProviderRepository, ILoadProviderByIdRepository, ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols';
+import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProviderByIdRepository, ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols';
 
 export class ProviderPostgresRepository implements
-  ICreateProviderRepository,
+  ICreateProviderAccountRepository,
   ILoadProvidersRepository,
   ILoadProviderByIdRepository {
-  async create(params: CreateProviderRepository.Params): Promise<CreateProviderRepository.Result> {
-    const { id, name, description, createdAt, serviceId, cnpj, userId } = params;
+  async create(params: CreateProviderAccountRepository.Params): Promise<CreateProviderAccountRepository.Result> {
+    const { id, name, description, createdAt, serviceId, cnpj } = params;
     let providerCreated: any;
     let insertedService: any;
 
     await knexHelper.knex.transaction(async (trx) => {
-      providerCreated = await trx('provider').insert({ id, name, description, cnpj, user_id: userId, created_at: createdAt }).returning('*');
+      providerCreated = await trx('provider').insert({ id, name, description, cnpj, created_at: createdAt }).returning('*');
       insertedService = await trx('provider_service').insert({ provider_id: id, service_id: serviceId }).returning('*');
     });
 

@@ -3,6 +3,7 @@ import { DbCreateUserAccount } from '@/data/usecases/user/DbCreateUserAccount';
 
 import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorSpy } from '@/tests/data/mocks';
 import { mockCreateAccountParams, throwError } from '@/tests/domain/mocks';
+import { SendEmailServiceSpy } from '../mocks/mockSendEmailService';
 
 type ISutTypes = {
   sut: DbCreateUserAccount
@@ -15,11 +16,13 @@ type ISutTypes = {
 const makeSut = (): ISutTypes => {
   const createAccountRepositorySpy = new CreateAccountRepositorySpy();
   const checkAccountByEmailRepositorySpy = new CheckAccountByEmailRepositorySpy();
+  const sendEmailServiseSpy = new SendEmailServiceSpy();
   const hasherSpy = new HasherSpy();
   const uuidSpy = new UuidGeneratorSpy();
   const sut = new DbCreateUserAccount(
     hasherSpy,
     uuidSpy,
+    sendEmailServiseSpy,
     createAccountRepositorySpy,
     checkAccountByEmailRepositorySpy,
   );

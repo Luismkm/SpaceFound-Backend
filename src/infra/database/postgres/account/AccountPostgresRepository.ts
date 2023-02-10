@@ -2,7 +2,7 @@ import { knexHelper } from '@/infra/database/helpers';
 
 import { CreateUserAccountRepository, ICreateAccountRepository, IUpdateAvatarRepository, UpdateUserAvatarRepository } from '@/data/protocols';
 import { ILoadAccountByEmailRepository } from '@/data/protocols/db/user/ILoadUserByEmailRepository';
-import { ICheckAccountByEmailRepository } from '@/data/protocols/db/user/ICheckUserByEmailRepository';
+import { ICheckAccountByEmailRepository } from '@/data/protocols/db/account/ICheckAccountByEmailRepository';
 
 export class AccountPostgresRepository implements
   ICreateAccountRepository,

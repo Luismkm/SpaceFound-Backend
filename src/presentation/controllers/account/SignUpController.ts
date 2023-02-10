@@ -31,6 +31,7 @@ export class SignUpController implements IController {
       const accessToken = await this.authentication.auth({ email, password });
       if (accessToken) return success(accessToken);
     } catch (error: any) {
+      console.log(error);
       return serverError(error);
     }
   }
