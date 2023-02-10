@@ -3,7 +3,7 @@ import { ICreateAccountRepository } from '@/data/protocols/db/user/ICreateUserAc
 import { IHasher } from '@/data/protocols';
 import { ICheckAccountByEmailRepository } from '@/data/protocols/db/account/ICheckAccountByEmailRepository';
 import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
-import ISendEmailService from '@/data/protocols/emailService/ISendEmailService';
+import { ISendEmailService } from '@/data/protocols/emailService/ISendEmailService';
 
 export class DbCreateUserAccount implements ICreateUserAccount {
   constructor(
@@ -26,8 +26,8 @@ export class DbCreateUserAccount implements ICreateUserAccount {
       if (accountCreated) {
         this.sendEmailService.send({
           to: {
-            name: 'johnny.konopelski58@ethereal.email',
-            email: 'johnny.konopelski58@ethereal.email',
+            name: params.name,
+            email: params.email,
           },
         });
       }
