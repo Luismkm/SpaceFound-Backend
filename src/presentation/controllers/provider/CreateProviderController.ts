@@ -1,6 +1,6 @@
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
-import { ICreateAccountProvider } from '@/domain/usecases/provider/ICreateAccountProvider';
+import { ICreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 
 export namespace CreateProviderController {
   export type Request = {
@@ -14,7 +14,7 @@ export namespace CreateProviderController {
 
 export class CreateProviderController implements IController {
   constructor(
-    private readonly createProvider: ICreateAccountProvider,
+    private readonly createProvider: ICreateProviderAccount,
     private readonly validation: IValidation,
   ) {}
 

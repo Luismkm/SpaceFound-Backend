@@ -1,11 +1,11 @@
 import {
-  CreateUserAccountRepository, ICreateAccountRepository,
+  CreateUserAccountRepository, ICreateUserAccountRepository,
   UpdateUserAvatarRepository, IUpdateAvatarRepository,
   LoadUserByEmailRepository, ILoadAccountByEmailRepository,
   CheckAccountByEmailRepository, ICheckAccountByEmailRepository,
 } from '@/data/protocols';
 
-export class CreateAccountRepositorySpy implements ICreateAccountRepository {
+export class CreateAccountRepositorySpy implements ICreateUserAccountRepository {
   params: CreateUserAccountRepository.Params
   result = true
 

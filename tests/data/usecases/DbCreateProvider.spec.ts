@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import DbCreateProvider from '@/data/usecases/provider/DbCreateAccountProvider';
+import DbCreateProvider from '@/data/usecases/provider/DbCreateProviderAccount';
 
 import { UuidGeneratorSpy } from '@/tests/data/mocks';
 import { CreateProviderRepositorySpy } from '@/tests/data/mocks/mockDbProvider';

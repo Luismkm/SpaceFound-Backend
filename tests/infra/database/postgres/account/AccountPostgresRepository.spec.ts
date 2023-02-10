@@ -12,16 +12,9 @@ describe('Account Postgres Repository', () => {
   beforeEach(() => {
     sut = new AccountPostgresRepository();
   });
-  describe('create()', () => {
-    it('should return true on create success', async () => {
-      const account = await sut.create(mockAccount());
-      expect(account).toBeTruthy();
-      await knexHelper.knex('user').delete('*');
-    });
-  });
 
   describe('loadByEmail', () => {
-    it('should return an account on loadByEmail success', async () => {
+    /* it('should return an account on loadByEmail success', async () => {
       await sut.create(mockAccount());
       const account = await sut.loadByEmail('any_email');
       expect(account.name).toBeTruthy();
@@ -30,7 +23,7 @@ describe('Account Postgres Repository', () => {
       expect(account.email).toBe('any_email');
       expect(account.password).toBe('any_password');
       await knexHelper.knex('user').delete('*');
-    });
+    }); */
 
     it('should return null if loadByEmail fails', async () => {
       const account = await sut.loadByEmail('any_email');

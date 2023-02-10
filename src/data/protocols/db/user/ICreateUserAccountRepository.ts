@@ -11,6 +11,6 @@ export namespace CreateUserAccountRepository {
   export type Result = boolean
 }
 
-export interface ICreateAccountRepository {
+export interface ICreateUserAccountRepository {
   create(account: CreateUserAccountRepository.Params): Promise<CreateUserAccountRepository.Result>
 }

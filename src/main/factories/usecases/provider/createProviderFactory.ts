@@ -1,9 +1,9 @@
-import DbCreateProviderAccount from '@/data/usecases/provider/DbCreateAccountProvider';
+import DbCreateProviderAccount from '@/data/usecases/provider/DbCreateProviderAccount';
 import { ProviderPostgresRepository } from '@/infra/database/postgres/provider/ProviderPostgresRepository';
 import { UuidAdapter } from '@/infra/helpers/uuidAdapter/UuidAdapter';
-import { ICreateAccountProvider } from '@/domain/usecases/provider/ICreateAccountProvider';
+import { ICreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 
-export const makeDbCreateProvider = (): ICreateAccountProvider => {
+export const makeDbCreateProvider = (): ICreateProviderAccount => {
   const uuidAdapter = new UuidAdapter();
   const providerPostgresRepository = new ProviderPostgresRepository();
   return new DbCreateProviderAccount(

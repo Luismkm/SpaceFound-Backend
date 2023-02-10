@@ -1,9 +1,9 @@
 import { IProvider } from '@/domain/models/IProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 import { LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
-import { CreateAccountProvider } from '@/domain/usecases/provider/ICreateAccountProvider';
+import { CreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 
-export const mockCreateProviderParams = (): CreateAccountProvider.Params => ({
+export const mockCreateProviderParams = (): CreateProviderAccount.Params => ({
   name: 'any_name',
   description: 'any_description',
   cnpj: 'any_cnpj',

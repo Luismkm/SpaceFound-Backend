@@ -1,5 +1,5 @@
 import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
-import { ICreateAccountRepository } from '@/data/protocols/db/user/ICreateUserAccountRepository';
+import { ICreateUserAccountRepository } from '@/data/protocols/db/user/ICreateUserAccountRepository';
 import { IHasher } from '@/data/protocols';
 import { ICheckAccountByEmailRepository } from '@/data/protocols/db/account/ICheckAccountByEmailRepository';
 import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
@@ -10,7 +10,7 @@ export class DbCreateUserAccount implements ICreateUserAccount {
     private readonly hasher: IHasher,
     private readonly uuid: IUuidGenerator,
     private readonly sendEmailService: ISendEmailService,
-    private readonly createAccountRepository: ICreateAccountRepository,
+    private readonly createUserAccountRepository: ICreateUserAccountRepository,
     private readonly checkAccountByEmailRepository: ICheckAccountByEmailRepository,
   ) {}
 
@@ -20,7 +20,7 @@ export class DbCreateUserAccount implements ICreateUserAccount {
     if (!checkUserExists) {
       const passwordHashed = await this.hasher.hash(params.password);
       const uuid = this.uuid.uuidGenerator();
-      accountCreated = await this.createAccountRepository.create({
+      accountCreated = await this.createUserAccountRepository.create({
         ...params, password: passwordHashed, id: uuid,
       });
       if (accountCreated) {
