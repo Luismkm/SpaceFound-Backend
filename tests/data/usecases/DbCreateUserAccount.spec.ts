@@ -9,6 +9,7 @@ type ISutTypes = {
   sut: DbCreateUserAccount
   hasherSpy: HasherSpy
   uuidSpy: UuidGeneratorSpy
+  sendEmailServiseSpy: SendEmailServiceSpy
   createAccountRepositorySpy: CreateAccountRepositorySpy
   checkAccountByEmailRepositorySpy: CheckAccountByEmailRepositorySpy
 }
@@ -30,6 +31,7 @@ const makeSut = (): ISutTypes => {
     sut,
     hasherSpy,
     uuidSpy,
+    sendEmailServiseSpy,
     createAccountRepositorySpy,
     checkAccountByEmailRepositorySpy,
   };
@@ -81,12 +83,6 @@ describe('DbCreateUserAccount Usecase', () => {
     await expect(promise).rejects.toThrow();
   });
 
-  it('Should return true on success', async () => {
-    const { sut } = makeSut();
-    const account = await sut.create(mockCreateAccountParams());
-    expect(account).toBe(true);
-  });
-
   it('should return false if CheckAccountByEmailRepository return true', async () => {
     const { sut, checkAccountByEmailRepositorySpy } = makeSut();
     jest.spyOn(checkAccountByEmailRepositorySpy, 'checkByEmail')
@@ -100,5 +96,34 @@ describe('DbCreateUserAccount Usecase', () => {
     const request = mockCreateAccountParams();
     await sut.create(request);
     expect(checkAccountByEmailRepositorySpy.params).toBe(request.email);
+  });
+
+  it('should call sendEmailService with correct values on created user', async () => {
+    const { sut, sendEmailServiseSpy } = makeSut();
+    const request = mockCreateAccountParams();
+    await sut.create(request);
+    expect(sendEmailServiseSpy.params).toEqual({
+      to: {
+        name: request.name,
+        email: request.email,
+      },
+    });
+  });
+
+  it('should not call sendEmailService when user not created', async () => {
+    const { sut, createAccountRepositorySpy, sendEmailServiseSpy } = makeSut();
+    const request = mockCreateAccountParams();
+    jest
+      .spyOn(createAccountRepositorySpy, 'create')
+      .mockReturnValueOnce(Promise.resolve(false))
+    const sendSpy = jest.spyOn(sendEmailServiseSpy, 'send')
+    await sut.create(request);
+    expect(sendSpy).not.toHaveBeenCalledWith();
+  });
+
+  it('Should return true on success', async () => {
+    const { sut } = makeSut();
+    const account = await sut.create(mockCreateAccountParams());
+    expect(account).toBe(true);
   });
 });
