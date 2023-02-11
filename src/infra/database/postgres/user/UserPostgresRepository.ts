@@ -23,4 +23,9 @@ export class UserPostgresRepository implements
     const user = await knexHelper.knex('user').where('id', id);
     return user[0];
   }
+
+  async checkByEmail(email: string): Promise<boolean> {
+    const account = await knexHelper.knex('user').where('email', email);
+    return account.length === 1;
+  }
 }

@@ -1,6 +1,6 @@
 import { badRequest, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
-import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
+import { IAuthentication } from '@/domain/usecases/user/IAuthentication';
 
 export namespace LoginController {
   export type Request = {

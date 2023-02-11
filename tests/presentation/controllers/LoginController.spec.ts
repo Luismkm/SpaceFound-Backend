@@ -1,6 +1,6 @@
 import { MissingParamError } from '@/presentation/errors';
 import { badRequest, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
-import { LoginController } from '@/presentation/controllers/account/LoginController';
+import { LoginController } from '@/presentation/controllers/user/LoginController';
 
 import { throwError } from '@/tests/domain/mocks';
 import { AuthenticationSpy } from '@/tests/presentation/mocks/mockAccount';

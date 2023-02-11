@@ -1,8 +1,7 @@
 import {
   CreateUserAccountRepository, ICreateUserAccountRepository,
   UpdateUserAvatarRepository, IUpdateAvatarRepository,
-  LoadUserByEmailRepository, ILoadAccountByEmailRepository,
-  CheckAccountByEmailRepository, ICheckAccountByEmailRepository,
+  LoadUserByEmailRepository, ILoadAccountByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository,
 } from '@/data/protocols';
 
 export class CreateAccountRepositorySpy implements ICreateUserAccountRepository {

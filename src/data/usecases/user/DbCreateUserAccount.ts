@@ -1,7 +1,7 @@
 import { IUuidGenerator } from '@/data/protocols/helpers/IUuidGenerator';
 import { ICreateUserAccountRepository } from '@/data/protocols/db/user/ICreateUserAccountRepository';
 import { IHasher } from '@/data/protocols';
-import { ICheckAccountByEmailRepository } from '@/data/protocols/db/account/ICheckAccountByEmailRepository';
+import { ICheckAccountByEmailRepository } from '@/data/protocols/db/user/ICheckAccountByEmailRepository';
 import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
 import { ISendEmailService } from '@/data/protocols/emailService/ISendEmailService';
 

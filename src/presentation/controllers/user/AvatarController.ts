@@ -1,4 +1,4 @@
-import { IUpdateAvatar } from '@/domain/usecases/account';
+import { IUpdateAvatar } from '@/domain/usecases/user';
 import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpRequest, IHttpResponse } from '@/presentation/protocols';
 

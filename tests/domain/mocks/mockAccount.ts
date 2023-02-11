@@ -1,6 +1,6 @@
 import { CreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
 import { IUser } from '@/domain/models/IUser';
-import { Authentication } from '@/domain/usecases/account/IAuthentication';
+import { Authentication } from '@/domain/usecases/user/IAuthentication';
 
 export const mockCreateAccountParams = (): CreateUserAccount.Params => ({
   name: 'any_name',

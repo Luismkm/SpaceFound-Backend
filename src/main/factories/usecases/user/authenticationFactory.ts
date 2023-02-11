@@ -1,10 +1,10 @@
-import { DbAuthentication } from '@/data/usecases/account/DbAuthentication';
+import { DbAuthentication } from '@/data/usecases/user/DbAuthentication';
 import { BcryptAdapter } from '@/infra/cryptography/bcryptAdapter/BcryptAdapter';
 import { JwtAdapter } from '@/infra/cryptography/jwtAdapter/JwtAdapter';
-import { AccountPostgresRepository } from '@/infra/database/postgres/account/AccountPostgresRepository';
+import { AccountPostgresRepository } from '@/infra/database/postgres/user/AccountPostgresRepository';
 import authConfig from '@/main/config/auth';
 
-import { IAuthentication } from '@/domain/usecases/account/IAuthentication';
+import { IAuthentication } from '@/domain/usecases/user/IAuthentication';
 
 export const makeDbAuthentication = (): IAuthentication => {
   const salt = 12;

@@ -1,4 +1,4 @@
-import { DbUpdateAvatar } from '@/data/usecases/account/DbUpdateAvatar';
+import { DbUpdateAvatar } from '@/data/usecases/user/DbUpdateAvatar';
 
 import { IStorageProvider } from '@/data/protocols/storageProvider/IStorageProvider';
 import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';

@@ -1,6 +1,6 @@
-import { AvatarController } from '@/presentation/controllers/account/AvatarController';
+import { AvatarController } from '@/presentation/controllers/user/AvatarController';
 import { IController } from '@/presentation/protocols';
-import { makeDbUpdateAvatar } from '@/main/factories/usecases/account/updateAvatarFactory';
+import { makeDbUpdateAvatar } from '../../usecases/user/updateAvatarFactory';
 
 export const makeAvatarController = (): IController => {
   const controller = new AvatarController(makeDbUpdateAvatar());

@@ -1,5 +1,4 @@
-import { IAuthentication } from '@/domain/usecases/account';
-import { ICreateUserAccount } from '@/domain/usecases/user';
+import { IAuthentication, ICreateUserAccount } from '@/domain/usecases/user';
 import { EmailInUseError } from '@/presentation/errors';
 import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';

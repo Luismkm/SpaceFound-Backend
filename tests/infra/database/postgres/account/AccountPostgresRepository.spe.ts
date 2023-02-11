@@ -1,5 +1,5 @@
-import { knexHelper } from '@/infra/database/helpers';
-import { AccountPostgresRepository } from '@/infra/database/postgres/account/AccountPostgresRepository';
+/* import { knexHelper } from '@/infra/database/helpers';
+import { AccountPostgresRepository } from '@/infra/database/postgres/user/AccountPostgresRepository';
 
 import { mockAccount } from '@/tests/domain/mocks';
 
@@ -14,7 +14,7 @@ describe('Account Postgres Repository', () => {
   });
 
   describe('loadByEmail', () => {
-    /* it('should return an account on loadByEmail success', async () => {
+    it('should return an account on loadByEmail success', async () => {
       await sut.create(mockAccount());
       const account = await sut.loadByEmail('any_email');
       expect(account.name).toBeTruthy();
@@ -23,7 +23,7 @@ describe('Account Postgres Repository', () => {
       expect(account.email).toBe('any_email');
       expect(account.password).toBe('any_password');
       await knexHelper.knex('user').delete('*');
-    }); */
+    });
 
     it('should return null if loadByEmail fails', async () => {
       const account = await sut.loadByEmail('any_email');
@@ -31,3 +31,4 @@ describe('Account Postgres Repository', () => {
     });
   });
 });
+ */

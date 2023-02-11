@@ -1,6 +1,6 @@
 import { CompareFieldsValidation, EmailValidation, RequiredFieldValidation, ValidationComposite } from '@/validation/validators';
 import { IValidation } from '@/presentation/protocols';
-import { makeSignUpValidation } from '@/main/factories/controllers/account/signUpValidationFactory';
+import { makeSignUpValidation } from '@/main/factories/controllers/user/signUpValidationFactory';
 
 import { mockEmailValidator } from '@/tests/validation/mocks/mockEmailValidator';
 
