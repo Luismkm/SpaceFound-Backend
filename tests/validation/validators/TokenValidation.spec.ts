@@ -38,7 +38,7 @@ describe('Token Validations', () => {
   it('should return success on valid token', () => {
     const { sut } = makeSut();
     const httpResponse = sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success({ user: 'any_value' }));
+    expect(httpResponse).toEqual(success({ userId: 'any_value' }));
   });
 
   it('should return unauthorized on invalid token', () => {

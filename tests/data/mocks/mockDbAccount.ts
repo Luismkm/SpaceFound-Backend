@@ -1,25 +1,24 @@
 import {
-  CreateAccountRepository, ICreateAccountRepository,
-  UpdateAvatarRepository, IUpdateAvatarRepository,
-  LoadAccountByEmailRepository, ILoadAccountByEmailRepository,
-  CheckAccountByEmailRepository, ICheckAccountByEmailRepository,
+  CreateUserAccountRepository, ICreateUserAccountRepository,
+  UpdateUserAvatarRepository, IUpdateAvatarRepository,
+  LoadUserByEmailRepository, ILoadAccountByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository,
 } from '@/data/protocols';
 
-export class CreateAccountRepositorySpy implements ICreateAccountRepository {
-  params: CreateAccountRepository.Params
+export class CreateAccountRepositorySpy implements ICreateUserAccountRepository {
+  params: CreateUserAccountRepository.Params
   result = true
 
-  async create(params: CreateAccountRepository.Params): Promise<CreateAccountRepository.Result> {
+  async create(params: CreateUserAccountRepository.Params): Promise<CreateUserAccountRepository.Result> {
     this.params = params;
     return this.result;
   }
 }
 
 export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
-  params: UpdateAvatarRepository.Params
+  params: UpdateUserAvatarRepository.Params
   result = 'any_url'
 
-  async updateAvatar(params: UpdateAvatarRepository.Params): Promise<UpdateAvatarRepository.Result> {
+  async updateAvatar(params: UpdateUserAvatarRepository.Params): Promise<UpdateUserAvatarRepository.Result> {
     this.params = params;
     return this.result;
   }
@@ -35,7 +34,7 @@ export class LoadAccountByEmailRepositorySpy implements ILoadAccountByEmailRepos
     avatar: 'any_avatar',
   }
 
-  async loadByEmail(email: string): Promise<LoadAccountByEmailRepository.Result> {
+  async loadByEmail(email: string): Promise<LoadUserByEmailRepository.Result> {
     this.email = email;
     return this.result;
   }

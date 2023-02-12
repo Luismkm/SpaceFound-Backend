@@ -1,13 +1,11 @@
-import { IRate } from '@/domain/models/IRate';
-import { ICreateRate, ICreateRateDTO } from '@/domain/usecases/rate/ICreateRate';
+import { CreateRate, ICreateRate } from '@/domain/usecases/rate/ICreateRate';
 
-import { mockRate } from '@/tests/domain/mocks/mockRate';
+export class CreateRateSpy implements ICreateRate {
+  params: CreateRate.Params
+  result = true
 
-export const mockCreateRate = (): ICreateRate => {
-  class CreateRateStub implements ICreateRate {
-    async create(Rate: ICreateRateDTO): Promise<IRate> {
-      return Promise.resolve(mockRate());
-    }
+  async create(params: CreateRate.Params): Promise<CreateRate.Result> {
+    this.params = params;
+    return this.result;
   }
-  return new CreateRateStub();
-};
+}

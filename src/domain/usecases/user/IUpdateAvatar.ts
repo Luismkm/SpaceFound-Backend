@@ -1,6 +1,6 @@
 export namespace UpdateAvatar {
   export type Params = {
-    userId: string,
+    userId:string,
     fileName: string
   }
 
@@ -8,5 +8,5 @@ export namespace UpdateAvatar {
 }
 
 export interface IUpdateAvatar {
-  updateAvatar(params: UpdateAvatar.Params): Promise <UpdateAvatar.Result>
+  updateAvatar(params: UpdateAvatar.Params): Promise<UpdateAvatar.Result>
 }

@@ -9,7 +9,7 @@ describe('Create Rate Validation Factory', () => {
   it('Should call ValidationComposite with all validations', () => {
     makeCreateRateValidation();
     const validations: IValidation[] = [];
-    for (const field of ['idProvider', 'star']) {
+    for (const field of ['star', 'comment']) {
       validations.push(new RequiredFieldValidation(field));
     }
 

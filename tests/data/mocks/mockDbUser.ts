@@ -1,12 +1,12 @@
 import { IFindUserByIdRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
-import { IAccount } from '@/domain/models/IAccount';
+import { IUser } from '@/domain/models/IUser';
 
 import { mockAccount } from '@/tests/domain/mocks';
 import { IUpdateAvatarRepository } from '@/data/protocols/db';
 
 export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {
   class FindUserByIdRepositoryStub implements IFindUserByIdRepository {
-    async findById(id: string): Promise<IAccount | undefined> {
+    async findById(id: string): Promise<IUser | undefined> {
       return Promise.resolve(mockAccount());
     }
   }

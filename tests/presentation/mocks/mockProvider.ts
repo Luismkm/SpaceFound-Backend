@@ -1,15 +1,14 @@
-import { IProvider } from '@/domain/models/IProvider';
-import { ILoadProviderById, ILoadProviders, LoadProviders } from '@/presentation/controllers/provider/loadProvider/LoadProvidersControllerProtocols';
-import { CreateProvider, ICreateProvider } from '@/presentation/controllers/provider/createProvider/ProviderControllerProtocols';
-
 import { mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
+import { CreateProviderAccount, ICreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
+import { ILoadProviders, LoadProviders } from '@/domain/usecases/provider/ILoadProviders';
+import { ILoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
 
-export class CreateProviderSpy implements ICreateProvider {
-  params: CreateProvider.Params
+export class CreateProviderSpy implements ICreateProviderAccount {
+  params: CreateProviderAccount.Params
   result = true
 
-  async create(params: CreateProvider.Params): Promise<CreateProvider.Result> {
+  async create(params: CreateProviderAccount.Params): Promise<CreateProviderAccount.Result> {
     this.params = params;
     return this.result;
   }

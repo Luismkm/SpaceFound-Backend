@@ -1,5 +1,5 @@
-import { IAccount } from '@/domain/models/IAccount';
+import { IUser } from '@/domain/models/IUser';
 
 export interface IFindUserById {
-  findById(id: string): Promise <IAccount | undefined>
+  findById(id: string): Promise <IUser | undefined>
 }

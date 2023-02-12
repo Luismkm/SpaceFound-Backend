@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import DbCreateProvider from '@/data/usecases/provider/DbCreateProvider';
+import DbCreateProvider from '@/data/usecases/provider/DbCreateProviderAccount';
 
 import { UuidGeneratorSpy } from '@/tests/data/mocks';
 import { CreateProviderRepositorySpy } from '@/tests/data/mocks/mockDbProvider';
@@ -49,11 +49,10 @@ describe('DbCreateProvider Usecase', () => {
       name: params.name,
       createdAt: params.createdAt,
       serviceId: params.serviceId,
-      userId: params.userId,
     });
   });
 
-  it('should return a Provider on success', async () => {
+  it('should return true on success', async () => {
     const { sut } = makeSut();
     const provider = await sut.create(mockCreateProviderParams());
     expect(provider).toBe(true);

@@ -1,13 +1,11 @@
-import { ICreateRateRepository } from '@/data/protocols/db/rate/ICreateRateRepository';
-import { ICreateRateDTO } from '@/domain/usecases/rate/ICreateRate';
+import { CreateRateRepository, ICreateRateRepository } from '@/data/protocols/db/rate/ICreateRateRepository';
 
-import { mockRate } from '@/tests/domain/mocks/mockRate';
+export class CreateRateRepositorySpy implements ICreateRateRepository {
+  params: CreateRateRepository.Params
+  result = true
 
-export const mockCreateRateRepository = (): ICreateRateRepository => {
-  class CreateRateRepositoryStub implements ICreateRateRepository {
-    async create(rate: ICreateRateDTO): Promise<any> {
-      return Promise.resolve(mockRate());
-    }
+  async create(params: CreateRateRepository.Params): Promise<CreateRateRepository.Result> {
+    this.params = params;
+    return this.result;
   }
-  return new CreateRateRepositoryStub();
-};
+}
