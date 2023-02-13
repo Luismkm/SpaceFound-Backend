@@ -9,6 +9,7 @@ const mockRequest = (): UpdateProfileController.Request => ({
   userId: 'any_uuid',
   name: 'any_name',
   email: 'any_email',
+  cityId: 1,
 });
 
 type ISutTypes = {
@@ -49,6 +50,7 @@ describe('UpdateProfileController', () => {
       userId: undefined,
       name: 'any_name',
       email: 'any_email',
+      cityId: 1,
     });
     expect(httpResponse).toEqual(unauthorized());
   });
@@ -61,6 +63,7 @@ describe('UpdateProfileController', () => {
       userId: request.userId,
       name: request.name,
       email: request.email,
+      cityId: request.cityId,
     });
   });
 

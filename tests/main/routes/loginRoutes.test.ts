@@ -21,6 +21,7 @@ describe('Login Routes', () => {
           email: 'any_email@email.com',
           password: 'any_password',
           passwordConfirmation: 'any_password',
+          cityId: 1,
         })
         .expect(200);
     });

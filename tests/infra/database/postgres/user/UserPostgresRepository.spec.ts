@@ -10,6 +10,7 @@ const mockParams = ():UpdateUserProfileRepository.Params => ({
   userId: 'any_uuid',
   name: 'any_name',
   email: 'any_email',
+  cityId: 1,
 });
 
 describe('Account Postgres Repository', () => {
