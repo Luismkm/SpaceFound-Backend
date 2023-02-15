@@ -8,12 +8,12 @@ let sut: UserPostgresRepository;
 
 const mockParams = ():UpdateUserProfileRepository.Params => ({
   userId: 'any_uuid',
-  name: 'any_name',
-  email: 'any_email',
-  cityId: 1,
+  name: 'other_name',
+  email: 'other_email',
+  cityId: 2,
 });
 
-describe('Account Postgres Repository', () => {
+describe('User Postgres Repository', () => {
   beforeAll(() => {
     knexHelper.connect('development');
   });
@@ -31,8 +31,13 @@ describe('Account Postgres Repository', () => {
 
   describe('update', () => {
     it('should return true on update with success', async () => {
+      await sut.create(mockAccount());
       const succeeds = await sut.update(mockParams());
+      const user = await sut.findById('any_uuid')
       expect(succeeds).toBeTruthy();
+      expect(user.name).toBe('other_name')
+      expect(user.email).toBe('other_email')
+      expect(user.cityId).toBe(2)
       await knexHelper.knex('user').delete('*');
     });
   });
