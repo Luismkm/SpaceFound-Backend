@@ -1,11 +1,10 @@
 import { DbUpdateAvatar } from '@/data/usecases/user/DbUpdateAvatar';
 
 import { IStorageProvider } from '@/data/protocols/storageProvider/IStorageProvider';
-import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 
 import { StorageProviderSpy } from '@/tests/infra/mock/mockStorageProvider';
-import { mockFindUserByIdRepository } from '../mocks/mockDbUser';
 import { UpdateAvatarRepositorySpy } from '@/tests/data/mocks';
+import { FindUserByIdRepositorySpy } from '@/tests/data/mocks/mockDbUser';
 
 const mockUuidParam = 'any_uuid';
 const mockFilename = 'any_url';
@@ -13,39 +12,39 @@ const mockFilename = 'any_url';
 type ISutTypes = {
   sut: DbUpdateAvatar
   storageProviderSpy: IStorageProvider
-  findUserByIdRepositoryStub: IFindUserByIdRepository
+  findUserByIdRepositorySpy: FindUserByIdRepositorySpy
   updateAvatarRepositorySpy: UpdateAvatarRepositorySpy
 }
 
 const makeSut = (): ISutTypes => {
   const storageProviderSpy = new StorageProviderSpy();
-  const findUserByIdRepositoryStub = mockFindUserByIdRepository();
+  const findUserByIdRepositorySpy = new FindUserByIdRepositorySpy();
   const updateAvatarRepositorySpy = new UpdateAvatarRepositorySpy();
 
   const sut = new DbUpdateAvatar(
     storageProviderSpy,
-    findUserByIdRepositoryStub,
+    findUserByIdRepositorySpy,
     updateAvatarRepositorySpy,
   );
   return {
     sut,
     storageProviderSpy,
-    findUserByIdRepositoryStub,
+    findUserByIdRepositorySpy,
     updateAvatarRepositorySpy,
   };
 };
 
 describe('DbUpdateAvatar', () => {
   it('should call findUserByIdRepository with correct value', async () => {
-    const { sut, findUserByIdRepositoryStub } = makeSut();
-    const findSpy = jest.spyOn(findUserByIdRepositoryStub, 'findById');
+    const { sut, findUserByIdRepositorySpy } = makeSut();
+    const findSpy = jest.spyOn(findUserByIdRepositorySpy, 'findById');
     await sut.updateAvatar({ userId: mockUuidParam, fileName: mockFilename });
     expect(findSpy).toHaveBeenCalledWith('any_uuid');
   });
 
   it('should return if user not exists', async () => {
-    const { sut, findUserByIdRepositoryStub } = makeSut();
-    jest.spyOn(findUserByIdRepositoryStub, 'findById').mockReturnValueOnce(null);
+    const { sut, findUserByIdRepositorySpy } = makeSut();
+    jest.spyOn(findUserByIdRepositorySpy, 'findById').mockReturnValueOnce(null);
     const account = await sut.updateAvatar({ userId: mockUuidParam, fileName: mockFilename });
     expect(account).toBeNull();
   });

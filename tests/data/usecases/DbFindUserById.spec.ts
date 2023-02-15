@@ -1,22 +1,21 @@
 import Mockdate from 'mockdate';
 
 import { DbFindUserById } from '@/data/usecases/user/DbFindUserById';
-import { IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 
 import { mockAccount, throwError } from '@/tests/domain/mocks';
-import { mockFindUserByIdRepository } from '@/tests/data/mocks/mockDbUser';
+import { FindUserByIdRepositorySpy } from '../mocks/mockDbUser';
 
 type ISutTypes = {
   sut: DbFindUserById
-  findUserByIdRepositoryStub: IFindUserByIdRepository
+  findUserByIdRepositorySpy: FindUserByIdRepositorySpy
 }
 
 const makeSut = (): ISutTypes => {
-  const findUserByIdRepositoryStub = mockFindUserByIdRepository();
-  const sut = new DbFindUserById(findUserByIdRepositoryStub);
+  const findUserByIdRepositorySpy = new FindUserByIdRepositorySpy();
+  const sut = new DbFindUserById(findUserByIdRepositorySpy);
   return {
     sut,
-    findUserByIdRepositoryStub,
+    findUserByIdRepositorySpy,
   };
 };
 
@@ -30,8 +29,8 @@ describe('DbFindUserById', () => {
   });
 
   it('should call findUserById', async () => {
-    const { sut, findUserByIdRepositoryStub } = makeSut();
-    const findSpy = jest.spyOn(findUserByIdRepositoryStub, 'findById');
+    const { sut, findUserByIdRepositorySpy } = makeSut();
+    const findSpy = jest.spyOn(findUserByIdRepositorySpy, 'findById');
     await sut.findById('any_uuid');
     expect(findSpy).toHaveBeenCalledWith('any_uuid');
   });
@@ -43,8 +42,8 @@ describe('DbFindUserById', () => {
   });
 
   it('should throw if findUserByIdRepository throws', async () => {
-    const { sut, findUserByIdRepositoryStub } = makeSut();
-    jest.spyOn(findUserByIdRepositoryStub, 'findById')
+    const { sut, findUserByIdRepositorySpy } = makeSut();
+    jest.spyOn(findUserByIdRepositorySpy, 'findById')
       .mockImplementationOnce(throwError);
     const promise = sut.findById('any_uuid');
     await expect(promise).rejects.toThrow();

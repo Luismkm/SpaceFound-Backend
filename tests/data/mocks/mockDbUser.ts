@@ -1,17 +1,12 @@
-import { IFindUserByIdRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
-import { IUser } from '@/domain/models/IUser';
+import { FindUserByIdRepository, IFindUserByIdRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
 
 import { mockAccount } from '@/tests/domain/mocks';
-import { IUpdateAvatarRepository } from '@/data/protocols/db';
 
-export const mockFindUserByIdRepository = (): IFindUserByIdRepository => {
-  class FindUserByIdRepositoryStub implements IFindUserByIdRepository {
-    async findById(id: string): Promise<IUser | undefined> {
-      return Promise.resolve(mockAccount());
-    }
+export class FindUserByIdRepositorySpy implements IFindUserByIdRepository {
+  async findById(params: FindUserByIdRepository.Params): Promise<FindUserByIdRepository.Result> {
+    return Promise.resolve(mockAccount());
   }
-  return new FindUserByIdRepositoryStub();
-};
+}
 
 export class UpdateUserProfileRepositorySpy implements IUpdateUserProfileRepository {
   params: UpdateUserProfileRepository.Params
