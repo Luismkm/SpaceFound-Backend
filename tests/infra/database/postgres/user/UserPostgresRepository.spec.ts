@@ -29,6 +29,17 @@ describe('User Postgres Repository', () => {
     });
   });
 
+  describe('updateAvatar', () => {
+    it('should return true on updateAvatar with success', async () => {
+      await sut.create(mockAccount());
+      const succeeds = await sut.updateAvatar({ userId: 'any_uuid', fileName: 'other_avatar' })
+      const user = await sut.findById('any_uuid')
+      expect(succeeds).toBeTruthy();
+      expect(user.avatar).toBe('other_avatar')
+      await knexHelper.knex('user').delete('*');
+    });
+  });
+
   describe('update', () => {
     it('should return true on update with success', async () => {
       await sut.create(mockAccount());
