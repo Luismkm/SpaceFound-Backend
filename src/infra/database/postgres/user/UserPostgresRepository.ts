@@ -22,8 +22,8 @@ export class UserPostgresRepository implements
   }
 
   async updateAvatar({ userId, fileName }: UpdateUserAvatarRepository.Params): Promise<UpdateUserAvatarRepository.Result> {
-    const avatar = await knexHelper.knex('user').update('avatar', fileName).where('id', userId).returning('avatar');
-    return avatar[0];
+    const asReturn = await knexHelper.knex('user').update('avatar', fileName).where('id', userId).limit(1)
+    return asReturn !== null;
   }
 
   async findById(id: string): Promise<FindUserByIdRepository.Result> {
