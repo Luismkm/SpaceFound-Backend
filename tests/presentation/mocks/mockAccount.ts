@@ -14,7 +14,7 @@ export class CreateAccountSpy implements ICreateUserAccount {
 
 export class UpdateAvatarSpy implements IUpdateAvatar {
   params: UpdateAvatar.Params
-  result = 'any_url'
+  result = true
 
   async updateAvatar(params: UpdateAvatar.Params): Promise<UpdateAvatar.Result> {
     this.params = {
