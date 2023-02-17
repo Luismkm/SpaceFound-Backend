@@ -7,6 +7,7 @@ export namespace UpdateProfileController {
     userId: string
     name: string
     email: string
+    cityId: number
   }
 }
 
@@ -22,8 +23,8 @@ export class UpdateProfileController implements IController {
       if (error) return badRequest(error);
       const { userId } = request;
       if (!userId) return unauthorized();
-      const { name, email } = request;
-      const user = await this.updateUserProfile.update({ userId, name, email });
+      const { name, email, cityId } = request;
+      const user = await this.updateUserProfile.update({ userId, name, email, cityId });
       if (user) return noContent();
     } catch (error: any) {
       return serverError(error);

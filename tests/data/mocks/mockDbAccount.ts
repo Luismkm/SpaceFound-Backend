@@ -16,7 +16,7 @@ export class CreateAccountRepositorySpy implements ICreateUserAccountRepository 
 
 export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
   params: UpdateUserAvatarRepository.Params
-  result = 'any_url'
+  result = true
 
   async updateAvatar(params: UpdateUserAvatarRepository.Params): Promise<UpdateUserAvatarRepository.Result> {
     this.params = params;

@@ -3,7 +3,7 @@ export type IUser = {
   name: string
   email: string
   password: string
-  avatar?: string
+  avatar: string
   /* isVerifiedAccount: boolean */
   cityId: number
   createdAt: Date

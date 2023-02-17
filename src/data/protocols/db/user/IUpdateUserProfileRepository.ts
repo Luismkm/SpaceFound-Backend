@@ -1,7 +1,10 @@
-import { UpdateUserProfile } from '@/domain/usecases/user/IUpdateUserProfile';
-
 export namespace UpdateUserProfileRepository {
-  export type Params = UpdateUserProfile.Params
+  export type Params = {
+    userId: string
+    name: string
+    email: string
+    cityId: number
+  }
   export type Result = boolean
 }
 

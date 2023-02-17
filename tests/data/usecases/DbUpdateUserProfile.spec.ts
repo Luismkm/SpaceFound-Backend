@@ -7,6 +7,7 @@ const mockDbUpdateUserProfileParams = (): UpdateUserProfileRepository.Params => 
   userId: 'any_uuid',
   name: 'any_name',
   email: 'any_email',
+  cityId: 1,
 });
 
 type ISutTypes = {
@@ -33,7 +34,7 @@ const makeSut = (): ISutTypes => {
 describe('DbUpdateUserProfile', () => {
   it('should call CheckAccountByEmailRepository with correct value', async () => {
     const { sut, checkAccountByEmailRepositorySpy } = makeSut();
-    await sut.update({ userId: 'any_uuid', name: 'any_name', email: 'any_email' });
+    await sut.update({ userId: 'any_uuid', name: 'any_name', email: 'any_email', cityId: 1 });
     expect(checkAccountByEmailRepositorySpy.params).toEqual('any_email');
   });
 
@@ -55,7 +56,7 @@ describe('DbUpdateUserProfile', () => {
   });
 
   it('should return false if CheckAccountByEmailRepository returns true', async () => {
-    const { sut, checkAccountByEmailRepositorySpy, updateUserProfileRepositorySpy } = makeSut();
+    const { sut, checkAccountByEmailRepositorySpy } = makeSut();
     jest.spyOn(checkAccountByEmailRepositorySpy, 'checkByEmail')
       .mockResolvedValueOnce(Promise.resolve(true));
     const params = mockDbUpdateUserProfileParams();

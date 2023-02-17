@@ -1,8 +1,9 @@
 export namespace UpdateUserProfile {
   export type Params = {
-    userId: string;
-    name: string;
-    email: string;
+    userId: string
+    name: string
+    email: string
+    cityId: number
   }
 
   export type Result = boolean

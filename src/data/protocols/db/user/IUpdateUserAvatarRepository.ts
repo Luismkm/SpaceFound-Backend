@@ -4,7 +4,7 @@ export namespace UpdateUserAvatarRepository {
     fileName: string
   }
 
-  export type Result = string
+  export type Result = boolean
 }
 
 export interface IUpdateAvatarRepository {
