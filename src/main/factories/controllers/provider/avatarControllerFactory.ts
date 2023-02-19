@@ -2,7 +2,7 @@ import { AvatarController } from '@/presentation/controllers/account/AvatarContr
 import { IController } from '@/presentation/protocols';
 import { makeDbUpdateAvatar } from '../../usecases/user/updateAvatarFactory';
 
-export const makeUserAvatarController = (): IController => {
+export const makeProviderAvatarController = (): IController => {
   const controller = new AvatarController(makeDbUpdateAvatar());
   return controller;
 };

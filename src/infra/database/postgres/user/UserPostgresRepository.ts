@@ -2,14 +2,13 @@ import { knexHelper } from '@/infra/database/helpers';
 
 import { FindUserByIdRepository, IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 import { CreateUserAccountRepository, ICreateUserAccountRepository,
-  IUpdateAvatarRepository,
-  IUpdateUserProfileRepository, UpdateUserAvatarRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
+  IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
+import { UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
 
 export class UserPostgresRepository implements
   ICreateUserAccountRepository,
   IFindUserByIdRepository,
-  IUpdateUserProfileRepository,
-  IUpdateAvatarRepository {
+  IUpdateUserProfileRepository {
   async create(account: CreateUserAccountRepository.Params): Promise<CreateUserAccountRepository.Result> {
     const { id, name, email, password, cityId } = account;
     const accountCreated = await knexHelper.knex('user').insert({ id, name, email, password }).returning('id');
@@ -17,12 +16,7 @@ export class UserPostgresRepository implements
   }
 
   async update(profile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
-    const asReturn = await knexHelper.knex('user').update({ name: profile.name, email: profile.email, city_id: profile.cityId }).where('id', profile.userId).limit(1);
-    return asReturn !== null;
-  }
-
-  async updateAvatar({ userId, fileName }: UpdateUserAvatarRepository.Params): Promise<UpdateUserAvatarRepository.Result> {
-    const asReturn = await knexHelper.knex('user').update('avatar', fileName).where('id', userId).limit(1)
+    const asReturn = await knexHelper.knex('user').update({ name: profile.name, email: profile.email, city_id: profile.cityId }).where('id', profile.accountId).limit(1);
     return asReturn !== null;
   }
 
@@ -40,5 +34,10 @@ export class UserPostgresRepository implements
   async loadByEmail(email: string): Promise<any> {
     const account = await knexHelper.knex('user').where('email', email);
     return account[0];
+  }
+
+  async updateAvatar({ accountId, fileName }: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
+    const asReturn = await knexHelper.knex('user').update('avatar', fileName).where('id', accountId).limit(1)
+    return asReturn !== null;
   }
 }

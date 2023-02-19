@@ -1,12 +1,12 @@
 import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IHttpRequest } from '@/presentation/protocols';
-import { AvatarController } from '@/presentation/controllers/user/AvatarController';
 
 import { throwError } from '@/tests/domain/mocks';
 import { UpdateAvatarSpy } from '@/tests/presentation/mocks';
+import { AvatarController } from '@/presentation/controllers/account/AvatarController';
 
 const mockRequest = (): IHttpRequest => ({
-  userId: 'uuid',
+  accountId: 'uuid',
   file: {
     fileName: 'any_name',
   },
@@ -27,7 +27,7 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('UserAvatarController', () => {
-  it('should return unauthorized if userId not is provided ', async () => {
+  it('should return unauthorized if accountId not is provided ', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({
       file: {
@@ -41,7 +41,7 @@ describe('UserAvatarController', () => {
     const { sut, updateAvatarSpy } = makeSut();
     const request = mockRequest();
     await sut.handle(request);
-    expect(updateAvatarSpy.params).toEqual({ userId: request.userId, fileName: request.file.fileName });
+    expect(updateAvatarSpy.params).toEqual({ accountId: request.accountId, fileName: request.file.fileName });
   });
 
   it('should return unauthorized if user not exists', async () => {

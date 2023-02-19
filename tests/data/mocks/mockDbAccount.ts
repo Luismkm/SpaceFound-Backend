@@ -1,8 +1,8 @@
 import {
   CreateUserAccountRepository, ICreateUserAccountRepository,
-  UpdateUserAvatarRepository, IUpdateAvatarRepository,
   LoadUserByEmailRepository, ILoadAccountByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository,
 } from '@/data/protocols';
+import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
 
 export class CreateAccountRepositorySpy implements ICreateUserAccountRepository {
   params: CreateUserAccountRepository.Params
@@ -15,10 +15,10 @@ export class CreateAccountRepositorySpy implements ICreateUserAccountRepository 
 }
 
 export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
-  params: UpdateUserAvatarRepository.Params
+  params: UpdateAccountAvatarRepository.Params
   result = true
 
-  async updateAvatar(params: UpdateUserAvatarRepository.Params): Promise<UpdateUserAvatarRepository.Result> {
+  async updateAvatar(params: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
     this.params = params;
     return this.result;
   }

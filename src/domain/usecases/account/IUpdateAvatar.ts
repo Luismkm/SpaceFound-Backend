@@ -1,6 +1,6 @@
 export namespace UpdateAvatar {
   export type Params = {
-    userId:string,
+    accountId:string,
     fileName: string
   }
 

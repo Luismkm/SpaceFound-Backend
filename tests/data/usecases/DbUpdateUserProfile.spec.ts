@@ -4,7 +4,7 @@ import { UpdateUserProfileRepository } from '@/data/protocols';
 import { UpdateUserProfileRepositorySpy } from '@/tests/data/mocks/mockDbUser';
 
 const mockDbUpdateUserProfileParams = (): UpdateUserProfileRepository.Params => ({
-  userId: 'any_uuid',
+  accountId: 'any_uuid',
   name: 'any_name',
   email: 'any_email',
   cityId: 1,
@@ -34,7 +34,7 @@ const makeSut = (): ISutTypes => {
 describe('DbUpdateUserProfile', () => {
   it('should call CheckAccountByEmailRepository with correct value', async () => {
     const { sut, checkAccountByEmailRepositorySpy } = makeSut();
-    await sut.update({ userId: 'any_uuid', name: 'any_name', email: 'any_email', cityId: 1 });
+    await sut.update({ accountId: 'any_uuid', name: 'any_name', email: 'any_email', cityId: 1 });
     expect(checkAccountByEmailRepositorySpy.params).toEqual('any_email');
   });
 

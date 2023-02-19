@@ -1,6 +1,6 @@
 export namespace UpdateUserProfile {
   export type Params = {
-    userId: string
+    accountId: string
     name: string
     email: string
     cityId: number

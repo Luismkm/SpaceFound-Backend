@@ -6,7 +6,7 @@ import { UpdateUserProfileRepositorySpy } from '@/tests/data/mocks/mockDbUser';
 import { throwError } from '@/tests/domain/mocks';
 
 const mockRequest = (): UpdateProfileController.Request => ({
-  userId: 'any_uuid',
+  accountId: 'any_uuid',
   name: 'any_name',
   email: 'any_email',
   cityId: 1,
@@ -44,10 +44,10 @@ describe('UpdateProfileController', () => {
     expect(httpResponse).toEqual(badRequest(validationSpy.error));
   });
 
-  it('should return unauthorized if userId not is provided ', async () => {
+  it('should return unauthorized if accountId not is provided ', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({
-      userId: undefined,
+      accountId: undefined,
       name: 'any_name',
       email: 'any_email',
       cityId: 1,
@@ -60,7 +60,7 @@ describe('UpdateProfileController', () => {
     const request = mockRequest();
     await sut.handle(request);
     expect(updateUserProfileRepositorySpy.params).toEqual({
-      userId: request.userId,
+      accountId: request.accountId,
       name: request.name,
       email: request.email,
       cityId: request.cityId,

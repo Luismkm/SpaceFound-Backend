@@ -1,4 +1,4 @@
-import { IUpdateAvatar } from '@/domain/usecases/user';
+import { IUpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
 import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpRequest, IHttpResponse } from '@/presentation/protocols';
 
@@ -9,10 +9,10 @@ export class AvatarController implements IController {
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
-      const { userId } = httpRequest;
+      const { accountId } = httpRequest;
       const { fileName } = httpRequest.file;
-      if (!userId) return unauthorized();
-      const user = await this.update.updateAvatar({ userId, fileName });
+      if (!accountId) return unauthorized();
+      const user = await this.update.updateAvatar({ accountId, fileName });
       if (!user) return unauthorized();
       return success(user);
     } catch (error: any) {

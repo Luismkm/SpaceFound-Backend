@@ -1,5 +1,5 @@
 import { DbUpdateAvatar } from '@/data/usecases/user/DbUpdateAvatar';
-import { IUpdateAvatar } from '@/domain/usecases/user';
+import { IUpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
 import { UserPostgresRepository } from '@/infra/database/postgres/user/UserPostgresRepository';
 import { DiskStorageProvider } from '@/infra/storageProvider/DiskStorageProvider';
 

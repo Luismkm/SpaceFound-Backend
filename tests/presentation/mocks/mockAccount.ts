@@ -1,6 +1,6 @@
+import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
 import { Authentication, IAuthentication } from '@/domain/usecases/user/IAuthentication';
 import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
-import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 
 export class CreateAccountSpy implements ICreateUserAccount {
   params: CreateUserAccount.Params
@@ -18,7 +18,7 @@ export class UpdateAvatarSpy implements IUpdateAvatar {
 
   async updateAvatar(params: UpdateAvatar.Params): Promise<UpdateAvatar.Result> {
     this.params = {
-      userId: params.userId,
+      accountId: params.accountId,
       fileName: params.fileName,
     };
     return this.result;
