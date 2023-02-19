@@ -1,9 +1,10 @@
 export namespace CreateAdRepository {
   export type Params = {
     id: string
-    userId: string
+    accountId: string
     title: string
     description: string
+    serviceId: string
     createdAt: Date
   }
 

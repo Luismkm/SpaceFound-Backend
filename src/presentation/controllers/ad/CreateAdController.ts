@@ -7,6 +7,7 @@ export namespace CreateAdController {
     userId: string
     title: string
     description: string
+    serviceId: string
   }
 }
 
@@ -20,7 +21,8 @@ export class CreateAdController implements IController {
     try {
       const error = this.validation.validate(request);
       if (error) return badRequest(error);
-      const ad = await this.createAd.create({ ...request, createdAt: new Date() });
+      const { userId, ...restRequest } = request
+      const ad = await this.createAd.create({ ...restRequest, accountId: userId, createdAt: new Date() });
       if (ad) return noContent();
     } catch (error) {
       return serverError(error);

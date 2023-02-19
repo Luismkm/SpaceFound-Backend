@@ -1,9 +1,9 @@
 import { IUser } from '@/domain/models/IUser';
 
-export interface IFindUserByIdRepository {
+/* export interface IFindUserByIdRepository {
   findById(id: string): Promise<IUser | undefined>
 }
-
+ */
 export namespace FindUserByIdRepository {
   export type Params = string
   export type Result = {
