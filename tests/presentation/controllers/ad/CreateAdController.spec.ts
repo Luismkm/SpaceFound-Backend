@@ -10,6 +10,7 @@ import { throwError } from '@/tests/domain/mocks';
 const mockRequest = ():CreateAdController.Request => ({
   userId: 'any_uuid',
   title: 'any_title',
+  serviceId: '1',
   description: 'any_description',
 });
 
@@ -38,13 +39,14 @@ describe('CreateAd Controller', () => {
     MockDate.reset();
   });
 
-  it('shold call CreateAd with correct values', async () => {
+  it('should call CreateAd with correct values', async () => {
     const { sut, createAdSpy } = makeSut();
     const request = mockRequest();
     await sut.handle(request);
     expect(createAdSpy.params).toEqual({
-      userId: request.userId,
+      accountId: request.userId,
       title: request.title,
+      serviceId: request.serviceId,
       description: request.description,
       createdAt: new Date(),
     });

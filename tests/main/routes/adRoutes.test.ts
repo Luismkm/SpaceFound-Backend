@@ -28,6 +28,7 @@ describe('Ad Routes', () => {
         .send({
           userId: 'any_uuid',
           title: 'any_title',
+          serviceId: '1',
           description: 'any_description',
         })
         .expect(204);
@@ -44,4 +45,38 @@ describe('Ad Routes', () => {
         .expect(401);
     });
   });
+
+  describe('GET /ad', () => {
+    it('should return 200 on create ad with success', async () => {
+      const accessToken = makeAccesToken();
+      await request(app)
+        .get('/api/ad')
+        .set('x-access-token', accessToken)
+        .send({
+          userId: 'any_uuid',
+        })
+        .expect(204);
+    });
+
+    it('should return 200 on create ad with success', async () => {
+      const accessToken = makeAccesToken();
+      await request(app)
+        .post('/api/ad')
+        .set('x-access-token', accessToken)
+        .send({
+          userId: 'any_uuid',
+          title: 'any_title',
+          serviceId: '1',
+          description: 'any_description',
+        })
+
+      await request(app)
+        .get('/api/ad')
+        .set('x-access-token', accessToken)
+        .send({
+          userId: 'any_uuid',
+        })
+        .expect(200);
+    });
+  })
 });

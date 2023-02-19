@@ -1,6 +1,5 @@
 import { knexHelper } from '@/infra/database/helpers';
 import { AdPostgresRepository } from '@/infra/database/postgres/ad/AdPostgresRepository';
-import { mockCreateAdParams } from '@/tests/domain/mocks/mockAd';
 
 let sut: AdPostgresRepository;
 
@@ -12,15 +11,37 @@ describe('AdPostgresRepository', () => {
     sut = new AdPostgresRepository();
   });
 
-  it('should return true on create success', async () => {
-    const ad = sut.create({
-      id: 'any_uuid',
-      userId: 'any_uuid',
-      title: 'any_title',
-      description: 'any_description',
-      createdAt: new Date(),
+  describe('create()', () => {
+    it('should return true on create success', async () => {
+      const ad = await sut.create({
+        id: 'any_uuid',
+        accountId: 'any_uuid',
+        title: 'any_title',
+        description: 'any_description',
+        serviceId: '1',
+        createdAt: new Date(),
+      });
+      expect(ad).toBeTruthy();
+      await knexHelper.knex('ad').delete('*');
     });
-    expect(ad).toBeTruthy();
-    // await knexHelper.knex('ad').delete('*');
-  });
+  })
+
+  describe('listByAccount()', () => {
+    it('should return ads on success', async () => {
+      await sut.create({
+        id: 'any_uuid',
+        accountId: 'any_uuid',
+        title: 'any_title',
+        description: 'any_description',
+        serviceId: '1',
+        createdAt: new Date(),
+      });
+
+      const ad = await sut.listByAccount({
+        accountId: 'any_uuid',
+      });
+      expect(ad[0].id).toBe('any_uuid')
+      await knexHelper.knex('ad').delete('*');
+    });
+  })
 });

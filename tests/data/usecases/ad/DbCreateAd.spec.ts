@@ -27,8 +27,9 @@ describe('DbAd Usecase', () => {
     await sut.create(params);
     expect(createAdRepositorySpy.params).toEqual({
       id: uuidSpy.digest,
-      userId: params.userId,
+      accountId: params.accountId,
       title: params.title,
+      serviceId: params.serviceId,
       description: params.description,
       createdAt: params.createdAt,
     });
