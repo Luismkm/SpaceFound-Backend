@@ -30,10 +30,10 @@ describe('Provider Postgres Repository', () => {
         id: 'any_uuid',
         name: 'any_name',
         description: 'any_description',
+        email: 'any_email',
         cnpj: 'any_cnpj',
         serviceId: 1,
         createdAt: new Date(),
-        userId: 'any_uuid',
       };
       const isValid = await sut.create(mockProviderParams);
       expect(isValid).toBe(true);
@@ -45,12 +45,10 @@ describe('Provider Postgres Repository', () => {
       await knexHelper.knex('provider').insert([{
         id: 'any_uuid',
         description: 'any_description',
-        user_id: 'any_uuid',
       },
       {
         id: 'any_uuid2',
         description: 'any_description2',
-        user_id: 'any_uuid2',
       }]);
 
       const providers = await sut.loadAll();
@@ -67,8 +65,9 @@ describe('Provider Postgres Repository', () => {
       await knexHelper.knex('provider').insert({
         id: 'any_uuid',
         description: 'any_description',
-        user_id: 'any_uuid',
+        avatar: 'any_avatar',
         name: 'any_name',
+        email: 'any_email',
         cnpj: 'any_cnpj',
         created_at: new Date(),
       });
@@ -77,8 +76,9 @@ describe('Provider Postgres Repository', () => {
       expect(provider).toEqual({
         id: 'any_uuid',
         description: 'any_description',
-        user_id: 'any_uuid',
+        avatar: 'any_avatar',
         name: 'any_name',
+        email: 'any_email',
         cnpj: 'any_cnpj',
         created_at: new Date(),
         averageStars: 0,
@@ -90,7 +90,8 @@ describe('Provider Postgres Repository', () => {
       await knexHelper.knex('provider').insert({
         id: 'any_uuid',
         description: 'any_description',
-        user_id: 'any_uuid',
+        email: 'any_email',
+        avatar: 'any_avatar',
         name: 'any_name',
         cnpj: 'any_cnpj',
         created_at: new Date(),
@@ -105,7 +106,7 @@ describe('Provider Postgres Repository', () => {
         created_at: new Date(),
       },
       {
-        user_id: 'any_uuidw',
+        user_id: 'any_uuid',
         provider_id: 'any_uuid',
         star: 5,
         comment: 'any_comment',
@@ -117,7 +118,8 @@ describe('Provider Postgres Repository', () => {
       expect(provider).toEqual({
         id: 'any_uuid',
         description: 'any_description',
-        user_id: 'any_uuid',
+        email: 'any_email',
+        avatar: 'any_avatar',
         name: 'any_name',
         cnpj: 'any_cnpj',
         created_at: new Date(),
@@ -126,4 +128,40 @@ describe('Provider Postgres Repository', () => {
       });
     });
   });
+
+  describe('updateAvatar', () => {
+    it('should return true on updateAvatar with success', async () => {
+      await knexHelper.knex('provider').insert({
+        id: 'any_uuid',
+        description: 'any_description',
+        email: 'any_email',
+        avatar: 'any_avatar',
+        name: 'any_name',
+        cnpj: 'any_cnpj',
+        created_at: new Date(),
+      });
+      const succeeds = await sut.updateAvatar({ accountId: 'any_uuid', fileName: 'other_avatar' })
+      const provider = await sut.findById('any_uuid')
+      expect(succeeds).toBeTruthy();
+      expect(provider.avatar).toBe('other_avatar')
+    });
+  });
+
+  describe('findById()', () => {
+    it('should return a provider by findById', async () => {
+      await knexHelper.knex('provider').insert({
+        id: 'any_uuid',
+        description: 'any_description',
+        avatar: 'any_path',
+        name: 'any_name',
+        cnpj: 'any_cnpj',
+        created_at: new Date(),
+      });
+
+      const provider = await sut.findById('any_uuid')
+      expect(provider).toBeTruthy()
+      expect(provider.id).toBe('any_uuid')
+      expect(provider.avatar).toBe('any_path')
+    })
+  })
 });

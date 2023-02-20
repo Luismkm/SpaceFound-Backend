@@ -1,6 +1,6 @@
 type IProfile = {
   id: number
-  idBusiness: string
+  serviceId: string
   description: string
   idUser: string
   idProvider: string

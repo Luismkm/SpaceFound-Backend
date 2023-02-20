@@ -11,12 +11,12 @@ export class ProviderPostgresRepository implements
   IFindProviderByIdRepository,
   IUpdateAvatarRepository {
   async create(params: CreateProviderAccountRepository.Params): Promise<CreateProviderAccountRepository.Result> {
-    const { id, name, description, createdAt, serviceId, cnpj } = params;
+    const { id, name, description, email, createdAt, serviceId, cnpj } = params;
     let providerCreated: any;
     let insertedService: any;
 
     await knexHelper.knex.transaction(async (trx) => {
-      providerCreated = await trx('provider').insert({ id, name, description, cnpj, created_at: createdAt }).returning('*');
+      providerCreated = await trx('provider').insert({ id, name, description, email, cnpj, created_at: createdAt }).returning('*');
       insertedService = await trx('provider_service').insert({ provider_id: id, service_id: serviceId }).returning('*');
     });
 

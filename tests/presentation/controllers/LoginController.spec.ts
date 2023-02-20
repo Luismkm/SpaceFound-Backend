@@ -3,8 +3,8 @@ import { badRequest, serverError, success, unauthorized } from '@/presentation/h
 import { LoginController } from '@/presentation/controllers/account/LoginController';
 
 import { throwError } from '@/tests/domain/mocks';
-import { AuthenticationSpy } from '@/tests/presentation/mocks/mockAccount';
 import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
+import { AuthenticationSpy } from '../mocks/mockUser';
 
 const mockRequest = (): LoginController.Request => ({
   email: 'any_email',

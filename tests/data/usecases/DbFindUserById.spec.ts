@@ -2,7 +2,7 @@ import Mockdate from 'mockdate';
 
 import { DbFindUserById } from '@/data/usecases/user/DbFindUserById';
 
-import { mockAccount, throwError } from '@/tests/domain/mocks';
+import { mockUser, throwError } from '@/tests/domain/mocks';
 import { FindUserByIdRepositorySpy } from '../mocks/mockDbUser';
 
 type ISutTypes = {
@@ -38,7 +38,7 @@ describe('DbFindUserById', () => {
   it('should return user on success', async () => {
     const { sut } = makeSut();
     const user = await sut.findById('any_uuid');
-    expect(user).toEqual(mockAccount());
+    expect(user).toEqual(mockUser());
   });
 
   it('should throw if findUserByIdRepository throws', async () => {

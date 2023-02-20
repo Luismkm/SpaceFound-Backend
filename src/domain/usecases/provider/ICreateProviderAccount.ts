@@ -2,6 +2,7 @@ export namespace CreateProviderAccount {
   export type Params = {
     name: string
     description: string
+    email: string
     cnpj?: string
     serviceId: number
     createdAt: Date

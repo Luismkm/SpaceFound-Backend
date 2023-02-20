@@ -1,7 +1,7 @@
 export namespace LoadProviders {
   export type Result = {
     id: string,
-    idBusiness: string,
+    serviceId: string,
     description: string,
     idUser: string,
     idProvider: string,

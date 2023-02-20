@@ -3,6 +3,7 @@ export namespace CreateProviderAccountRepository {
     id: string
     name: string
     description: string
+    email: string
     serviceId: number
     cnpj?: string
     createdAt: Date

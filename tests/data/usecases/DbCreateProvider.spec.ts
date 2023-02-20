@@ -46,6 +46,7 @@ describe('DbCreateProvider Usecase', () => {
       id: uuidSpy.digest,
       cnpj: params.cnpj,
       description: params.description,
+      email: params.email,
       name: params.name,
       createdAt: params.createdAt,
       serviceId: params.serviceId,

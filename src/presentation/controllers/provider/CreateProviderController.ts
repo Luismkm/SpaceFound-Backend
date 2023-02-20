@@ -6,6 +6,7 @@ export namespace CreateProviderController {
   export type Request = {
     name: string
     description: string
+    email: string
     cnpj: string
     serviceId: number
     userId: string

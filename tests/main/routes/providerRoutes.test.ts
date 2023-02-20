@@ -41,7 +41,7 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/provider')
         .send({
-          idBusiness: 1,
+          serviceId: 1,
           description: 'any_description',
         })
         .expect(401);

@@ -1,2 +1,2 @@
-export * from './mockAccount';
+export * from './mockUser';
 export * from './testHelpers';

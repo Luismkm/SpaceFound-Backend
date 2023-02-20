@@ -10,7 +10,7 @@ export const mockCreateAccountParams = (): CreateUserAccount.Params => ({
   createdAt: new Date(),
 });
 
-export const mockAccount = (): IUser => ({
+export const mockUser = (): IUser => ({
   id: 'any_uuid',
   name: 'any_name',
   email: 'any_email',

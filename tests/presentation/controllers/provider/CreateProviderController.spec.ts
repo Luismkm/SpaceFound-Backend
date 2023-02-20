@@ -11,6 +11,7 @@ import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
 const mockRequest = ():CreateProviderController.Request => ({
   name: 'any_name',
   description: 'any_description',
+  email: 'any_email',
   cnpj: 'any_cnpj',
   serviceId: 1,
   userId: 'any_uuid',
@@ -48,6 +49,7 @@ describe('CreateProvider Controller', () => {
     expect(createProviderSpy.params).toEqual({
       name: request.name,
       description: request.description,
+      email: request.email,
       cnpj: request.cnpj,
       serviceId: request.serviceId,
       createdAt: new Date(),
