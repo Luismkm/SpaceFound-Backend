@@ -1,10 +1,11 @@
 export type IProvider = {
   id: string
   name: string
+  email: string
   description: string
   cnpj?: string
   serviceId: number
-  userId: string
+  avatar: string
   createdAt: Date
   updatedAt: Date
 }
