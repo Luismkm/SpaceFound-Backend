@@ -73,7 +73,7 @@ describe('DbUpdateAvatar', () => {
     });
   });
 
-  it('should return an user on success', async () => {
+  it('should return an user on ok', async () => {
     const { sut } = makeSut();
     const account = await sut.updateAvatar({ accountId: mockUuidParam, fileName: mockFilename });
     expect(account).toBeTruthy();

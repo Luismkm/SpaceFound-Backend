@@ -1,4 +1,4 @@
-import { success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { ok, unauthorized } from '@/presentation/helpers/http/httpHelper';
 
 import { IHttpRequest, IHttpResponse, IMiddleware } from '@/presentation/protocols';
 import { IDecrypter } from '@/data/protocols/cryptography/IDecrypter';
@@ -15,7 +15,7 @@ export class TokenValidation implements IMiddleware {
 
         if (decoded) {
           const { sub } = decoded;
-          return success({ userId: sub });
+          return ok({ userId: sub });
         }
       }
       return unauthorized();

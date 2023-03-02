@@ -1,4 +1,4 @@
-import { success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { ok, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { TokenValidation } from '@/validation/token/TokenValidation';
 
 import { IDecrypter } from '@/data/protocols/cryptography';
@@ -35,10 +35,10 @@ describe('Token Validations', () => {
     expect(decryptSpy).toHaveBeenCalledWith('any_token');
   });
 
-  it('should return success on valid token', () => {
+  it('should return ok on valid token', () => {
     const { sut } = makeSut();
     const httpResponse = sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success({ userId: 'any_value' }));
+    expect(httpResponse).toEqual(ok({ userId: 'any_value' }));
   });
 
   it('should return unauthorized on invalid token', () => {

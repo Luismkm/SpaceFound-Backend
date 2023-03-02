@@ -20,7 +20,7 @@ describe('Ad Routes', () => {
     await knexHelper.knex('ad').delete('*');
   });
   describe('POST /ad', () => {
-    it('should return 204 on create ad with success', async () => {
+    it('should return 204 on create ad with ok', async () => {
       const accessToken = makeAccesToken();
       await request(app)
         .post('/api/ad')
@@ -47,7 +47,7 @@ describe('Ad Routes', () => {
   });
 
   describe('GET /ad', () => {
-    it('should return 200 on create ad with success', async () => {
+    it('should return 200 on create ad with ok', async () => {
       const accessToken = makeAccesToken();
       await request(app)
         .get('/api/ad')
@@ -58,7 +58,7 @@ describe('Ad Routes', () => {
         .expect(204);
     });
 
-    it('should return 200 on create ad with success', async () => {
+    it('should return 200 on create ad with ok', async () => {
       const accessToken = makeAccesToken();
       await request(app)
         .post('/api/ad')

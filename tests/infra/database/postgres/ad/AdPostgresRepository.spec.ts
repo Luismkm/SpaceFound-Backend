@@ -12,7 +12,7 @@ describe('AdPostgresRepository', () => {
   });
 
   describe('create()', () => {
-    it('should return true on create success', async () => {
+    it('should return true on create ok', async () => {
       const ad = await sut.create({
         id: 'any_uuid',
         accountId: 'any_uuid',
@@ -27,7 +27,7 @@ describe('AdPostgresRepository', () => {
   })
 
   describe('listByAccount()', () => {
-    it('should return ads on success', async () => {
+    it('should return ads on ok', async () => {
       await sut.create({
         id: 'any_uuid',
         accountId: 'any_uuid',

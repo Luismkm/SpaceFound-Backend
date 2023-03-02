@@ -67,7 +67,7 @@ describe('UpdateProfileController', () => {
     });
   });
 
-  it('should return 204 user updated with successs', async () => {
+  it('should return 204 user updated with oks', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(noContent());

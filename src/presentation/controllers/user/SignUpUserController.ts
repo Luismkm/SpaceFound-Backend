@@ -1,6 +1,6 @@
 import { IAuthentication, ICreateUserAccount } from '@/domain/usecases/user';
 import { EmailInUseError } from '@/presentation/errors';
-import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, forbidden, serverError, ok } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
 
 export namespace SignUpUserController {
@@ -28,7 +28,7 @@ export class SignUpUserController implements IController {
       const account = await this.createAccount.create({ name, email, password, cityId, createdAt: new Date() });
       if (!account) return forbidden(new EmailInUseError());
       const accessToken = await this.authentication.auth({ email, password });
-      if (accessToken) return success(accessToken);
+      if (accessToken) return ok(accessToken);
     } catch (error: any) {
       return serverError(error);
     }

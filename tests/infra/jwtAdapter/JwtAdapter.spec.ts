@@ -18,7 +18,7 @@ describe('JWT Adapter', () => {
     expect(signSpy).toHaveBeenCalledWith({ sub: 'any_uuid' }, 'secret');
   });
 
-  it('should return a token sign success', () => {
+  it('should return a token sign ok', () => {
     const sut = makeSut();
     const accessToken = sut.encrypt('any_uuid');
     expect(accessToken).toBe('any_token');

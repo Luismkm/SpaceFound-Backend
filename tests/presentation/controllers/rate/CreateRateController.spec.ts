@@ -75,7 +75,7 @@ describe('CreateRate Controller', () => {
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 
-  it('should return 204 if rated with success', async () => {
+  it('should return 204 if rated with ok', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(noContent());

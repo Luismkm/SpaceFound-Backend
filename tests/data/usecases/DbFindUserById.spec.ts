@@ -35,7 +35,7 @@ describe('DbFindUserById', () => {
     expect(findSpy).toHaveBeenCalledWith('any_uuid');
   });
 
-  it('should return user on success', async () => {
+  it('should return user on ok', async () => {
     const { sut } = makeSut();
     const user = await sut.findById('any_uuid');
     expect(user).toEqual(mockUser());

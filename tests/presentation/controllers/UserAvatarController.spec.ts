@@ -1,4 +1,4 @@
-import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { serverError, ok, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IHttpRequest } from '@/presentation/protocols';
 
 import { throwError } from '@/tests/domain/mocks';
@@ -51,10 +51,10 @@ describe('UserAvatarController', () => {
     expect(httpResponse).toEqual(unauthorized());
   });
 
-  it('should return status code 200 on success', async () => {
+  it('should return status code 200 on ok', async () => {
     const { sut, updateAvatarSpy } = makeSut();
     const httpRequest = await sut.handle(mockRequest());
-    expect(httpRequest).toEqual(success(updateAvatarSpy.result));
+    expect(httpRequest).toEqual(ok(updateAvatarSpy.result));
   });
 
   it('Should return 500 if UpdateAvatar throws', async () => {

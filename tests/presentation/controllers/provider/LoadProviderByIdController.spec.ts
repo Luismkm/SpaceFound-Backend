@@ -1,4 +1,4 @@
-import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { forbidden, serverError, ok } from '@/presentation/helpers/http/httpHelper';
 import { IHttpRequest } from '@/presentation/protocols';
 import { InvalidParamError } from '@/presentation/errors';
 import { LoadProviderByIdController } from '@/presentation/controllers/provider/LoadProviderByIdController';
@@ -36,10 +36,10 @@ describe('LoadProvider Controller', () => {
     expect(loadSpy).toHaveBeenCalledWith('any_uuid');
   });
 
-  it('should return 200 on success', async () => {
+  it('should return 200 on ok', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(success(mockProviderProfile()));
+    expect(httpResponse).toEqual(ok(mockProviderProfile()));
   });
 
   it('Should return 403 if LoadProviderById returns null', async () => {

@@ -44,7 +44,7 @@ describe('Db Create Rate', () => {
     await expect(promise).rejects.toThrow();
   });
 
-  it('Should return true on success', async () => {
+  it('Should return true on ok', async () => {
     const { sut } = makeSut();
     const rate = await sut.create(mockRateParams());
     expect(rate).toBe(true);

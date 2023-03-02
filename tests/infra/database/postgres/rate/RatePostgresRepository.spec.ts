@@ -12,7 +12,7 @@ describe('Rate Postgres Repository', () => {
   });
 
   describe('create()', () => {
-    it('should return an rate on create success', async () => {
+    it('should return an rate on create ok', async () => {
       const rate = await sut.create({
         id: 'any_uuid',
         userId: 'any_uuid',

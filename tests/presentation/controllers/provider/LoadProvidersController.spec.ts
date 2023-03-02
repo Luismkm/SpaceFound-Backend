@@ -1,4 +1,4 @@
-import { noContent, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { noContent, serverError, ok } from '@/presentation/helpers/http/httpHelper';
 import { LoadProvidersController } from '@/presentation/controllers/provider/LoadProvidersController';
 import { ILoadProviders } from '@/domain/usecases/provider/ILoadProviders';
 
@@ -28,10 +28,10 @@ describe('LoadProvider Controller', () => {
     expect(loadSpy).toHaveBeenCalled();
   });
 
-  it('should return 200 on success', async () => {
+  it('should return 200 on ok', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({});
-    expect(httpResponse).toEqual(success(mockProviders()));
+    expect(httpResponse).toEqual(ok(mockProviders()));
   });
 
   it('should return 204 if LoadProviders returns empty', async () => {

@@ -121,7 +121,7 @@ describe('DbCreateUserAccount Usecase', () => {
     expect(sendSpy).not.toHaveBeenCalledWith();
   });
 
-  it('Should return true on success', async () => {
+  it('Should return true on ok', async () => {
     const { sut } = makeSut();
     const account = await sut.create(mockCreateAccountParams());
     expect(account).toBe(true);

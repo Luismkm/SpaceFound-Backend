@@ -79,7 +79,7 @@ describe('CreateProvider Controller', () => {
     expect(httpResponse).toEqual(serverError(new ServerError(null)));
   });
 
-  it('should return 204 if CreateProvider success', async () => {
+  it('should return 204 if CreateProvider ok', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(noContent());

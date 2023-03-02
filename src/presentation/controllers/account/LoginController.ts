@@ -1,4 +1,4 @@
-import { badRequest, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, serverError, ok, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
 import { IAuthentication } from '@/domain/usecases/user/IAuthentication';
 
@@ -21,7 +21,7 @@ export class LoginController implements IController {
       if (error) return badRequest(error);
       const authenticationModel = await this.authentication.auth(request);
       if (!authenticationModel) return unauthorized();
-      return success(authenticationModel);
+      return ok(authenticationModel);
     } catch (error) {
       return serverError(error);
     }

@@ -1,7 +1,7 @@
 import MockDate from 'mockdate';
 
 import { ServerError, MissingParamError, EmailInUseError } from '@/presentation/errors';
-import { badRequest, forbidden, serverError, success } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, forbidden, serverError, ok } from '@/presentation/helpers/http/httpHelper';
 
 import { throwError } from '@/tests/domain/mocks';
 import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
@@ -105,6 +105,6 @@ describe('SignUp Controller', () => {
   it('should return 200 if valid data is provided', async () => {
     const { sut, authenticationSpy } = makeSut();
     const httpResponse = await sut.handle(mockRequest());
-    expect(httpResponse).toEqual(success(authenticationSpy.result));
+    expect(httpResponse).toEqual(ok(authenticationSpy.result));
   });
 });

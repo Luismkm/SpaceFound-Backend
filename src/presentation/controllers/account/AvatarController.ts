@@ -1,5 +1,5 @@
 import { IUpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
-import { serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelper';
+import { serverError, ok, unauthorized } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpRequest, IHttpResponse } from '@/presentation/protocols';
 
 export class AvatarController implements IController {
@@ -14,7 +14,7 @@ export class AvatarController implements IController {
       if (!accountId) return unauthorized();
       const user = await this.update.updateAvatar({ accountId, fileName });
       if (!user) return unauthorized();
-      return success(user);
+      return ok(user);
     } catch (error: any) {
       return serverError(error);
     }

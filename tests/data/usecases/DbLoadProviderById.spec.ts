@@ -28,7 +28,7 @@ describe('DbLoadProviderById ', () => {
     expect(loadSpy).toHaveBeenCalled();
   });
 
-  it('should return a list of Providers on success', async () => {
+  it('should return a list of Providers on ok', async () => {
     const { sut } = makeSut();
     const provider = await sut.loadById('any_uuid');
     expect(provider).toEqual(mockProviderProfile());

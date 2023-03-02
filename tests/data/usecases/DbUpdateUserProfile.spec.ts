@@ -64,7 +64,7 @@ describe('DbUpdateUserProfile', () => {
     expect(isValid).toBe(false);
   });
 
-  it('should return true if DbUpdateUserProfile updated with success', async () => {
+  it('should return true if DbUpdateUserProfile updated with ok', async () => {
     const { sut } = makeSut();
     const updated = await sut.update(mockDbUpdateUserProfileParams());
     expect(updated).toBe(true);

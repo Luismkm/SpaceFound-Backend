@@ -3,7 +3,7 @@ import { UnauthorizedError } from '@/presentation/errors/UnauthorizedError';
 
 import { IHttpResponse } from '@/presentation/protocols';
 
-export const success = (data: any):IHttpResponse => ({
+export const ok = (data: any):IHttpResponse => ({
   statusCode: 200,
   body: data,
 });

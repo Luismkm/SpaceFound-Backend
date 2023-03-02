@@ -26,14 +26,14 @@ describe('User Postgres Repository', () => {
   })
 
   describe('create()', () => {
-    it('should return true on create success', async () => {
+    it('should return true on create ok', async () => {
       const account = await sut.create(mockUser());
       expect(account).toBeTruthy();
     });
   });
 
   describe('updateAvatar', () => {
-    it('should return true on updateAvatar with success', async () => {
+    it('should return true on updateAvatar with ok', async () => {
       await knexHelper.knex('user').insert({
         id: 'any_uuid',
         name: 'any_name',
@@ -51,7 +51,7 @@ describe('User Postgres Repository', () => {
   });
 
   describe('update', () => {
-    it('should return true on update with success', async () => {
+    it('should return true on update with ok', async () => {
       await knexHelper.knex('user').insert({
         id: 'any_uuid',
         name: 'any_name',
@@ -71,7 +71,7 @@ describe('User Postgres Repository', () => {
   });
 
   describe('loadByEmail', () => {
-    it('should return an account on loadByEmail success', async () => {
+    it('should return an account on loadByEmail ok', async () => {
       await knexHelper.knex('user').insert({
         id: 'any_uuid',
         name: 'any_name',

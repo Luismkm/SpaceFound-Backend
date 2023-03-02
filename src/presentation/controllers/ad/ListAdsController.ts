@@ -1,5 +1,5 @@
 import { IListAdByAccount } from '@/domain/usecases/ad/IListAdsByAccount'
-import { noContent, serverError, success } from '@/presentation/helpers/http/httpHelper'
+import { noContent, serverError, ok } from '@/presentation/helpers/http/httpHelper'
 import { IController, IHttpResponse } from '@/presentation/protocols'
 
 export class ListAdsController implements IController {
@@ -8,7 +8,7 @@ export class ListAdsController implements IController {
   async handle(request: ListAdsController.Request): Promise<IHttpResponse> {
     try {
       const ads = await this.listAd.listByAccount({ accountId: request.userId })
-      return ads.length ? success(ads) : noContent()
+      return ads.length ? ok(ads) : noContent()
     } catch (error) {
       return serverError(error)
     }

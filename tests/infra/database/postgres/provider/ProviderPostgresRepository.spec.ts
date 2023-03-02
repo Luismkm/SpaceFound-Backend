@@ -25,7 +25,7 @@ describe('Provider Postgres Repository', () => {
   });
 
   describe('create()', () => {
-    it('should return true on create provider with success', async () => {
+    it('should return true on create provider with ok', async () => {
       const mockProviderParams = {
         id: 'any_uuid',
         name: 'any_name',
@@ -41,7 +41,7 @@ describe('Provider Postgres Repository', () => {
   });
 
   describe('loadAll()', () => {
-    it('should load all providers on success', async () => {
+    it('should load all providers on ok', async () => {
       await knexHelper.knex('provider').insert([{
         id: 'any_uuid',
         description: 'any_description',
@@ -130,7 +130,7 @@ describe('Provider Postgres Repository', () => {
   });
 
   describe('updateAvatar', () => {
-    it('should return true on updateAvatar with success', async () => {
+    it('should return true on updateAvatar with ok', async () => {
       await knexHelper.knex('provider').insert({
         id: 'any_uuid',
         description: 'any_description',

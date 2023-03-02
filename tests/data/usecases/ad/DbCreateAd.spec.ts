@@ -35,7 +35,7 @@ describe('DbAd Usecase', () => {
     });
   });
 
-  it('Should return true if CreateAdRepository created on success', async () => {
+  it('Should return true if CreateAdRepository created on ok', async () => {
     const { sut, createAdRepositorySpy } = makeSut();
     const params = mockCreateAdParams();
     await sut.create(params);
