@@ -15,23 +15,24 @@ export class DbCreateUserAccount implements ICreateUserAccount {
   ) {}
 
   async create(params: CreateUserAccount.Params): Promise<CreateUserAccount.Result> {
-    let accountCreated = false;
     const checkUserExists = await this.checkAccountByEmailRepository.checkByEmail(params.email);
-    if (!checkUserExists) {
-      const passwordHashed = await this.hasher.hash(params.password);
-      const uuid = this.uuid.uuidGenerator();
-      accountCreated = await this.createUserAccountRepository.create({
-        ...params, password: passwordHashed, id: uuid,
-      });
-      if (accountCreated) {
-        this.sendEmailService.send({
-          to: {
-            name: params.name,
-            email: params.email,
-          },
-        });
-      }
+    if (checkUserExists) {
+      return false;
     }
-    return accountCreated;
+    const passwordHashed = await this.hasher.hash(params.password);
+    const uuid = this.uuid.uuidGenerator();
+    const isAccountCreated = await this.createUserAccountRepository.create({
+      ...params, password: passwordHashed, id: uuid,
+    });
+    if (!isAccountCreated) {
+      return false;
+    }
+    this.sendEmailService.send({
+      to: {
+        name: params.name,
+        email: params.email,
+      },
+    });
+    return true;
   }
 }
