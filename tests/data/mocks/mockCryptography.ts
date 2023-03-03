@@ -25,23 +25,25 @@ export class HashComparerSpy implements IHashComparer {
   }
 }
 
-export const mockEncrypter = (): IEncrypter => {
-  class EncrypterStub implements IEncrypter {
-    encrypt(value: string): string {
-      return 'any_token';
-    }
-  }
-  return new EncrypterStub();
-};
+export class EncrypterSpy implements IEncrypter {
+  plainText: string
+  textEncrypted: 'any_encrypt'
 
-export const mockDecrypter = (): IDecrypter => {
-  class DecrypterStub implements IDecrypter {
-    decrypt(value: string): ITokenPayload {
-      return {
-        iat: 123456,
-        sub: 'any_value',
-      };
-    }
+  encrypt(plainText: string): string {
+    this.plainText = plainText
+    return this.textEncrypted
   }
-  return new DecrypterStub();
-};
+}
+
+export class DecrypterSpy implements IDecrypter {
+  token: string
+  plainText = {
+    iat: 123456,
+    sub: 'any_value',
+  };
+
+  decrypt(token: string): ITokenPayload {
+    this.token = token
+    return this.plainText
+  }
+}

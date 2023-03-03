@@ -1,10 +1,20 @@
 import { FindUserByIdRepository, IFindUserByIdRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
 
-import { mockUser } from '@/tests/domain/mocks';
-
 export class FindUserByIdRepositorySpy implements IFindUserByIdRepository {
-  async findById(params: FindUserByIdRepository.Params): Promise<FindUserByIdRepository.Result> {
-    return Promise.resolve(mockUser());
+  id: string
+  result = {
+    id: 'any_uuid',
+    name: 'any_name',
+    email: 'any_email',
+    password: 'any_password',
+    avatar: 'any_avatar',
+    cityId: 1,
+    createdAt: new Date(),
+  }
+
+  async findById(id: string): Promise<FindUserByIdRepository.Result> {
+    this.id = id
+    return this.result
   }
 }
 
