@@ -1,4 +1,4 @@
-import { DbLoadProviderById } from '@/data/usecases/provider/DbLoadProviderById';
+import { DbLoadProfileById } from '@/data/usecases/provider/DbLoadProfileById';
 import { DbLoadProviders } from '@/data/usecases/provider/DbLoadProviders';
 import { ILoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
 import { ILoadProviders } from '@/domain/usecases/provider/ILoadProviders';
@@ -9,7 +9,8 @@ export const makeDbLoadProviders = (): ILoadProviders => {
   return new DbLoadProviders(loadProvidersPostgresRepository);
 };
 
-export const makeDbLoadProviderById = (): ILoadProviderById => {
+/* export const makeDbLoadProviderById = (): ILoadProviderById => {
   const loadProviderByIdPostgresRepository = new ProviderPostgresRepository();
-  return new DbLoadProviderById(loadProviderByIdPostgresRepository);
+  return new DbLoadProfileById(loadProviderByIdPostgresRepository);
 };
+ */

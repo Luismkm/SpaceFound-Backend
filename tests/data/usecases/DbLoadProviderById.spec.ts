@@ -1,43 +1,40 @@
-import { DbLoadProviderById } from '@/data/usecases/provider/DbLoadProviderById';
-
-import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
-
-import { mockLoadProviderByIdRepository } from '../mocks/mockDbProvider';
 import { mockProviderProfile } from '@/tests/domain/mocks/mockProvider';
 import { throwError } from '@/tests/domain/mocks';
+import { DbLoadProfileById } from '@/data/usecases/provider/DbLoadProfileById';
+import { LoadProfileByIdRepositorySpy } from '@/tests/data/mocks/mockDbProvider';
 
 type ISutTypes = {
-  sut: DbLoadProviderById
-  loadProviderByIdRepositoryStub: ILoadProviderByIdRepository
+  sut: DbLoadProfileById
+  loadProviderByIdRepositorySpy: LoadProfileByIdRepositorySpy
 }
 
 const makeSut = (): ISutTypes => {
-  const loadProviderByIdRepositoryStub = mockLoadProviderByIdRepository();
-  const sut = new DbLoadProviderById(loadProviderByIdRepositoryStub);
+  const loadProviderByIdRepositorySpy = new LoadProfileByIdRepositorySpy();
+  const sut = new DbLoadProfileById(loadProviderByIdRepositorySpy);
   return {
     sut,
-    loadProviderByIdRepositoryStub,
+    loadProviderByIdRepositorySpy,
   };
 };
 
-describe('DbLoadProviderById ', () => {
+describe('DbLoadProfileById ', () => {
   it('should call LoadProviderByIdRepository', async () => {
-    const { sut, loadProviderByIdRepositoryStub } = makeSut();
-    const loadSpy = jest.spyOn(loadProviderByIdRepositoryStub, 'loadById');
-    await sut.loadById('any_uuid');
+    const { sut, loadProviderByIdRepositorySpy } = makeSut();
+    const loadSpy = jest.spyOn(loadProviderByIdRepositorySpy, 'loadProfileById');
+    await sut.loadProfileById('any_uuid');
     expect(loadSpy).toHaveBeenCalled();
   });
 
   it('should return a list of Providers on ok', async () => {
     const { sut } = makeSut();
-    const provider = await sut.loadById('any_uuid');
+    const provider = await sut.loadProfileById('any_uuid');
     expect(provider).toEqual(mockProviderProfile());
   });
 
   it('should throw if LoadProviderByIdRepository throws', async () => {
-    const { sut, loadProviderByIdRepositoryStub } = makeSut();
-    jest.spyOn(loadProviderByIdRepositoryStub, 'loadById').mockImplementationOnce(throwError);
-    const promise = sut.loadById('any_uuid');
+    const { sut, loadProviderByIdRepositorySpy } = makeSut();
+    jest.spyOn(loadProviderByIdRepositorySpy, 'loadProfileById').mockImplementationOnce(throwError);
+    const promise = sut.loadProfileById('any_uuid');
     await expect(promise).rejects.toThrow();
   });
 });

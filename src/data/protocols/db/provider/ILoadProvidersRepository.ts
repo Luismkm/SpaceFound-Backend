@@ -1,10 +1,9 @@
 export namespace LoadProvidersRepository {
   export type Result = {
-    id: string,
+    accountId: string,
     serviceId: string,
     description: string,
-    idUser: string,
-    idProvider: string,
+    avatar: string,
     average: number
   }
 }

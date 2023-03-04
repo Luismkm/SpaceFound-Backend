@@ -1,14 +1,7 @@
-type IProfile = {
-  id: number
+export interface IProviderProfile {
+  accountId: string
   serviceId: string
   description: string
-  idUser: string
-  idProvider: string
-  star: number
-  comment: string
-}
-
-export interface IProviderProfile {
-  provider: IProfile[]
+  avatar: string
   averageStars: number
 }

@@ -1,13 +1,13 @@
-export namespace LoadProviderById {
+export namespace LoadProfileById {
   export type Result = {
     accountId: string
     serviceId: string
     description: string
     avatar: string
     averageStars: number
-  }
+    }
 }
 
-export interface ILoadProviderById {
-  load(id: string): Promise<LoadProviderById.Result>
+export interface LoadProfileById {
+  loadProfileById(id: string): Promise<LoadProfileById.Result>
 }

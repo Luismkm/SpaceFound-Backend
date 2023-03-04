@@ -2,7 +2,8 @@ import { mockProviderProfile, mockProviders } from '@/tests/domain/mocks/mockPro
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
 import { CreateProviderAccount, ICreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 import { ILoadProviders, LoadProviders } from '@/domain/usecases/provider/ILoadProviders';
-import { ILoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
+import { ILoadProviderById, LoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
+import { LoadProfileById } from '@/domain/usecases/provider/ILoadProfileById';
 
 export class CreateProviderSpy implements ICreateProviderAccount {
   params: CreateProviderAccount.Params
@@ -23,11 +24,17 @@ export const mockLoadProviders = ():ILoadProviders => {
   return new LoadProvidersStub();
 };
 
-export const mockLoadProviderById = ():ILoadProviderById => {
-  class LoadProviderByIdStub implements ILoadProviderById {
-    async loadById(): Promise<IProviderProfile> {
-      return Promise.resolve(mockProviderProfile());
-    }
+export class LoadProviderByIdSpy implements ILoadProviderById {
+  id: string
+  result = {
+    accountId: 'any_uuid',
+    serviceId: 'any_uuid',
+    description: 'any_description',
+    avatar: 'any_avatar',
+    averageStars: 3,
   }
-  return new LoadProviderByIdStub();
-};
+  async load(id: string): Promise<LoadProviderById.Result> {
+    this.id = id
+    return this.result
+  }
+}

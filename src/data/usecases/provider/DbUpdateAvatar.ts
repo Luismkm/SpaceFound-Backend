@@ -1,4 +1,4 @@
-import { IFindProviderByIdRepository } from '@/data/protocols/db/provider/IFindProviderByIdRepository';
+import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
 import { IStorageProvider } from '@/data/usecases/user/DbUserProtocols';
 import { IUpdateAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
 import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
@@ -6,7 +6,7 @@ import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAv
 export class DbUpdateAvatar implements IUpdateAvatar {
   constructor(
     private readonly storageProvider: IStorageProvider,
-    private readonly findProviderByIdRepository: IFindProviderByIdRepository,
+    private readonly findProviderByIdRepository: ILoadProviderByIdRepository,
     private readonly updateAvatarRepository: IUpdateAvatarRepository,
   ) {}
 

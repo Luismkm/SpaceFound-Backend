@@ -1,3 +1,4 @@
 export * from './ICreateProviderAccountRepository';
-export * from './ILoadProviderByIdRepository';
+export * from './ILoadProfileByIdRepository';
 export * from './ILoadProvidersRepository';
+export * from './ILoadProviderByIdRepository'

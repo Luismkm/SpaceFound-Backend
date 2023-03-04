@@ -25,42 +25,26 @@ export const mockProvider = (): IProvider => ({
 })
 
 export const mockProviders = (): LoadProvidersRepository.Result[] => [{
-  id: 'any_uuid',
+  accountId: 'any_uuid',
   serviceId: 'any_uuid',
   description: 'any_description',
-  idUser: 'any_uuid',
-  idProvider: 'any_uuid',
+  avatar: 'any_avatar',
   average: 4.5,
 },
 {
-  id: 'any_uuid',
+  accountId: 'any_uuid',
   serviceId: 'any_uuid',
   description: 'any_description',
-  idUser: 'any_uuid',
-  idProvider: 'any_uuid',
+  avatar: 'any_avatar',
   average: 4.5,
 }];
 
-export const mockProviderProfile = ():IProviderProfile => ({
-  provider: [
-    {
-      id: 2,
-      serviceId: '1',
-      description: 'any description',
-      idUser: 'any_uuid',
-      idProvider: 'any_uuid',
-      star: 3,
-      comment: 'any_comment',
-    },
-    {
-      id: 2,
-      serviceId: '1',
-      description: 'any description',
-      idUser: 'any_uuid',
-      idProvider: 'any_uuid',
-      star: 3,
-      comment: 'other_comment',
-    },
-  ],
-  averageStars: 3,
-});
+export const mockProviderProfile = ():IProviderProfile => (
+  {
+    accountId: 'any_uuid',
+    serviceId: 'any_uuid',
+    description: 'any_description',
+    avatar: 'any_avatar',
+    averageStars: 3,
+  }
+)

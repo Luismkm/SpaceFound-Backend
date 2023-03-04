@@ -1,15 +1,16 @@
 import { knexHelper } from '@/infra/database/helpers';
-import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProviderByIdRepository, ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols';
+import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProfileByIdRepository, ILoadProvidersRepository, LoadProvidersRepository, LoadProfileByIdRepository } from '@/data/protocols';
 import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
-import { FindProviderByIdRepository, IFindProviderByIdRepository } from '@/data/protocols/db/provider/IFindProviderByIdRepository';
-import { IProvider } from '@/domain/models/IProvider';
+import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
+import { ICheckProviderById } from '@/domain/usecases/provider/ICheckProviderById';
 
 export class ProviderPostgresRepository implements
   ICreateProviderAccountRepository,
   ILoadProvidersRepository,
+  ILoadProfileByIdRepository,
   ILoadProviderByIdRepository,
-  IFindProviderByIdRepository,
-  IUpdateAvatarRepository {
+  IUpdateAvatarRepository,
+  ICheckProviderById {
   async create(params: CreateProviderAccountRepository.Params): Promise<CreateProviderAccountRepository.Result> {
     const { id, name, description, email, createdAt, serviceId, cnpj } = params;
     let providerCreated: any;
@@ -32,9 +33,17 @@ export class ProviderPostgresRepository implements
 
     const providers = await knexHelper
       .knex('provider')
-      .select('*').leftJoin(avgStar, 'provider.id', 'rate_avg.provider_id');
+      .select('*', { accountId: 'id' }).leftJoin(avgStar, 'provider.id', 'rate_avg.provider_id');
 
     return providers;
+  }
+
+  async loadProfileById(id: string): Promise<LoadProfileByIdRepository.Result> {
+    const provider = await knexHelper.knex.select('*').from('provider').where('provider.id', id);
+    const averageStarsArray = await knexHelper.knex('rate').avg('star').where('provider_id', id);
+    const { avg } = averageStarsArray[0];
+    const averageStars = avg !== null ? averageStarsArray[0].avg : 0;
+    return { averageStars, ...provider[0] };
   }
 
   async loadById(id: string): Promise<any> {
@@ -51,9 +60,14 @@ export class ProviderPostgresRepository implements
     return asReturn !== null;
   }
 
-  async findById(param: string): Promise<FindProviderByIdRepository.Result> {
+  async checkProviderById(id: string): Promise<boolean> {
+    const provider = await knexHelper.knex('provider').where('id', id);
+    return provider.length > 1
+  }
+
+  /* async findById(param: string): Promise<LoadProviderByIdRepository.Result> {
     const provider = await knexHelper.knex<IProvider>('provider').where('id', param);
     const { id, avatar } = provider[0]
     return { id, avatar }
-  }
+  } */
 }

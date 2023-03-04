@@ -7,7 +7,7 @@
     "start": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules  src/main/server.ts",
     "test": "jest --silent --noStackTrace --detectOpenHandles --runInBand",
     "test:verbose": "jest --detectOpenHandles --runInBand",
-    "test:unit": "yarn test -- --watch --detectOpenHandles -c jest.unit.config.js",
+    "test:unit": "yarn test -- --watch --no-cache --detectOpenHandles -c jest.unit.config.js",
     "test:integration": "yarn test -- --watch -c jest.integration.config.js",
     "test:vi": "jest --detectOpenHandles --runInBand -c jest.integration.config.js",
     "test:ci": "yarn test -- --coverage"

@@ -4,21 +4,25 @@ import { mockRateParams } from '@/tests/domain/mocks/mockRate';
 import { throwError } from '@/tests/domain/mocks';
 import { CreateRateRepositorySpy } from '@/tests/data/mocks/mockDbRate';
 import { UuidGeneratorSpy } from '@/tests/data/mocks';
+import { CheckProviderByIdRepositorySpy } from '../mocks/mockDbProvider';
 
 type ISutTypes = {
   sut: DbCreateRate
   uuidSpy: UuidGeneratorSpy
   createRateRepositorySpy: CreateRateRepositorySpy
+  checkProviderByIdRepositorySpy: CheckProviderByIdRepositorySpy
 }
 
 const makeSut = ():ISutTypes => {
   const uuidSpy = new UuidGeneratorSpy();
   const createRateRepositorySpy = new CreateRateRepositorySpy();
-  const sut = new DbCreateRate(uuidSpy, createRateRepositorySpy);
+  const checkProviderByIdRepositorySpy = new CheckProviderByIdRepositorySpy()
+  const sut = new DbCreateRate(uuidSpy, checkProviderByIdRepositorySpy, createRateRepositorySpy);
   return {
     sut,
     uuidSpy,
     createRateRepositorySpy,
+    checkProviderByIdRepositorySpy,
   };
 };
 
