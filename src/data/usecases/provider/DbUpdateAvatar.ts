@@ -10,12 +10,12 @@ export class DbUpdateAvatar implements IUpdateAvatar {
     private readonly updateAvatarRepository: IUpdateAvatarRepository,
   ) {}
 
-  async updateAvatar({ accountId, fileName }: UpdateAvatar.Params): Promise<UpdateAvatar.Result> {
+  async updateAvatar({ accountId, filename }: UpdateAvatar.Params): Promise<UpdateAvatar.Result> {
     const provider = await this.findProviderByIdRepository.findById(accountId);
     if (!provider) return null;
     if (provider.avatar) await this.storageProvider.deleteFile(provider.avatar);
-    const fileUpadated = await this.storageProvider.saveFile(fileName);
-    const avatar = await this.updateAvatarRepository.updateAvatar({ accountId, fileName: fileUpadated });
+    const fileUpadated = await this.storageProvider.saveFile(filename);
+    const avatar = await this.updateAvatarRepository.updateAvatar({ accountId, filename: fileUpadated });
     return avatar;
   }
 }

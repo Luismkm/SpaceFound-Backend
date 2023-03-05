@@ -19,7 +19,7 @@ export class UpdateAvatarSpy implements IUpdateAvatar {
   async updateAvatar(params: UpdateAvatar.Params): Promise<UpdateAvatar.Result> {
     this.params = {
       accountId: params.accountId,
-      fileName: params.fileName,
+      filename: params.filename,
     };
     return this.result;
   }

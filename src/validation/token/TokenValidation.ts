@@ -15,7 +15,7 @@ export class TokenValidation implements IMiddleware {
 
         if (decoded) {
           const { sub } = decoded;
-          return ok({ userId: sub });
+          return ok({ accountId: sub });
         }
       }
       return unauthorized();

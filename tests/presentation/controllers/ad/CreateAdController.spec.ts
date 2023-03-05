@@ -8,7 +8,7 @@ import { MissingParamError, ServerError } from '@/presentation/errors';
 import { throwError } from '@/tests/domain/mocks';
 
 const mockRequest = ():CreateAdController.Request => ({
-  userId: 'any_uuid',
+  accountId: 'any_uuid',
   title: 'any_title',
   serviceId: '1',
   description: 'any_description',
@@ -44,7 +44,7 @@ describe('CreateAd Controller', () => {
     const request = mockRequest();
     await sut.handle(request);
     expect(createAdSpy.params).toEqual({
-      accountId: request.userId,
+      accountId: request.accountId,
       title: request.title,
       serviceId: request.serviceId,
       description: request.description,

@@ -43,7 +43,7 @@ describe('User Postgres Repository', () => {
         city_id: 1,
         created_at: new Date(),
       });
-      const succeeds = await sut.updateAvatar({ accountId: 'any_uuid', fileName: 'other_avatar' })
+      const succeeds = await sut.updateAvatar({ accountId: 'any_uuid', filename: 'other_avatar' })
       const user = await sut.findById('any_uuid')
       expect(succeeds).toBeTruthy();
       expect(user.avatar).toBe('other_avatar')

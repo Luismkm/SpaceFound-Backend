@@ -1,7 +1,7 @@
 export namespace UpdateAccountAvatarRepository {
   export type Params = {
     accountId: string
-    fileName: string
+    filename: string
   }
 
   export type Result = boolean

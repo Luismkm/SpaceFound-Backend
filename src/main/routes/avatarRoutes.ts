@@ -10,6 +10,6 @@ import { makeProviderAvatarController } from '@/main/factories/controllers/provi
 const upload = multer(uploadConfig.multer);
 
 export default (router: Router): void => {
-  router.patch('/avatar/user', auth, upload.single('avatar'), adaptRoute(makeUserAvatarController()));
+  router.patch('/avatar', auth, upload.single('avatar'), adaptRoute(makeUserAvatarController()));
   router.patch('/avatar/provider', auth, upload.single('avatar'), adaptRoute(makeProviderAvatarController()));
 };

@@ -140,7 +140,7 @@ describe('Provider Postgres Repository', () => {
         cnpj: 'any_cnpj',
         created_at: new Date(),
       });
-      const succeeds = await sut.updateAvatar({ accountId: 'any_uuid', fileName: 'other_avatar' })
+      const succeeds = await sut.updateAvatar({ accountId: 'any_uuid', filename: 'other_avatar' })
       const provider = await sut.loadById('any_uuid')
       expect(succeeds).toBeTruthy();
       expect(provider.avatar).toBe('other_avatar')

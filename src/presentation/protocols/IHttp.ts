@@ -4,9 +4,7 @@ export type IHttpRequest = {
   userId?: any;
   accountId?: any;
   params?: any;
-  file?:{
-    fileName: any;
-  }
+  filename?: any;
 }
 
 export type IHttpResponse = {

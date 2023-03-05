@@ -8,6 +8,6 @@ export namespace LoadProfileById {
     }
 }
 
-export interface LoadProfileById {
-  loadProfileById(id: string): Promise<LoadProfileById.Result>
+export interface ILoadProfileById {
+  load(id: string): Promise<LoadProfileById.Result>
 }

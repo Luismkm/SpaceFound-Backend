@@ -36,8 +36,8 @@ export class UserPostgresRepository implements
     return account[0];
   }
 
-  async updateAvatar({ accountId, fileName }: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
-    const asReturn = await knexHelper.knex('user').update('avatar', fileName).where('id', accountId).limit(1)
+  async updateAvatar({ accountId, filename }: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
+    const asReturn = await knexHelper.knex('user').update('avatar', filename).where('id', accountId).limit(1)
     return asReturn !== null;
   }
 }

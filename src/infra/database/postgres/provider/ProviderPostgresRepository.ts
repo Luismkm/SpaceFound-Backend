@@ -55,8 +55,8 @@ export class ProviderPostgresRepository implements
     return result;
   }
 
-  async updateAvatar({ accountId, fileName }: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
-    const asReturn = await knexHelper.knex('provider').update('avatar', fileName).where('id', accountId).limit(1)
+  async updateAvatar({ accountId, filename }: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
+    const asReturn = await knexHelper.knex('provider').update('avatar', filename).where('id', accountId).limit(1)
     return asReturn !== null;
   }
 

@@ -10,12 +10,13 @@ export class AvatarController implements IController {
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
       const { accountId } = httpRequest;
-      const { fileName } = httpRequest.file;
+      const { filename } = httpRequest;
       if (!accountId) return unauthorized();
-      const user = await this.update.updateAvatar({ accountId, fileName });
+      const user = await this.update.updateAvatar({ accountId, filename });
       if (!user) return unauthorized();
       return ok(user);
     } catch (error: any) {
+      console.log(error)
       return serverError(error);
     }
   }

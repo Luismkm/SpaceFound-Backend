@@ -27,7 +27,7 @@ export class EtherealAdapter implements ISendEmailService {
       html: await this.templateProvider.parse(this.template, { name: 'Luis' }),
     });
 
-    console.log('Message sent: %s', message.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
+    /* console.log('Message sent: %s', message.messageId);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message)); */
   }
 }

@@ -21,20 +21,20 @@ describe('DbLoadProfileById ', () => {
   it('should call LoadProviderByIdRepository', async () => {
     const { sut, loadProviderByIdRepositorySpy } = makeSut();
     const loadSpy = jest.spyOn(loadProviderByIdRepositorySpy, 'loadProfileById');
-    await sut.loadProfileById('any_uuid');
+    await sut.load('any_uuid');
     expect(loadSpy).toHaveBeenCalled();
   });
 
   it('should return a list of Providers on ok', async () => {
     const { sut } = makeSut();
-    const provider = await sut.loadProfileById('any_uuid');
+    const provider = await sut.load('any_uuid');
     expect(provider).toEqual(mockProviderProfile());
   });
 
   it('should throw if LoadProviderByIdRepository throws', async () => {
     const { sut, loadProviderByIdRepositorySpy } = makeSut();
     jest.spyOn(loadProviderByIdRepositorySpy, 'loadProfileById').mockImplementationOnce(throwError);
-    const promise = sut.loadProfileById('any_uuid');
+    const promise = sut.load('any_uuid');
     await expect(promise).rejects.toThrow();
   });
 });
