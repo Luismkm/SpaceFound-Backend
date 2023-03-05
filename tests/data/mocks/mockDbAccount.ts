@@ -1,6 +1,6 @@
 import {
   CreateUserAccountRepository, ICreateUserAccountRepository,
-  LoadUserByEmailRepository, ILoadAccountByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository,
+  LoadUserByEmailRepository, ILoadUserByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository,
 } from '@/data/protocols';
 import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
 
@@ -24,7 +24,7 @@ export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
   }
 }
 
-export class LoadAccountByEmailRepositorySpy implements ILoadAccountByEmailRepository {
+export class LoadAccountByEmailRepositorySpy implements ILoadUserByEmailRepository {
   email: string
   result = {
     id: 'any_uuid',
