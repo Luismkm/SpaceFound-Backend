@@ -3,7 +3,7 @@ import { IValidation } from '@/presentation/protocols';
 
 export const makeCreateAdValidation = (): ValidationComposite => {
   const validations: IValidation[] = [];
-  for (const field of ['userId', 'title', 'description', 'serviceId']) {
+  for (const field of ['title', 'description', 'serviceId']) {
     validations.push(new RequiredFieldValidation(field));
   }
 

@@ -5,6 +5,7 @@ import { ICreateAd } from '@/domain/usecases/ad/ICreateAd';
 export namespace CreateAdController {
   export type Request = {
     accountId: string
+    accountType: string
     title: string
     description: string
     serviceId: string
@@ -21,10 +22,10 @@ export class CreateAdController implements IController {
     try {
       const error = this.validation.validate(request);
       if (error) return badRequest(error);
-      const { accountId, ...restRequest } = request
-      const ad = await this.createAd.create({ ...restRequest, accountId, createdAt: new Date() });
+      const ad = await this.createAd.create({ ...request, createdAt: new Date() });
       if (ad) return noContent();
     } catch (error) {
+      console.log(error)
       return serverError(error);
     }
   }

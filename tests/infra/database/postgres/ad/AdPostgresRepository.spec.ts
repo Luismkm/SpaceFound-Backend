@@ -16,6 +16,7 @@ describe('AdPostgresRepository', () => {
       const ad = await sut.create({
         id: 'any_uuid',
         accountId: 'any_uuid',
+        accountType: 'any_account',
         title: 'any_title',
         description: 'any_description',
         serviceId: '1',
@@ -31,6 +32,7 @@ describe('AdPostgresRepository', () => {
       await sut.create({
         id: 'any_uuid',
         accountId: 'any_uuid',
+        accountType: 'any_account',
         title: 'any_title',
         description: 'any_description',
         serviceId: '1',

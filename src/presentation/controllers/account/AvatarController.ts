@@ -16,7 +16,6 @@ export class AvatarController implements IController {
       if (!user) return unauthorized();
       return ok(user);
     } catch (error: any) {
-      console.log(error)
       return serverError(error);
     }
   }

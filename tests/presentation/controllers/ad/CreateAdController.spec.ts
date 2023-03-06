@@ -9,6 +9,7 @@ import { throwError } from '@/tests/domain/mocks';
 
 const mockRequest = ():CreateAdController.Request => ({
   accountId: 'any_uuid',
+  accountType: 'any_account',
   title: 'any_title',
   serviceId: '1',
   description: 'any_description',
@@ -45,6 +46,7 @@ describe('CreateAd Controller', () => {
     await sut.handle(request);
     expect(createAdSpy.params).toEqual({
       accountId: request.accountId,
+      accountType: request.accountType,
       title: request.title,
       serviceId: request.serviceId,
       description: request.description,

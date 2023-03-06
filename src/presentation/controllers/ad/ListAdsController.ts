@@ -7,7 +7,7 @@ export class ListAdsController implements IController {
 
   async handle(request: ListAdsController.Request): Promise<IHttpResponse> {
     try {
-      const ads = await this.listAd.listByAccount({ accountId: request.userId })
+      const ads = await this.listAd.listByAccount({ accountId: request.accountId })
       return ads.length ? ok(ads) : noContent()
     } catch (error) {
       return serverError(error)
@@ -17,6 +17,6 @@ export class ListAdsController implements IController {
 
 export namespace ListAdsController {
   export type Request = {
-    userId: string
+    accountId: string
   }
 }

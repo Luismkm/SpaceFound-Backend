@@ -28,6 +28,7 @@ describe('DbAd Usecase', () => {
     expect(createAdRepositorySpy.params).toEqual({
       id: uuidSpy.digest,
       accountId: params.accountId,
+      accountType: params.accountType,
       title: params.title,
       serviceId: params.serviceId,
       description: params.description,

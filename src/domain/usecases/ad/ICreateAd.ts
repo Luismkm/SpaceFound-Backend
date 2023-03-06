@@ -1,6 +1,7 @@
 export namespace CreateAd {
   export type Params = {
     accountId: string
+    accountType: string
     title: string
     description: string
     serviceId: string

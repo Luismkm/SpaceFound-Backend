@@ -4,7 +4,7 @@ import { serverError } from '@/presentation/helpers/http/httpHelper';
 import { throwError } from '@/tests/domain/mocks';
 
 const mockRequest = (): ListAdsController.Request => ({
-  userId: 'any_uuid',
+  accountId: 'any_uuid',
 });
 
 type ISutTypes = {
@@ -26,7 +26,7 @@ describe('List Ads Controller', () => {
     const { sut, listAdsByAccountSpy } = makeSut()
     const request = mockRequest()
     sut.handle(request)
-    expect(listAdsByAccountSpy.id).toBe(request.userId)
+    expect(listAdsByAccountSpy.id).toBe(request.accountId)
   })
 
   it('should return statusCode 200 when listAdsByAccount return a value', async () => {

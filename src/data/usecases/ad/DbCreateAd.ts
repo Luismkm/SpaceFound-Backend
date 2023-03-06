@@ -10,7 +10,7 @@ export class DbCreateAd implements ICreateAd {
 
   async create(params: CreateAd.Params): Promise<CreateAd.Result> {
     const uuid = this.uuid.uuidGenerator();
-    const adCreated = this.createAdRepository.create({ ...params, id: uuid });
+    const adCreated = await this.createAdRepository.create({ ...params, id: uuid });
     return adCreated !== null;
   }
 }
