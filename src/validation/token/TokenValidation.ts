@@ -14,8 +14,8 @@ export class TokenValidation implements IMiddleware {
         const decoded = this.decrypter.decrypt(accessToken);
 
         if (decoded) {
-          const { sub } = decoded;
-          return ok({ accountId: sub });
+          const { sub, accountType } = decoded;
+          return ok({ accountId: sub, accountType });
         }
       }
       return unauthorized();

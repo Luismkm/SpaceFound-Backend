@@ -1,4 +1,5 @@
 import {
+  encrypterParams,
   IDecrypter, IEncrypter, IHashComparer, IHasher,
 } from '@/data/protocols/cryptography';
 import { ITokenPayload } from '@/data/protocols/helpers/ITokenPayload';
@@ -26,11 +27,11 @@ export class HashComparerSpy implements IHashComparer {
 }
 
 export class EncrypterSpy implements IEncrypter {
-  plainText: string
+  params: encrypterParams
   textEncrypted: 'any_encrypt'
 
-  encrypt(plainText: string): string {
-    this.plainText = plainText
+  encrypt({ sub, accountType }:encrypterParams): string {
+    this.params = { sub, accountType }
     return this.textEncrypted
   }
 }
@@ -40,6 +41,7 @@ export class DecrypterSpy implements IDecrypter {
   plainText = {
     iat: 123456,
     sub: 'any_value',
+    accountType: 'any_account',
   };
 
   decrypt(token: string): ITokenPayload {

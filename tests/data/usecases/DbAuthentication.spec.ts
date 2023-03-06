@@ -74,7 +74,10 @@ describe('DbAuthentication UseCase', () => {
   it('should call Encrypter with correct id', async () => {
     const { sut, encrypterSpy } = makeSut();
     await sut.auth(mockAuthenticationParams());
-    expect(encrypterSpy.plainText).toBe('any_uuid');
+    expect(encrypterSpy.params).toEqual({
+      sub: 'any_uuid',
+      accountType: 'user',
+    });
   });
 
   it('should throw if Encrypter throws', async () => {

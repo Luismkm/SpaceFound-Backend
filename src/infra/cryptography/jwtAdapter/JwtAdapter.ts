@@ -1,14 +1,14 @@
 import jwt, { sign } from 'jsonwebtoken';
 
-import { IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
+import { encrypterParams, IEncrypter } from '@/data/protocols/cryptography/IEncrypter';
 import { IDecrypter } from '@/data/protocols/cryptography/IDecrypter';
 import { ITokenPayload } from '@/data/protocols/helpers/ITokenPayload';
 
 export class JwtAdapter implements IEncrypter, IDecrypter {
   constructor(private readonly secret: string) {}
 
-  encrypt(value: string): string {
-    const token = sign({ sub: value }, this.secret);
+  encrypt({ sub, accountType }:encrypterParams): string {
+    const token = sign({ sub, accountType }, this.secret);
     return token;
   }
 

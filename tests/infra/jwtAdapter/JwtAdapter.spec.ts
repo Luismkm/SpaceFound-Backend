@@ -14,13 +14,13 @@ describe('JWT Adapter', () => {
   it('should call sign with correct values', () => {
     const sut = makeSut();
     const signSpy = jest.spyOn(jwt, 'sign');
-    sut.encrypt('any_uuid');
-    expect(signSpy).toHaveBeenCalledWith({ sub: 'any_uuid' }, 'secret');
+    sut.encrypt({ sub: 'any_uuid', accountType: 'any_account' });
+    expect(signSpy).toHaveBeenCalledWith({ sub: 'any_uuid', accountType: 'any_account' }, 'secret');
   });
 
   it('should return a token sign ok', () => {
     const sut = makeSut();
-    const accessToken = sut.encrypt('any_uuid');
+    const accessToken = sut.encrypt({ sub: 'any_uuid', accountType: 'any_account' });
     expect(accessToken).toBe('any_token');
   });
 });

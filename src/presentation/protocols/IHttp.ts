@@ -1,8 +1,8 @@
 export type IHttpRequest = {
   headers?: any;
   body?: any;
-  userId?: any;
   accountId?: any;
+  accountType?:any;
   params?: any;
   filename?: any;
 }

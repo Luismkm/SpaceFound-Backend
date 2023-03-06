@@ -1,3 +1,8 @@
+export type encrypterParams = {
+  sub: string,
+  accountType: string
+}
+
 export interface IEncrypter {
-  encrypt(value: string): any
+  encrypt({ sub, accountType }:encrypterParams): any
 }
