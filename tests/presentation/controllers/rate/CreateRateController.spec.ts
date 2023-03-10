@@ -8,7 +8,7 @@ import { CreateRateSpy } from '@/tests/presentation/mocks/mockRate';
 import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
 
 const mockRequest = ():CreateRateController.Request => ({
-  userId: 'any_uuid',
+  accountId: 'any_uuid',
   providerId: 'any_uuid',
   star: 1,
   comment: 'any_comment',
@@ -59,7 +59,7 @@ describe('CreateRate Controller', () => {
     const request = mockRequest();
     await sut.handle(request);
     expect(createRateSpy.params).toEqual({
-      userId: request.userId,
+      accountId: request.accountId,
       providerId: request.providerId,
       star: request.star,
       comment: request.comment,
