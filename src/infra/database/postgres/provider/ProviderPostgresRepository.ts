@@ -43,7 +43,8 @@ export class ProviderPostgresRepository implements
     const averageStarsArray = await knexHelper.knex('rate').avg('star').where('provider_id', id);
     const { avg } = averageStarsArray[0];
     const averageStars = avg !== null ? averageStarsArray[0].avg : 0;
-    return { averageStars, ...provider[0] };
+    const { service_id, created_at, updated_at, ...rest } = provider[0]
+    return { averageStars, serviceId: service_id, createdAt: created_at, updatedAt: updated_at, ...rest };
   }
 
   async loadById(id: string): Promise<any> {

@@ -4,8 +4,8 @@ import { CreateRateRepository, ICreateRateRepository } from '@/data/protocols/db
 
 export class RatePostgresRepository implements ICreateRateRepository {
   async create(rate: CreateRateRepository.Params): Promise<CreateRateRepository.Result> {
-    const { userId, providerId, star, comment } = rate;
-    const rateCreated = await knexHelper.knex('rate').insert({ user_id: userId, provider_id: providerId, star, comment }).returning('id');
+    const { accountId, providerId, star, comment } = rate;
+    const rateCreated = await knexHelper.knex('rate').insert({ user_id: accountId, provider_id: providerId, star, comment }).returning('id');
     return rateCreated.length === 1;
   }
 }

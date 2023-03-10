@@ -4,7 +4,7 @@ import { ICreateRate } from '@/domain/usecases/rate/ICreateRate';
 
 export namespace CreateRateController {
   export type Request = {
-    userId: string
+    accountId: string
     providerId: string
     star: number
     comment: string

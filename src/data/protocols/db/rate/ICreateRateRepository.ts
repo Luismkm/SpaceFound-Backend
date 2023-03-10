@@ -3,7 +3,7 @@ export namespace CreateRateRepository {
     id: string
     star: number
     comment: string
-    userId: string
+    accountId: string
     providerId: string
     createdAt: Date
   }

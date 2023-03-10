@@ -2,7 +2,7 @@ export namespace CreateRate {
   export type Params = {
     star: number
     comment: string
-    userId: string
+    accountId: string
     providerId: string
     createdAt: Date
   }
