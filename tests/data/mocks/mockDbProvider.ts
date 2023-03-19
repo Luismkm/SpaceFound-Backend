@@ -25,9 +25,11 @@ export const mockLoadProvidersRepository = (): ILoadProvidersRepository => {
 };
 
 export class CheckProviderByIdRepositorySpy implements ICheckProviderByIdRepository {
+  id: string
   result = true
 
   async checkProfileById(id: string): Promise<boolean> {
+    this.id = id
     return this.result
   }
 }
