@@ -14,7 +14,7 @@ describe('Login Routes', () => {
   });
   describe('POST /signup', () => {
     it('should return 200 on signup', async () => {
-      const a = await request(app)
+      await request(app)
         .post('/api/signup')
         .send({
           name: 'any_name',
