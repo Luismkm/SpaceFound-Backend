@@ -1,6 +1,6 @@
 import { IProvider } from '@/domain/models/IProvider';
 import { IProviderProfile } from '@/domain/usecases/protocols/IProviderProfile';
-import { LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
+import { LoadAllProvidersRepository } from '@/data/protocols/db/provider/ILoadAllProvidersRepository';
 import { CreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 
 export const mockCreateProviderParams = (): CreateProviderAccount.Params => ({
@@ -24,19 +24,21 @@ export const mockProvider = (): IProvider => ({
   updatedAt: new Date(),
 })
 
-export const mockProviders = (): LoadProvidersRepository.Result[] => [{
-  accountId: 'any_uuid',
-  serviceId: 'any_uuid',
+export const mockLoadAllProviders = (): LoadAllProvidersRepository.Result[] => [{
+  providerId: 'any_uuid',
+  name: 'any_name',
   description: 'any_description',
   avatar: 'any_avatar',
   average: 4.5,
+  service: 'any_service',
 },
 {
-  accountId: 'any_uuid',
-  serviceId: 'any_uuid',
+  providerId: 'any_uuid',
+  name: 'any_name',
   description: 'any_description',
   avatar: 'any_avatar',
   average: 4.5,
+  service: 'any_service',
 }];
 
 export const mockProviderProfile = ():IProviderProfile => (

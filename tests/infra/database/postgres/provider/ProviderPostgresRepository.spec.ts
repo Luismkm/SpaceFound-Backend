@@ -22,6 +22,8 @@ describe('Provider Postgres Repository', () => {
   afterEach(async () => {
     await knexHelper.knex('provider').delete('*');
     await knexHelper.knex('rate').delete('*');
+    await knexHelper.knex('service').delete('*');
+    await knexHelper.knex('provider_service').delete('*');
   });
 
   describe('create()', () => {
@@ -44,19 +46,59 @@ describe('Provider Postgres Repository', () => {
     it('should load all providers on ok', async () => {
       await knexHelper.knex('provider').insert([{
         id: 'any_uuid',
+        name: 'any_name',
+        avatar: 'any_avatar',
         description: 'any_description',
       },
       {
         id: 'any_uuid2',
+        name: 'any_name2',
+        avatar: 'any_avatar2',
         description: 'any_description2',
+      }]);
+
+      await knexHelper.knex('service').insert([{
+        id: 1,
+        name: 'any_service',
+      },
+      ]);
+
+      await knexHelper.knex('provider_service').insert([{
+        provider_id: 'any_uuid',
+        service_id: 1,
+      },
+      {
+        provider_id: 'any_uuid2',
+        service_id: 1,
+      }]);
+
+      await knexHelper.knex('rate').insert([{
+        provider_id: 'any_uuid',
+        star: 5,
+      },
+      {
+        provider_id: 'any_uuid',
+        star: 0,
+      },
+      {
+        provider_id: 'any_uuid2',
+        star: 0,
+      },
+      {
+        provider_id: 'any_uuid2',
+        star: 0,
       }]);
 
       const providers = await sut.loadAll();
       expect(providers).toBeTruthy();
       expect(providers.length).toBe(2);
-      expect(providers[0].accountId).toBeTruthy();
+      expect(providers[0].providerId).toBe('any_uuid')
+      expect(providers[0].name).toBe('any_name');
       expect(providers[0].description).toBe('any_description');
-      expect(providers[1].description).toBe('any_description2');
+      expect(providers[0].avatar).toBe('any_avatar');
+      expect(providers[0].average).toBe(2.5);
+      expect(providers[0].service).toBe('any_service');
+      expect(providers[1].average).toBe(0);
     });
   });
 

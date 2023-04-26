@@ -1,13 +1,13 @@
 import { noContent, serverError, ok } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpRequest, IHttpResponse } from '@/presentation/protocols';
-import { ILoadProviders } from '@/domain/usecases/provider/ILoadProviders';
+import { ILoadAllProviders } from '@/domain/usecases/provider/ILoadAllProviders';
 
 export class LoadProvidersController implements IController {
-  constructor(private readonly loadProviders: ILoadProviders) {}
+  constructor(private readonly loadAllProviders: ILoadAllProviders) {}
 
   async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
-      const providers = await this.loadProviders.load();
+      const providers = await this.loadAllProviders.loadAll();
       return providers.length ? ok(providers) : noContent();
     } catch (error) {
       return serverError(error);

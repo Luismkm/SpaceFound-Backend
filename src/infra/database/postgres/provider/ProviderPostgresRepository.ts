@@ -1,12 +1,12 @@
 import { knexHelper } from '@/infra/database/helpers';
-import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProfileByIdRepository, ILoadProvidersRepository, LoadProvidersRepository, LoadProfileByIdRepository } from '@/data/protocols';
+import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProfileByIdRepository, ILoadAllProvidersRepository, LoadAllProvidersRepository, LoadProfileByIdRepository } from '@/data/protocols';
 import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
 import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
 import { ICheckProviderById } from '@/domain/usecases/provider/ICheckProviderById';
 
 export class ProviderPostgresRepository implements
   ICreateProviderAccountRepository,
-  ILoadProvidersRepository,
+  ILoadAllProvidersRepository,
   ILoadProfileByIdRepository,
   ILoadProviderByIdRepository,
   IUpdateAvatarRepository,
@@ -24,16 +24,19 @@ export class ProviderPostgresRepository implements
     if (providerCreated.length === 1 && insertedService.length === 1) return true;
   }
 
-  async loadAll(): Promise<LoadProvidersRepository.Result[]> {
-    const avgStar = knexHelper.knex.select('provider_id')
+  async loadAll(): Promise<LoadAllProvidersRepository.Result[]> {
+    const avgStar = knexHelper.knex('rate')
+      .select('provider_id')
       .avg('star as average')
-      .from('rate')
       .groupBy('provider_id')
       .as('rate_avg');
 
-    const providers = await knexHelper
-      .knex('provider')
-      .select('*', { accountId: 'id' }).leftJoin(avgStar, 'provider.id', 'rate_avg.provider_id');
+    const providers = await knexHelper.knex('provider')
+      .select({ providerId: 'provider.id' }, 'provider.name', 'description', 'avatar', knexHelper.knex.raw('coalesce(average, 0) as average'), { service: 'service.name' })
+      .from('provider')
+      .leftJoin(avgStar, 'provider.id', 'rate_avg.provider_id')
+      .innerJoin('provider_service', 'provider.id', 'provider_service.provider_id')
+      .innerJoin('service', 'provider_service.service_id', 'service.id')
 
     return providers;
   }

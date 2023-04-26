@@ -1,9 +1,9 @@
 import { ICreateProviderAccountRepository, CreateProviderAccountRepository } from '@/data/protocols/db/provider/ICreateProviderAccountRepository';
-import { ILoadProvidersRepository, LoadProvidersRepository } from '@/data/protocols/db/provider/ILoadProvidersRepository';
+import { ILoadAllProvidersRepository, LoadAllProvidersRepository } from '@/data/protocols/db/provider/ILoadAllProvidersRepository';
 
-import { mockProviders } from '@/tests/domain/mocks/mockProvider';
 import { ILoadProfileByIdRepository, ILoadProviderByIdRepository, LoadProfileByIdRepository, LoadProviderByIdRepository } from '@/data/protocols';
 import { ICheckProviderByIdRepository } from '@/data/protocols/db/provider/ICheckProviderByIdRepository';
+import { mockLoadAllProviders } from '@/tests/domain/mocks/mockProvider';
 
 export class CreateProviderRepositorySpy implements ICreateProviderAccountRepository {
   params: CreateProviderAccountRepository.Params
@@ -15,14 +15,13 @@ export class CreateProviderRepositorySpy implements ICreateProviderAccountReposi
   }
 }
 
-export const mockLoadProvidersRepository = (): ILoadProvidersRepository => {
-  class LoadProvidersRepositoryStub implements ILoadProvidersRepository {
-    async loadAll(): Promise<LoadProvidersRepository.Result[]> {
-      return Promise.resolve(mockProviders());
-    }
+export class LoadAllProvidersRepositorySpy implements ILoadAllProvidersRepository {
+  result = mockLoadAllProviders()
+
+  async loadAll(): Promise<LoadAllProvidersRepository.Result[]> {
+    return this.result
   }
-  return new LoadProvidersRepositoryStub();
-};
+}
 
 export class CheckProviderByIdRepositorySpy implements ICheckProviderByIdRepository {
   id: string
