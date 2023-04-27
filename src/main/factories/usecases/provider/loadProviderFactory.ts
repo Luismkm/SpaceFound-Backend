@@ -1,13 +1,12 @@
 import { DbLoadProfileById } from '@/data/usecases/provider/DbLoadProfileById';
-import { DbLoadProviders } from '@/data/usecases/provider/DbLoadProviders';
+import { DbLoadAllProviders } from '@/data/usecases/provider/DbLoadAllProviders';
 import { ILoadProfileById } from '@/domain/usecases/provider/ILoadProfileById';
-import { ILoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
-import { ILoadProviders } from '@/domain/usecases/provider/ILoadAllProviders';
+import { ILoadAllProviders } from '@/domain/usecases/provider/ILoadAllProviders';
 import { ProviderPostgresRepository } from '@/infra/database/postgres/provider/ProviderPostgresRepository';
 
-export const makeDbLoadProviders = (): ILoadProviders => {
+export const makeDbLoadAllProviders = (): ILoadAllProviders => {
   const loadProvidersPostgresRepository = new ProviderPostgresRepository();
-  return new DbLoadProviders(loadProvidersPostgresRepository);
+  return new DbLoadAllProviders(loadProvidersPostgresRepository);
 };
 
 export const makeDbLoadProfileById = (): ILoadProfileById => {

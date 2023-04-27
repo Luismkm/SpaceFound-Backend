@@ -1,10 +1,10 @@
 import { IController } from '@/presentation/protocols';
 import { LoadProviderByIdController } from '@/presentation/controllers/provider/LoadProviderByIdController';
 import { LoadProvidersController } from '@/presentation/controllers/provider/LoadProvidersController';
-import { makeDbLoadProfileById, makeDbLoadProviders } from '@/main/factories/usecases/provider/loadProviderFactory';
+import { makeDbLoadProfileById, makeDbLoadAllProviders } from '@/main/factories/usecases/provider/loadProviderFactory';
 
-export const makeLoadProvidersController = (): IController => {
-  const controller = new LoadProvidersController(makeDbLoadProviders());
+export const makeLoadAllProvidersController = (): IController => {
+  const controller = new LoadProvidersController(makeDbLoadAllProviders());
   return controller;
 };
 

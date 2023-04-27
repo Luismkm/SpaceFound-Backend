@@ -37,6 +37,7 @@ export class ProviderPostgresRepository implements
       .leftJoin(avgStar, 'provider.id', 'rate_avg.provider_id')
       .innerJoin('provider_service', 'provider.id', 'provider_service.provider_id')
       .innerJoin('service', 'provider_service.service_id', 'service.id')
+      .orderBy('average', 'desc');
 
     return providers;
   }
