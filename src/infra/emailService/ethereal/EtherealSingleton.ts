@@ -10,8 +10,8 @@ export class EtherealSingleton {
       port: 587,
       secure: false,
       auth: {
-        user: 'sherwood.nienow@ethereal.email',
-        pass: 'NCYysCqsfXuscXd6Wu',
+        user: 'van.cole30@ethereal.email',
+        pass: 'MgNtgkbdhbpPbpszYE',
       },
     });
   }
