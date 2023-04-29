@@ -34,23 +34,23 @@ describe('Db Create Rate', () => {
     expect(generateUuid).toBeCalled();
   });
 
-  it('should call checkProfileById', async () => {
+  it('should call checkProviderById', async () => {
     const { sut, checkProviderByIdRepositorySpy } = makeSut();
-    const checkProfileById = jest.spyOn(checkProviderByIdRepositorySpy, 'checkProfileById');
+    const checkProviderById = jest.spyOn(checkProviderByIdRepositorySpy, 'checkProviderById');
     await sut.create(mockRateParams());
-    expect(checkProfileById).toBeCalled();
+    expect(checkProviderById).toBeCalled();
   });
 
-  it('should call checkProfileById with correct values', async () => {
+  it('should call checkProviderById with correct values', async () => {
     const { sut, checkProviderByIdRepositorySpy } = makeSut();
     const params = mockRateParams()
     await sut.create(params);
     expect(checkProviderByIdRepositorySpy.id).toBe(params.accountId)
   });
 
-  it('should return false if checkProfileById returns false', async () => {
+  it('should return false if checkProviderById returns false', async () => {
     const { sut, checkProviderByIdRepositorySpy } = makeSut();
-    jest.spyOn(checkProviderByIdRepositorySpy, 'checkProfileById').mockImplementationOnce(() => Promise.resolve(false));
+    jest.spyOn(checkProviderByIdRepositorySpy, 'checkProviderById').mockImplementationOnce(() => Promise.resolve(false));
     const rate = await sut.create(mockRateParams());
     expect(rate).toBeFalsy()
   });

@@ -12,7 +12,7 @@ export default class DbCreateRate implements ICreateRate {
 
   async create(params: CreateRate.Params): Promise<CreateRate.Result> {
     const uuid = this.uuid.uuidGenerator();
-    const isValidProvider = await this.checkProvider.checkProfileById(params.providerId)
+    const isValidProvider = await this.checkProvider.checkProviderById(params.providerId)
     if (!isValidProvider) {
       return false
     }

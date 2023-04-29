@@ -7,7 +7,8 @@ import authConfig from '@/main/config/auth';
 
 const makeAccesToken = (): string => {
   const userId = 'any_uuid';
-  const token = sign({ userId }, authConfig.jwt.secret, {
+  const accountType = 'client'
+  const token = sign({ userId, accountType }, authConfig.jwt.secret, {
     subject: userId,
   });
   return token;
@@ -23,12 +24,20 @@ describe('Rate Routes', () => {
   });
   describe('POST /rate', () => {
     it('should return 204 on create rate', async () => {
+      await knexHelper.knex('provider').insert({
+        id: 'any_uuid',
+        description: 'any_description',
+        name: 'any_name',
+        email: 'any_email',
+        cnpj: 'any_cnpj',
+        created_at: new Date(),
+      });
       const accessToken = makeAccesToken();
       await request(app)
         .post('/api/rate')
         .set('x-access-token', accessToken)
         .send({
-          userId: 'any_uuid',
+          accountId: 'any_uuid',
           providerId: 'any_uuid',
           star: 1,
           comment: 'any_comment',
