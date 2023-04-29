@@ -67,10 +67,10 @@ export class ProviderPostgresRepository implements
 
   async checkProviderById(id: string): Promise<boolean> {
     const provider = await knexHelper.knex('provider').where('id', id);
-    return provider.length > 1
+    return provider.length === 1
   }
 
-  /* async findById(param: string): Promise<LoadProviderByIdRepository.Result> {
+  /*  async findById(param: string): Promise<LoadProviderByIdRepository.Result> {
     const provider = await knexHelper.knex<IProvider>('provider').where('id', param);
     const { id, avatar } = provider[0]
     return { id, avatar }

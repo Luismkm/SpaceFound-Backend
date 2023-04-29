@@ -27,7 +27,7 @@ export class CheckProviderByIdRepositorySpy implements ICheckProviderByIdReposit
   id: string
   result = true
 
-  async checkProfileById(id: string): Promise<boolean> {
+  async checkProviderById(id: string): Promise<boolean> {
     this.id = id
     return this.result
   }

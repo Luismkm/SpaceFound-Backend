@@ -257,8 +257,8 @@ describe('Provider Postgres Repository', () => {
     });
   });
 
-  describe('findById()', () => {
-    it('should return a provider by findById', async () => {
+  describe('loadById()', () => {
+    it('should return a provider by loadById', async () => {
       await knexHelper.knex('provider').insert({
         id: 'any_uuid',
         description: 'any_description',
@@ -272,6 +272,36 @@ describe('Provider Postgres Repository', () => {
       expect(provider).toBeTruthy()
       expect(provider.id).toBe('any_uuid')
       expect(provider.avatar).toBe('any_path')
+    })
+  })
+
+  describe('checkProviderById()', () => {
+    it('should return false if checkProviderById not find a provider', async () => {
+      await knexHelper.knex('provider').insert({
+        id: 'any_uuid',
+        description: 'any_description',
+        avatar: 'any_path',
+        name: 'any_name',
+        cnpj: 'any_cnpj',
+        created_at: new Date(),
+      });
+
+      const provider = await sut.checkProviderById('other_uuid')
+      expect(provider).toBe(false)
+    })
+
+    it('should return true if checkProviderById find a provider', async () => {
+      await knexHelper.knex('provider').insert({
+        id: 'any_uuid',
+        description: 'any_description',
+        avatar: 'any_path',
+        name: 'any_name',
+        cnpj: 'any_cnpj',
+        created_at: new Date(),
+      });
+
+      const provider = await sut.checkProviderById('any_uuid')
+      expect(provider).toBe(true)
     })
   })
 });

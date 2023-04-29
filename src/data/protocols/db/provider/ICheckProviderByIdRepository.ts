@@ -3,5 +3,5 @@ export namespace CheckProviderByIdRepository {
 }
 
 export interface ICheckProviderByIdRepository {
-  checkProfileById: (id: string) => Promise<CheckProviderByIdRepository.Result>
+  checkProviderById: (id: string) => Promise<CheckProviderByIdRepository.Result>
 }
