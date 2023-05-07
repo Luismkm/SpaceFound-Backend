@@ -1,10 +1,10 @@
 import MockDate from 'mockdate';
 
+import { UuidGeneratorSpy } from '@/tests/data/mocks/mockUuidGenerator';
 import { CheckProviderByCnpjRepositorySpy, CheckProviderByEmailRepositorySpy, CreateProviderRepositorySpy } from '@/tests/data/mocks/mockDbProvider';
 import { mockCreateProviderParams } from '@/tests/domain/mocks/mockProvider';
 import { DbCreateProviderAccount } from '@/data/usecases/provider/DbCreateProviderAccount';
 import { CnpjAlreadyRegisteredError, EmailInUseError } from '@/presentation/errors';
-import { UuidGeneratorSpy } from '../../mocks/mockUuidGenerator';
 
 type ISutTypes = {
   sut: DbCreateProviderAccount

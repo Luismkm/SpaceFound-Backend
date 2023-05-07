@@ -2,10 +2,10 @@ import MockDate from 'mockdate';
 import { DbCreateUserAccount } from '@/data/usecases/user/DbCreateUserAccount';
 
 import { mockCreateAccountParams, throwError } from '@/tests/domain/mocks';
-import { SendEmailServiceSpy } from '../../mocks/mockSendEmailService';
-import { HasherSpy } from '../../mocks/mockCryptography';
-import { UuidGeneratorSpy } from '../../mocks/mockUuidGenerator';
-import { CheckAccountByEmailRepositorySpy, CreateAccountRepositorySpy } from '../../mocks/mockDbUserAccount';
+import { SendEmailServiceSpy } from '@/tests/data/mocks/mockSendEmailService';
+import { HasherSpy } from '@/tests/data/mocks/mockCryptography';
+import { UuidGeneratorSpy } from '@/tests/data/mocks/mockUuidGenerator';
+import { CheckAccountByEmailRepositorySpy, CreateAccountRepositorySpy } from '@/tests/data/mocks/mockDbUserAccount';
 
 type ISutTypes = {
   sut: DbCreateUserAccount
