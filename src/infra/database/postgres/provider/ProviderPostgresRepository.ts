@@ -1,16 +1,15 @@
 import { knexHelper } from '@/infra/database/helpers';
-import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProfileByIdRepository, ILoadAllProvidersRepository, LoadAllProvidersRepository, LoadProfileByIdRepository } from '@/data/protocols';
-import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
-import { ILoadProviderByIdRepository } from '@/data/protocols/db/provider/ILoadProviderByIdRepository';
-import { ICheckProviderById } from '@/domain/usecases/provider/ICheckProviderById';
+import { CreateProviderAccountRepository, ICreateProviderAccountRepository, ILoadProfileByIdRepository, ILoadAllProvidersRepository, LoadAllProvidersRepository, LoadProfileByIdRepository, ICheckProviderByEmailRepository, ICheckProviderByCnpjRepository } from '@/data/protocols';
+import { UpdateAccountAvatarRepository, ILoadProviderByIdRepository, ICheckProviderByIdRepository } from '@/data/protocols/db/provider';
 
 export class ProviderPostgresRepository implements
   ICreateProviderAccountRepository,
   ILoadAllProvidersRepository,
   ILoadProfileByIdRepository,
   ILoadProviderByIdRepository,
-  IUpdateAvatarRepository,
-  ICheckProviderById {
+  ICheckProviderByIdRepository,
+  ICheckProviderByEmailRepository,
+  ICheckProviderByCnpjRepository {
   async create(params: CreateProviderAccountRepository.Params): Promise<CreateProviderAccountRepository.Result> {
     const { id, name, description, email, createdAt, serviceId, cnpj } = params;
     let providerCreated: any;
@@ -67,6 +66,16 @@ export class ProviderPostgresRepository implements
 
   async checkProviderById(id: string): Promise<boolean> {
     const provider = await knexHelper.knex('provider').where('id', id);
+    return provider.length === 1
+  }
+
+  async checkProviderByEmail(email: string): Promise<boolean> {
+    const provider = await knexHelper.knex('provider').where('email', email);
+    return provider.length === 1
+  }
+
+  async checkProviderByCnpj(cnpj: string): Promise<boolean> {
+    const provider = await knexHelper.knex('provider').where('cnpj', cnpj);
     return provider.length === 1
   }
 

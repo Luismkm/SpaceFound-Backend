@@ -8,7 +8,7 @@ export namespace CreateProviderAccount {
     createdAt: Date
   }
 
-  export type Result = boolean
+  export type Result = boolean | Error
 }
 
 export interface ICreateProviderAccount {

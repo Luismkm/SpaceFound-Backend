@@ -1,9 +1,11 @@
 import MockDate from 'mockdate';
 import { DbCreateUserAccount } from '@/data/usecases/user/DbCreateUserAccount';
 
-import { CreateAccountRepositorySpy, CheckAccountByEmailRepositorySpy, HasherSpy, UuidGeneratorSpy } from '@/tests/data/mocks';
 import { mockCreateAccountParams, throwError } from '@/tests/domain/mocks';
-import { SendEmailServiceSpy } from '../mocks/mockSendEmailService';
+import { SendEmailServiceSpy } from '../../mocks/mockSendEmailService';
+import { HasherSpy } from '../../mocks/mockCryptography';
+import { UuidGeneratorSpy } from '../../mocks/mockUuidGenerator';
+import { CheckAccountByEmailRepositorySpy, CreateAccountRepositorySpy } from '../../mocks/mockDbUserAccount';
 
 type ISutTypes = {
   sut: DbCreateUserAccount
@@ -50,7 +52,7 @@ describe('DbCreateUserAccount Usecase', () => {
     const { sut, hasherSpy } = makeSut();
     const request = mockCreateAccountParams();
     await sut.create(request);
-    expect(hasherSpy.plaintext).toBe(request.password);
+    expect(hasherSpy.plaintext).toBe('any_password');
   });
 
   it('Should throw if Hasher throws', async () => {

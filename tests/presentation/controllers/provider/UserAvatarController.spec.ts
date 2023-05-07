@@ -3,7 +3,7 @@ import { IHttpRequest } from '@/presentation/protocols';
 
 import { throwError } from '@/tests/domain/mocks';
 import { UpdateAvatarSpy } from '@/tests/presentation/mocks';
-import { AvatarController } from '@/presentation/controllers/account/AvatarController';
+import { AvatarController } from '@/presentation/controllers/provider/AvatarController';
 
 const mockRequest = (): IHttpRequest => ({
   accountId: 'uuid',

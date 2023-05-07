@@ -3,7 +3,7 @@ import Mockdate from 'mockdate';
 import { DbFindUserById } from '@/data/usecases/user/DbFindUserById';
 
 import { mockUser, throwError } from '@/tests/domain/mocks';
-import { FindUserByIdRepositorySpy } from '../mocks/mockDbUser';
+import { FindUserByIdRepositorySpy } from '@/tests/data/mocks/mockDbUser';
 
 type ISutTypes = {
   sut: DbFindUserById

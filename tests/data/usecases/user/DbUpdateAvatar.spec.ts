@@ -3,8 +3,8 @@ import { DbUpdateAvatar } from '@/data/usecases/user/DbUpdateAvatar';
 import { IStorageProvider } from '@/data/protocols/storageProvider/IStorageProvider';
 
 import { StorageProviderSpy } from '@/tests/infra/mock/mockStorageProvider';
-import { UpdateAvatarRepositorySpy } from '@/tests/data/mocks';
 import { FindUserByIdRepositorySpy } from '@/tests/data/mocks/mockDbUser';
+import { UpdateAvatarRepositorySpy } from '@/tests/data/mocks/mockDbUserAccount';
 
 const mockUuidParam = 'any_uuid';
 const mockFilename = 'any_url';
@@ -64,7 +64,7 @@ describe('DbUpdateAvatar', () => {
   });
 
   it('should call updateRepository with correct value', async () => {
-    const { sut, storageProviderSpy, updateAvatarRepositorySpy } = makeSut();
+    const { sut, updateAvatarRepositorySpy } = makeSut();
     const updateParams = { accountId: mockUuidParam, filename: mockFilename };
     await sut.updateAvatar(updateParams);
     expect(updateAvatarRepositorySpy.params).toEqual({

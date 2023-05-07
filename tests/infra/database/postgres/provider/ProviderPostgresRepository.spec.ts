@@ -259,19 +259,39 @@ describe('Provider Postgres Repository', () => {
 
   describe('loadById()', () => {
     it('should return a provider by loadById', async () => {
-      await knexHelper.knex('provider').insert({
+      await knexHelper.knex('provider').insert([{
         id: 'any_uuid',
-        description: 'any_description',
-        avatar: 'any_path',
         name: 'any_name',
-        cnpj: 'any_cnpj',
-        created_at: new Date(),
-      });
+        avatar: 'any_avatar',
+        description: 'any_description',
+      },
+      ]);
+
+      await knexHelper.knex('service').insert([{
+        id: 1,
+        name: 'any_service',
+      },
+      ]);
+
+      await knexHelper.knex('provider_service').insert([{
+        provider_id: 'any_uuid',
+        service_id: 1,
+      }]);
+
+      await knexHelper.knex('rate').insert([{
+        provider_id: 'any_uuid',
+        star: 5,
+      },
+      {
+        provider_id: 'any_uuid',
+        star: 0,
+      },
+      ]);
 
       const provider = await sut.loadById('any_uuid')
       expect(provider).toBeTruthy()
       expect(provider.id).toBe('any_uuid')
-      expect(provider.avatar).toBe('any_path')
+      expect(provider.avatar).toBe('any_avatar')
     })
   })
 

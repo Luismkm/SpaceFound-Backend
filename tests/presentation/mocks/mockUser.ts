@@ -1,4 +1,4 @@
-import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/account/IUpdateAvatar';
+import { IUpdateAvatar, UpdateAvatar } from '@/domain/usecases/user/IUpdateAvatar';
 import { Authentication, IAuthentication } from '@/domain/usecases/user/IAuthentication';
 import { CreateUserAccount, ICreateUserAccount } from '@/domain/usecases/user/ICreateUserAccount';
 

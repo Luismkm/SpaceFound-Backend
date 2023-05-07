@@ -1,4 +1,4 @@
-import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
+import { badRequest, forbidden, noContent, serverError } from '@/presentation/helpers/http/httpHelper';
 import { IController, IHttpResponse, IValidation } from '@/presentation/protocols';
 import { ICreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 
@@ -22,11 +22,12 @@ export class CreateProviderController implements IController {
   async handle(request: CreateProviderController.Request): Promise<IHttpResponse> {
     try {
       const error = this.validation.validate(request);
-      if (error) {
-        return badRequest(error);
-      }
+      if (error) return badRequest(error);
       const provider = await this.createProvider.create({ ...request, createdAt: new Date() });
-      if (provider) return noContent();
+      if (provider instanceof Error) {
+        return forbidden(provider)
+      }
+      return noContent()
     } catch (error) {
       return serverError(error);
     }

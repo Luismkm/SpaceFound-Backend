@@ -1,10 +1,10 @@
 import { MissingParamError } from '@/presentation/errors';
 import { badRequest, serverError, ok, unauthorized } from '@/presentation/helpers/http/httpHelper';
-import { LoginController } from '@/presentation/controllers/account/LoginController';
+import { LoginController } from '@/presentation/controllers/user/LoginController';
 
 import { throwError } from '@/tests/domain/mocks';
 import { ValidationSpy } from '@/tests/presentation/mocks/mockValidation';
-import { AuthenticationSpy } from '../mocks/mockUser';
+import { AuthenticationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): LoginController.Request => ({
   email: 'any_email',

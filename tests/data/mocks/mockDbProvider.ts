@@ -1,9 +1,11 @@
 import { ICreateProviderAccountRepository, CreateProviderAccountRepository } from '@/data/protocols/db/provider/ICreateProviderAccountRepository';
 import { ILoadAllProvidersRepository, LoadAllProvidersRepository } from '@/data/protocols/db/provider/ILoadAllProvidersRepository';
 
-import { ILoadProfileByIdRepository, ILoadProviderByIdRepository, LoadProfileByIdRepository, LoadProviderByIdRepository } from '@/data/protocols';
 import { ICheckProviderByIdRepository } from '@/data/protocols/db/provider/ICheckProviderByIdRepository';
 import { mockLoadAllProviders } from '@/tests/domain/mocks/mockProvider';
+import { ICheckProviderByEmailRepository } from '@/data/protocols/db/provider/ICheckProviderByEmailRepository';
+import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/provider/IUpdateAccountAvatarRepository';
+import { ICheckProviderByCnpjRepository, ILoadProfileByIdRepository, LoadProfileByIdRepository, ILoadProviderByEmailRepository, LoadProviderByEmailRepository } from '@/data/protocols/db/provider';
 
 export class CreateProviderRepositorySpy implements ICreateProviderAccountRepository {
   params: CreateProviderAccountRepository.Params
@@ -33,9 +35,23 @@ export class CheckProviderByIdRepositorySpy implements ICheckProviderByIdReposit
   }
 }
 
-export class LoadProvidersByIdRepositorySpy implements ILoadProviderByIdRepository {
-  async loadById(id: string): Promise<LoadProviderByIdRepository.Result> {
-    throw new Error('Method not implemented.');
+export class CheckProviderByEmailRepositorySpy implements ICheckProviderByEmailRepository {
+  email: string
+  result = false
+
+  async checkProviderByEmail(email: string): Promise<boolean> {
+    this.email = email
+    return this.result
+  }
+}
+
+export class CheckProviderByCnpjRepositorySpy implements ICheckProviderByCnpjRepository {
+  cnpj: string
+  result = false
+
+  async checkProviderByCnpj(cnpj: string): Promise<boolean> {
+    this.cnpj = cnpj
+    return this.result
   }
 }
 
@@ -48,8 +64,32 @@ export class LoadProfileByIdRepositorySpy implements ILoadProfileByIdRepository 
     avatar: 'any_avatar',
     averageStars: 3,
   }
+
   async loadProfileById(id: string): Promise<LoadProfileByIdRepository.Result> {
     this.id = id
     return this.result
+  }
+}
+
+export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
+  params: UpdateAccountAvatarRepository.Params
+  result = true
+
+  async updateAvatar(params: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
+    this.params = params;
+    return this.result;
+  }
+}
+
+export class LoadAccountByEmailRepositorySpy implements ILoadProviderByEmailRepository {
+  email: string
+  result = {
+    id: 'any_uuid',
+    password: 'any_password',
+  }
+
+  async loadByEmail(email: string): Promise<LoadProviderByEmailRepository.Result> {
+    this.email = email;
+    return this.result;
   }
 }

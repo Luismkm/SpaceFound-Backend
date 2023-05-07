@@ -1,8 +1,8 @@
 import {
   CreateUserAccountRepository, ICreateUserAccountRepository,
-  LoadUserByEmailRepository, ILoadUserByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository,
+  LoadUserByEmailRepository, ILoadUserByEmailRepository, ICheckAccountByEmailRepository, CheckAccountByEmailRepository, IUpdateUserProfileRepository, UpdateUserProfileRepository,
 } from '@/data/protocols';
-import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
+import { IUpdateAvatarRepository, UpdateAccountAvatarRepository } from '@/data/protocols/db/user/IUpdateAccountAvatarRepository';
 
 export class CreateAccountRepositorySpy implements ICreateUserAccountRepository {
   params: CreateUserAccountRepository.Params
@@ -19,6 +19,16 @@ export class UpdateAvatarRepositorySpy implements IUpdateAvatarRepository {
   result = true
 
   async updateAvatar(params: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
+    this.params = params;
+    return this.result;
+  }
+}
+
+export class UpdateProfileRepositorySpy implements IUpdateUserProfileRepository {
+  params: UpdateUserProfileRepository.Params
+  result = true
+
+  async update(params: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
     this.params = params;
     return this.result;
   }
@@ -42,7 +52,7 @@ export class LoadAccountByEmailRepositorySpy implements ILoadUserByEmailReposito
 
 export class CheckAccountByEmailRepositorySpy implements ICheckAccountByEmailRepository {
   params: string
-  result: true
+  result = false
 
   async checkByEmail(email: string): Promise<CheckAccountByEmailRepository.Result> {
     this.params = email;

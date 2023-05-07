@@ -3,7 +3,7 @@ import { knexHelper } from '@/infra/database/helpers';
 import { FindUserByIdRepository, IFindUserByIdRepository } from '@/data/protocols/db/user/IFindUserByIdRepository';
 import { CreateUserAccountRepository, ICreateUserAccountRepository,
   IUpdateUserProfileRepository, UpdateUserProfileRepository } from '@/data/protocols/db/user';
-import { UpdateAccountAvatarRepository } from '@/data/protocols/db/account/IUpdateAccountAvatarRepository';
+import { UpdateAccountAvatarRepository } from '@/data/protocols/db/user/IUpdateAccountAvatarRepository';
 
 export class UserPostgresRepository implements
   ICreateUserAccountRepository,

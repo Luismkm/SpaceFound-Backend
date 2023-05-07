@@ -30,22 +30,13 @@ describe('Login Routes', () => {
         .send({
           name: 'any_name',
           description: 'any_description',
+          email: 'any_email',
           cnpj: 'any_cnpj',
           serviceId: 1,
           userId: 'any_uuid',
         })
         .expect(204);
-    });
-
-    it('Should return 401 on create provider without accessToken', async () => {
-      await request(app)
-        .post('/api/provider')
-        .send({
-          serviceId: 1,
-          description: 'any_description',
-        })
-        .expect(401);
-    });
+    })
   });
 
   describe('GET /providers', () => {

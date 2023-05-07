@@ -1,3 +1,4 @@
+import { Authentication, IAuthentication } from '@/domain/usecases/provider';
 import { CreateProviderAccount, ICreateProviderAccount } from '@/domain/usecases/provider/ICreateProviderAccount';
 import { ILoadAllProviders, LoadAllProviders } from '@/domain/usecases/provider/ILoadAllProviders';
 import { ILoadProviderById, LoadProviderById } from '@/domain/usecases/provider/ILoadProviderById';
@@ -33,5 +34,18 @@ export class LoadProviderByIdSpy implements ILoadProviderById {
   async load(id: string): Promise<LoadProviderById.Result> {
     this.id = id
     return this.result
+  }
+}
+
+export class AuthenticationSpy implements IAuthentication {
+  params: Authentication.Params
+  result = {
+    accessToken: 'any_access_token',
+    name: 'any_name',
+  }
+
+  async auth(params: Authentication.Params): Promise<Authentication.Result> {
+    this.params = params;
+    return this.result;
   }
 }

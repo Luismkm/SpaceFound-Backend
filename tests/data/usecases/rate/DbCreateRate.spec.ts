@@ -3,8 +3,8 @@ import DbCreateRate from '@/data/usecases/rate/DbCreateRate';
 import { mockRateParams } from '@/tests/domain/mocks/mockRate';
 import { throwError } from '@/tests/domain/mocks';
 import { CreateRateRepositorySpy } from '@/tests/data/mocks/mockDbRate';
-import { UuidGeneratorSpy } from '@/tests/data/mocks';
-import { CheckProviderByIdRepositorySpy } from '../mocks/mockDbProvider';
+import { CheckProviderByIdRepositorySpy } from '@/tests/data/mocks/mockDbProvider';
+import { UuidGeneratorSpy } from '@/tests/data/mocks/mockUuidGenerator';
 
 type ISutTypes = {
   sut: DbCreateRate
