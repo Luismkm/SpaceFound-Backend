@@ -1,7 +1,7 @@
 import { DbCreateAd } from '@/data/usecases/ad/DbCreateAd';
-import { UuidGeneratorSpy } from '@/tests/data/mocks';
 import { CreateAdRepositorySpy } from '@/tests/data/mocks/mockDbAd';
 import { mockCreateAdParams } from '@/tests/domain/mocks/mockAd';
+import { UuidGeneratorSpy } from '@/tests/data/mocks/mockUuidGenerator';
 
 type ISutTypes = {
   sut: DbCreateAd

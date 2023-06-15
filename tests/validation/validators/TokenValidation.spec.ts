@@ -4,7 +4,7 @@ import { TokenValidation } from '@/validation/token/TokenValidation';
 import { IHttpRequest } from '@/presentation/protocols';
 
 import { throwError } from '@/tests/domain/mocks';
-import { DecrypterSpy } from '@/tests/data/mocks';
+import { DecrypterSpy } from '@/tests/data/mocks/mockCryptography';
 
 type ISutTypes = {
   sut: TokenValidation
