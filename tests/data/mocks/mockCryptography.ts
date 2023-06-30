@@ -28,7 +28,7 @@ export class HashComparerSpy implements IHashComparer {
 
 export class EncrypterSpy implements IEncrypter {
   params: encrypterParams
-  textEncrypted: 'any_encrypt'
+  textEncrypted = 'any_encrypt'
 
   encrypt({ sub, accountType }:encrypterParams): string {
     this.params = { sub, accountType }

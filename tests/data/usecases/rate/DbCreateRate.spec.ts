@@ -1,5 +1,4 @@
 import DbCreateRate from '@/data/usecases/rate/DbCreateRate';
-
 import { mockRateParams } from '@/tests/domain/mocks/mockRate';
 import { throwError } from '@/tests/domain/mocks';
 import { CreateRateRepositorySpy } from '@/tests/data/mocks/mockDbRate';
