@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const knexFile = {
   development: {
     client: 'pg',
     connection: {
-      database: 'spacefound-test',
-      user: 'postgres',
-      password: 'docker',
+      database: process.env.DEV_DATABASE,
+      user: process.env.DEV_DATABASE_USER,
+      password: process.env.DEV_DATABASE_PASS,
     },
     useNullAsDefault: true,
   },
@@ -12,9 +14,9 @@ const knexFile = {
   production: {
     client: 'pg',
     connection: {
-      database: 'spacefound',
-      user: 'postgres',
-      password: 'docker',
+      database: process.env.PROD_DATABASE,
+      user: process.env.PROD_DATABASE_USER,
+      password: process.env.PROD_DATABASE_PASS,
     },
     useNullAsDefault: true,
   },
