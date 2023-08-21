@@ -11,19 +11,19 @@ export class UserPostgresRepository implements
   IUpdateUserProfileRepository {
   async create(account: CreateUserAccountRepository.Params): Promise<CreateUserAccountRepository.Result> {
     const { id, name, email, password, cityId } = account;
-    const accountCreated = await knexHelper.knex('user').insert({ id, name, email, password }).returning('id');
+    const accountCreated = await knexHelper.knex('user').insert({ id, name, email, password, id_city: cityId, created_at: new Date() }).returning('id');
     return accountCreated !== null;
   }
 
   async update(profile: UpdateUserProfileRepository.Params): Promise<UpdateUserProfileRepository.Result> {
-    const asReturn = await knexHelper.knex('user').update({ name: profile.name, email: profile.email, city_id: profile.cityId }).where('id', profile.accountId).limit(1);
+    const asReturn = await knexHelper.knex('user').update({ name: profile.name, email: profile.email, id_city: profile.cityId, updated_at: new Date() }).where('id', profile.accountId).limit(1);
     return asReturn !== null;
   }
 
   async findById(id: string): Promise<FindUserByIdRepository.Result> {
     const user = await knexHelper.knex('user').where('id', id);
-    const { city_id, ...userWithoutCity_Id } = user[0]
-    return { ...userWithoutCity_Id, cityId: city_id }
+    const { city_id, updated_at, ...rest } = user[0]
+    return { cityId: city_id, updatedAt: updated_at, ...rest }
   }
 
   async checkByEmail(email: string): Promise<boolean> {
@@ -37,7 +37,7 @@ export class UserPostgresRepository implements
   }
 
   async updateAvatar({ accountId, filename }: UpdateAccountAvatarRepository.Params): Promise<UpdateAccountAvatarRepository.Result> {
-    const asReturn = await knexHelper.knex('user').update('avatar', filename).where('id', accountId).limit(1)
+    const asReturn = await knexHelper.knex('user').update({ avatar: filename, updated_at: new Date() }).where('id', accountId).limit(1)
     return asReturn !== null;
   }
 }
