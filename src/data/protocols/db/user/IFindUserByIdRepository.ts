@@ -7,6 +7,7 @@ export namespace FindUserByIdRepository {
     avatar: string;
     cityId: number;
     createdAt: Date;
+    updatedAt: Date
   }
 }
 
