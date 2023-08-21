@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { knexHelper } from '@/infra/database/helpers';
 
 import { UserPostgresRepository } from '@/infra/database/postgres/user/UserPostgresRepository';
@@ -7,10 +8,10 @@ import { mockUser } from '@/tests/domain/mocks';
 let sut: UserPostgresRepository;
 
 const mockParams = ():UpdateUserProfileRepository.Params => ({
-  accountId: 'any_uuid',
-  name: 'other_name',
-  email: 'other_email',
-  cityId: 2,
+  accountId: faker.string.uuid(),
+  name: faker.person.fullName(),
+  email: faker.internet.email(),
+  cityId: 1,
 });
 
 describe('User Postgres Repository', () => {
@@ -24,7 +25,6 @@ describe('User Postgres Repository', () => {
   afterEach(async () => {
     await knexHelper.knex('user').delete('*');
   })
-
   describe('create()', () => {
     it('should return true on create ok', async () => {
       const account = await sut.create(mockUser());
@@ -34,81 +34,55 @@ describe('User Postgres Repository', () => {
 
   describe('updateAvatar', () => {
     it('should return true on updateAvatar with ok', async () => {
-      await knexHelper.knex('user').insert({
-        id: 'any_uuid',
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password',
-        avatar: 'any_avatar',
-        city_id: 1,
-        created_at: new Date(),
-      });
-      const succeeds = await sut.updateAvatar({ accountId: 'any_uuid', filename: 'other_avatar' })
-      const user = await sut.findById('any_uuid')
+      const { id, name, email, password, avatar, cityId, createdAt } = mockUser()
+      await knexHelper.knex('user').insert({ id, name, email, password, avatar, id_city: cityId, created_at: createdAt });
+      const succeeds = await sut.updateAvatar({ accountId: id, filename: 'other_avatar' })
+      const user = await sut.findById(id)
       expect(succeeds).toBeTruthy();
       expect(user.avatar).toBe('other_avatar')
+      expect(user.updatedAt).toBeTruthy()
     });
   });
 
   describe('update', () => {
     it('should return true on update with ok', async () => {
-      await knexHelper.knex('user').insert({
-        id: 'any_uuid',
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password',
-        avatar: 'any_avatar',
-        city_id: 1,
-        created_at: new Date(),
-      });
-      const succeeds = await sut.update(mockParams());
-      const user = await sut.findById('any_uuid')
+      const params = mockParams()
+      const { id, name, email, password, avatar, cityId, createdAt } = mockUser()
+      await knexHelper.knex('user').insert({ id, name, email, password, avatar, id_city: cityId, created_at: createdAt });
+      const succeeds = await sut.update({ ...params, accountId: id });
+      const user = await sut.findById(id)
       expect(succeeds).toBeTruthy();
-      expect(user.name).toBe('other_name')
-      expect(user.email).toBe('other_email')
-      expect(user.cityId).toBe(2)
+      expect(user.name).toBe(params.name);
+      expect(user.email).toBe(params.email);
+      expect(user.updatedAt).toBeTruthy()
     });
   });
 
   describe('loadByEmail', () => {
     it('should return an account on loadByEmail ok', async () => {
-      await knexHelper.knex('user').insert({
-        id: 'any_uuid',
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password',
-        avatar: 'any_avatar',
-        city_id: 1,
-        created_at: new Date(),
-      });
-      const account = await sut.loadByEmail('any_email');
+      const { id, name, email, password, avatar, cityId, createdAt } = mockUser()
+      await knexHelper.knex('user').insert({ id, name, email, password, avatar, id_city: cityId, created_at: createdAt });
+      const account = await sut.loadByEmail(email);
       expect(account.name).toBeTruthy();
       expect(account.id).toBeTruthy();
-      expect(account.name).toBe('any_name');
-      expect(account.email).toBe('any_email');
-      expect(account.password).toBe('any_password');
+      expect(account.name).toBe(name);
+      expect(account.email).toBe(email);
+      expect(account.password).toBe(password);
     });
 
     it('should return null if loadByEmail fails', async () => {
-      const account = await sut.loadByEmail('any_email');
+      const account = await sut.loadByEmail(faker.internet.email());
       expect(account).toBeFalsy();
     });
   });
 
   describe('findById', () => {
     it('should return a user by findById', async () => {
-      await knexHelper.knex('user').insert({
-        id: 'any_uuid',
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password',
-        avatar: 'any_avatar',
-        city_id: 1,
-        created_at: new Date(),
-      });
-      const succeeds = await sut.findById('any_uuid');
+      const { id, name, email, password, avatar, cityId, createdAt } = mockUser()
+      await knexHelper.knex('user').insert({ id, name, email, password, avatar, id_city: cityId, created_at: createdAt });
+      const succeeds = await sut.findById(id);
       expect(succeeds).toBeTruthy();
-      expect(succeeds.id).toBe('any_uuid')
+      expect(succeeds.id).toBe(id)
     });
   });
 });
